@@ -38,7 +38,7 @@ public class signin extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                service.authToBackend("users/login","aldi","wkadokaw",signin.this,progressDialog);
+                service.authToBackend("users/login","aldi","wkadokaw",signin.this,progressDialog,timeline_basic.class);
             }
         });
         fonts1 = Typeface.createFromAsset(signin.this.getAssets(),

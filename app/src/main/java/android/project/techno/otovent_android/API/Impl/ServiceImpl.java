@@ -2,8 +2,10 @@ package android.project.techno.otovent_android.API.Impl;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.project.techno.otovent_android.API.Service;
 import android.project.techno.otovent_android.R;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -17,8 +19,7 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
-
-
+import java.util.Objects;
 
 
 /**
@@ -28,9 +29,8 @@ import java.util.Map;
 public class ServiceImpl implements Service{
 
     @Override
-    public void authToBackend(String endpoint, String username, String password, final Context callingClass, final ProgressDialog progressDialog) {
+    public void authToBackend(String endpoint, String username, String password, final Context callingClass, final ProgressDialog progressDialog, final Class<? extends AppCompatActivity> targetClass) {
         RequestQueue queue = Volley.newRequestQueue(callingClass);
-
         Map<String, String> params = new HashMap<>();
         params.put("username", username);
         params.put("password", password);
@@ -41,6 +41,8 @@ public class ServiceImpl implements Service{
             public void onResponse(JSONObject response) {
                 Toast.makeText(callingClass, response.toString(), Toast.LENGTH_SHORT).show();
                 progressDialog.dismiss();
+                Intent it = new Intent(callingClass,targetClass.getClass());
+                callingClass.startActivity(it);
             }
         }, new Response.ErrorListener() {
             @Override
