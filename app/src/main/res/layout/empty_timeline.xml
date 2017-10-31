@@ -6,12 +6,14 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="34dp"
+        android:layout_height="35dp"
         android:orientation="horizontal"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
         android:layout_marginTop="10dp"
-        android:id="@+id/linearLayout">
+        android:id="@+id/linearLayout"
+        android:layout_alignRight="@+id/post_frame"
+        android:layout_alignEnd="@+id/post_frame"
+        android:layout_alignLeft="@+id/post_frame"
+        android:layout_alignStart="@+id/post_frame">
 
         <ImageView
             android:id="@+id/logo_back"
@@ -19,7 +21,7 @@
             android:layout_height="28dp"
             android:layout_marginLeft="13dp"
             android:layout_marginRight="32dp"
-            android:background="@drawable/png_back"
+            android:background="@drawable/p128_home"
             />
 
         <ImageView
@@ -27,7 +29,7 @@
             android:layout_width="28dp"
             android:layout_height="28dp"
             android:layout_marginRight="32dp"
-            android:background="@drawable/png_search"
+            android:background="@drawable/p128_search"
             />
 
         <ImageView
@@ -35,7 +37,7 @@
             android:layout_width="28dp"
             android:layout_height="28dp"
             android:layout_marginRight="32dp"
-            android:background="@drawable/png_promoted"
+            android:background="@drawable/p128_promoted"
             />
 
         <ImageView
@@ -43,7 +45,7 @@
             android:layout_width="28dp"
             android:layout_height="28dp"
             android:layout_marginRight="32dp"
-            android:background="@drawable/png_friend"
+            android:background="@drawable/p128_friend"
             />
 
         <ImageView
@@ -51,7 +53,7 @@
             android:layout_width="28dp"
             android:layout_height="28dp"
             android:layout_marginRight="32dp"
-            android:background="@drawable/png_notif"
+            android:background="@drawable/p128_notif"
             />
 
         <ImageView
@@ -59,10 +61,69 @@
             android:layout_width="28dp"
             android:layout_height="28dp"
             android:layout_marginRight="10dp"
-            android:background="@drawable/png_user"
+            android:background="@drawable/p128_user"
             android:onClick="Profile"
             />
     </LinearLayout>
+
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:id="@+id/post_frame"
+        android:layout_below="@+id/linearLayout"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="15dp">
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/png_user"
+            android:layout_marginLeft="10dp" />
+
+        <customfonts.MyTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Anything new?"
+            android:layout_marginLeft="50dp"
+            android:layout_marginTop="7dp" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_marginTop="35dp">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:background="@drawable/png_border"/>
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="330dp"
+                android:background="@drawable/png_post"/>
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="90dp"
+                android:background="@drawable/png_addlocation"/>
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="50dp"
+                android:background="@drawable/png_addphoto"/>
+
+        </FrameLayout>
+
+    </FrameLayout>
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -70,7 +131,7 @@
         android:layout_marginTop="15dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:layout_below="@+id/linearLayout"
+        android:layout_below="@+id/post_frame"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:background="#eff2f7">
@@ -128,7 +189,7 @@
             android:layout_height="28dp"
             android:layout_marginLeft="60dp"
             android:layout_marginTop="280dp"
-            android:background="@drawable/png_comment"/>
+            android:background="@drawable/p128_comment"/>
 
         <ImageView
             android:id="@+id/logo_maps"
