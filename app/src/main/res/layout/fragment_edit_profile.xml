@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="android.project.techno.otovent_android.menu.fragment.EditProfileFragment"
+    android:background="#eff2f7">
+
+    <ImageView
+        android:id="@+id/logo_user_timeline"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/png_user"/>
+
+
+    <customfonts.MyTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="EDIT PROFILE"
+        android:layout_marginTop="12dp"
+        android:layout_marginLeft="60dp"
+        android:textSize="32dp"
+        />
+
+    <customfonts.MyEditText
+        android:id="@+id/first_name"
+        android:textSize="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="First Name"
+        android:layout_marginLeft="16dp"
+        android:textColorHint="@color/colorhint"
+        android:textColor="@color/colortext"
+        android:background="#0000"
+        android:paddingTop="66dp"
+        android:gravity="left"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="56dp"
+        android:layout_height="1dp"
+        android:layout_marginBottom="25dp"
+        android:layout_marginTop="86dp"
+        android:background="#dad8d8"/>
+
+    <customfonts.MyEditText
+        android:id="@+id/last_name"
+        android:textSize="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Last Name"
+        android:layout_marginLeft="16dp"
+        android:textColorHint="@color/colorhint"
+        android:textColor="@color/colortext"
+        android:background="#0000"
+        android:paddingTop="106dp"
+        android:gravity="left"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="56dp"
+        android:layout_height="1dp"
+        android:layout_marginBottom="25dp"
+        android:layout_marginTop="126dp"
+        android:background="#dad8d8"/>
+
+    <customfonts.MyEditText
+        android:id="@+id/username"
+        android:textSize="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Userame"
+        android:layout_marginLeft="16dp"
+        android:textColorHint="@color/colorhint"
+        android:textColor="@color/colortext"
+        android:background="#0000"
+        android:paddingTop="146dp"
+        android:gravity="left"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="56dp"
+        android:layout_height="1dp"
+        android:layout_marginBottom="25dp"
+        android:layout_marginTop="166dp"
+        android:background="#dad8d8"/>
+
+    <customfonts.MyEditText
+        android:id="@+id/password"
+        android:textSize="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Password"
+        android:layout_marginLeft="16dp"
+        android:textColorHint="@color/colorhint"
+        android:textColor="@color/colortext"
+        android:background="#0000"
+        android:paddingTop="186dp"
+        android:gravity="left"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="56dp"
+        android:layout_height="1dp"
+        android:layout_marginBottom="25dp"
+        android:layout_marginTop="206dp"
+        android:background="#dad8d8"/>
+
+    <customfonts.MyEditText
+        android:id="@+id/uploadPic"
+        android:textSize="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Update Profile"
+        android:layout_marginLeft="16dp"
+        android:textColorHint="@color/colorhint"
+        android:textColor="@color/colortext"
+        android:background="#0000"
+        android:paddingTop="226dp"
+        android:gravity="left"/>
+
+    <Button
+        android:layout_width="74dp"
+        android:layout_height="18dp"
+        android:layout_marginLeft="166dp"
+        android:layout_marginTop="226dp"
+        android:textSize="16dp"
+        android:textColor="@color/colortext"
+        android:text="Select File"
+        android:id="@+id/buttonUpload"
+        android:background="#ffffff"
+        android:layout_gravity="left|top" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="56dp"
+        android:layout_height="1dp"
+        android:layout_marginBottom="25dp"
+        android:layout_marginTop="246dp"
+        android:background="#dad8d8"/>
+
+    <customfonts.MyEditText
+        android:id="@+id/interest"
+        android:textSize="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Interest (Ex : Station; Race; Lamborgini;)"
+        android:layout_marginLeft="16dp"
+        android:textColorHint="@color/colorhint"
+        android:textColor="@color/colortext"
+        android:background="#0000"
+        android:paddingTop="266dp"
+        android:gravity="left"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="56dp"
+        android:layout_height="1dp"
+        android:layout_marginBottom="25dp"
+        android:layout_marginTop="286dp"
+        android:background="#dad8d8"/>
+
+    <customfonts.MyEditText
+        android:id="@+id/job"
+        android:textSize="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Job (Ex :Indonesian F1 Racer)"
+        android:layout_marginLeft="16dp"
+        android:textColorHint="@color/colorhint"
+        android:textColor="@color/colortext"
+        android:background="#0000"
+        android:paddingTop="306dp"
+        android:gravity="left"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="56dp"
+        android:layout_height="1dp"
+        android:layout_marginBottom="25dp"
+        android:layout_marginTop="326dp"
+        android:background="#dad8d8"/>
+
+
+</FrameLayout>

@@ -25,6 +25,8 @@ public class signup extends AppCompatActivity {
     EditText email;
     EditText username;
     EditText password;
+    EditText firstName;
+    EditText lastName;
     Service service;
     ProgressDialog progressDialog;
     @Override
@@ -36,6 +38,9 @@ public class signup extends AppCompatActivity {
         email = (EditText) findViewById(R.id.email);
         username = (EditText) findViewById(R.id.username);
         password = (EditText) findViewById(R.id.password);
+        firstName = (EditText) findViewById(R.id.first_name);
+        lastName = (EditText) findViewById(R.id.last_name);
+
         progressDialog = new ProgressDialog(signup.this,R.style.AppTheme);
         service = new ServiceImpl();
 
@@ -54,6 +59,9 @@ public class signup extends AppCompatActivity {
                 postBody.put("email",email.getText().toString());
                 postBody.put("username",username.getText().toString());
                 postBody.put("password",password.getText().toString());
+                postBody.put("first_name",firstName.getText().toString());
+                postBody.put("last_name",lastName.getText().toString());
+
                 service.addOrEditUser("users/add",
                         postBody,signup.this,progressDialog);
             }
