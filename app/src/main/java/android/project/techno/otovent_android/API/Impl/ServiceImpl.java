@@ -5,8 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.project.techno.otovent_android.API.Service;
 import android.project.techno.otovent_android.R;
-import android.project.techno.otovent_android.timeline_basic;
-import android.support.v7.app.AppCompatActivity;
+import android.project.techno.otovent_android.menu.BaseActivity;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -21,7 +20,6 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 
 /**
@@ -46,7 +44,7 @@ public class ServiceImpl implements Service{
                     String result = response.getString("message");
                     Toast.makeText(callingClass, result, Toast.LENGTH_SHORT).show();
                     if (result.equalsIgnoreCase("Success Login")){
-                        Intent it = new Intent(callingClass,timeline_basic.class);
+                        Intent it = new Intent(callingClass,BaseActivity.class);
                         callingClass.startActivity(it);
                     } else {
                         Toast.makeText(callingClass, "User or Password Not Correct", Toast.LENGTH_SHORT).show();
