@@ -62,7 +62,7 @@ public class signup extends AppCompatActivity {
                 postBody.put("first_name",firstName.getText().toString());
                 postBody.put("last_name",lastName.getText().toString());
 
-                service.addOrEditUser("users/add",
+                service.addOrEditUser("users/add-edit",
                         postBody,signup.this,progressDialog);
             }
         });
