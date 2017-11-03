@@ -45,7 +45,7 @@
         android:layout_height="1dp"
         android:layout_marginBottom="25dp"
         android:layout_marginTop="86dp"
-        android:background="#dad8d8"/>
+        android:background="#177EE5"/>
 
     <customfonts.MyEditText
         android:id="@+id/last_name"
@@ -67,7 +67,7 @@
         android:layout_height="1dp"
         android:layout_marginBottom="25dp"
         android:layout_marginTop="126dp"
-        android:background="#dad8d8"/>
+        android:background="#177EE5"/>
 
     <customfonts.MyEditText
         android:id="@+id/username"
@@ -89,7 +89,7 @@
         android:layout_height="1dp"
         android:layout_marginBottom="25dp"
         android:layout_marginTop="166dp"
-        android:background="#dad8d8"/>
+        android:background="#177EE5"/>
 
     <customfonts.MyEditText
         android:id="@+id/password"
@@ -111,7 +111,7 @@
         android:layout_height="1dp"
         android:layout_marginBottom="25dp"
         android:layout_marginTop="206dp"
-        android:background="#dad8d8"/>
+        android:background="#177EE5"/>
 
     <customfonts.MyEditText
         android:id="@+id/uploadPic"
@@ -145,7 +145,7 @@
         android:layout_height="1dp"
         android:layout_marginBottom="25dp"
         android:layout_marginTop="246dp"
-        android:background="#dad8d8"/>
+        android:background="#177EE5"/>
 
     <customfonts.MyEditText
         android:id="@+id/interest"
@@ -167,7 +167,7 @@
         android:layout_height="1dp"
         android:layout_marginBottom="25dp"
         android:layout_marginTop="286dp"
-        android:background="#dad8d8"/>
+        android:background="#177EE5"/>
 
     <customfonts.MyEditText
         android:id="@+id/job"
@@ -189,7 +189,7 @@
         android:layout_height="1dp"
         android:layout_marginBottom="25dp"
         android:layout_marginTop="326dp"
-        android:background="#dad8d8"/>
+        android:background="#177EE5"/>
 
     <customfonts.MyTextView
         android:id="@+id/save_profile"
