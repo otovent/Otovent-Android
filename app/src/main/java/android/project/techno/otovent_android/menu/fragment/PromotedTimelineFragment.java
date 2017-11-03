@@ -1,5 +1,6 @@
 package android.project.techno.otovent_android.menu.fragment;
 
+import android.app.Fragment;
 import android.os.Bundle;
 import android.project.techno.otovent_android.R;
 import android.view.LayoutInflater;
@@ -9,7 +10,7 @@ import android.view.ViewGroup;
 /**
  * Created by N-REW on 03/11/2017.
  */
-public class PromotedTimelineFragment {
+public class PromotedTimelineFragment extends Fragment {
 
     public PromotedTimelineFragment(){
 
