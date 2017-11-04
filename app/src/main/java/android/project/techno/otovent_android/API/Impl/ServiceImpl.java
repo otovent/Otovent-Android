@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.project.techno.otovent_android.API.Service;
 import android.project.techno.otovent_android.R;
+import android.project.techno.otovent_android.timeline_basic;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Toast;
@@ -15,6 +16,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
@@ -29,7 +31,7 @@ import java.util.Objects;
 public class ServiceImpl implements Service{
 
     @Override
-    public void authToBackend(String endpoint, String username, String password, final Context callingClass, final ProgressDialog progressDialog, final Class<? extends AppCompatActivity> targetClass) {
+    public void authToBackend(String endpoint, String username, String password, final Context callingClass, final ProgressDialog progressDialog) {
         RequestQueue queue = Volley.newRequestQueue(callingClass);
         Map<String, String> params = new HashMap<>();
         params.put("username", username);
@@ -39,15 +41,24 @@ public class ServiceImpl implements Service{
                 new JSONObject(params), new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                Toast.makeText(callingClass, response.toString(), Toast.LENGTH_SHORT).show();
                 progressDialog.dismiss();
-                Intent it = new Intent(callingClass,targetClass.getClass());
-                callingClass.startActivity(it);
+                try {
+                    String result = response.getString("message");
+                    Toast.makeText(callingClass, result, Toast.LENGTH_SHORT).show();
+                    if (result.equalsIgnoreCase("Success Login")){
+                        Intent it = new Intent(callingClass,timeline_basic.class);
+                        callingClass.startActivity(it);
+                    } else {
+                        Toast.makeText(callingClass, "User or Password Not Correct", Toast.LENGTH_SHORT).show();
+                    }
+                } catch (JSONException e) {
+                    Log.e("error",e.toString());
+                }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(callingClass, "Tes Failed", Toast.LENGTH_SHORT).show();
+                Toast.makeText(callingClass, error.toString(), Toast.LENGTH_SHORT).show();
                 Log.i("Result", error.toString());
                 progressDialog.dismiss();
             }
