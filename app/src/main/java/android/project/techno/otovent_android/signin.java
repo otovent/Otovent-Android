@@ -8,6 +8,7 @@ import android.project.techno.otovent_android.API.Impl.ServiceImpl;
 import android.project.techno.otovent_android.API.Service;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 
 /**
@@ -20,6 +21,7 @@ public class signin extends AppCompatActivity {
     TextView login;
     Typeface fonts1;
     Service service;
+    EditText email,password;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,6 +30,9 @@ public class signin extends AppCompatActivity {
         service = new ServiceImpl();
         create = (TextView) findViewById(R.id.create);
         login = (TextView) findViewById(R.id.signin1);
+        email = (EditText) findViewById(R.id.email);
+        password = (EditText) findViewById(R.id.password);
+
         create.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -38,7 +43,8 @@ public class signin extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                service.authToBackend("users/login","aldi","wkadokaw",signin.this,progressDialog);
+                service.authToBackend("users/login",email.getText().toString(),
+                        password.getText().toString(),signin.this,progressDialog);
             }
         });
         fonts1 = Typeface.createFromAsset(signin.this.getAssets(),

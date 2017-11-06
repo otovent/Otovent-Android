@@ -38,11 +38,13 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_above="@+id/acc"
         android:id="@+id/linear"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_above="@+id/acc"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
 
         <customfonts.MyEditText
             android:id="@+id/email"

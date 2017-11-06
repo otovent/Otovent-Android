@@ -1,0 +1,257 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="android.project.techno.otovent_android.menu.fragment.UserFragment">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/linearLayout"
+        android:layout_marginTop="15dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="550dp"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="#eff2f7">
+
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="140dp"
+                    android:background="@drawable/pic_timeline1">
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="139dp"
+                        android:background="#00afef" />
+
+
+                    <ImageView
+                        android:id="@+id/imageView"
+                        android:layout_width="120dp"
+                        android:layout_height="98dp"
+                        android:layout_marginLeft="220dp"
+                        android:layout_marginTop="20dp"
+                        app:srcCompat="@drawable/profile_pic" />
+
+                    <ImageView
+                        android:id="@+id/logo_edit"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_marginLeft="340dp"
+                        android:layout_marginTop="115dp"
+                        android:background="@drawable/png_pencil" />
+
+                    <customfonts.MyTextView
+                        android:id="@+id/myTextView"
+                        android:layout_width="170dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginTop="57dp"
+                        android:text="User Name"
+                        android:textAlignment="center"
+                        android:textColor="#FFFFFF"
+                        android:textSize="24dp" />
+
+                </FrameLayout>
+<!-- ______________________this is a comment_______________________________________________________ -->
+<!-- ______________________this is a comment_______________________________________________________ -->
+<!-- ______________________this is a comment_______________________________________________________ -->
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="205dp"
+                    android:background="#e5e5e5">
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="0dp"
+                        android:background="#00afef" />
+
+                    <customfonts.MyTextView
+                        android:layout_width="100dp"
+                        android:layout_height="20dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="5dp"
+                        android:text="interest_1"
+                        android:textAlignment="center" />
+
+                    <customfonts.MyTextView
+                        android:layout_width="100dp"
+                        android:layout_height="20dp"
+                        android:layout_marginLeft="133dp"
+                        android:layout_marginTop="5dp"
+                        android:text="interest_2"
+                        android:textAlignment="center" />
+
+                    <customfonts.MyTextView
+                        android:layout_width="100dp"
+                        android:layout_height="20dp"
+                        android:layout_marginLeft="255dp"
+                        android:layout_marginTop="5dp"
+                        android:text="interest_3"
+                        android:textAlignment="center" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="29dp"
+                        android:background="#00afef" />
+
+                </FrameLayout>
+
+                <ImageView
+                    android:id="@+id/imageView6"
+                    android:layout_width="135dp"
+                    android:layout_height="105dp"
+                    android:layout_marginLeft="0dp"
+                    android:layout_marginTop="350dp"
+                    android:background="@drawable/pic_timeline1">
+
+                </ImageView>
+
+                <ImageView
+                    android:id="@+id/imageView7"
+                    android:layout_width="110dp"
+                    android:layout_height="105dp"
+                    android:layout_marginLeft="140dp"
+                    android:layout_marginTop="350dp"
+                    android:background="@drawable/pic_timeline1">
+
+                </ImageView>
+
+                <ImageView
+                    android:id="@+id/imageView9"
+                    android:layout_width="250dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="0dp"
+                    android:layout_marginTop="460dp"
+
+                    android:background="@drawable/pic_timeline1">
+
+                </ImageView>
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="65dp"
+                    android:layout_marginTop="140dp"
+                    android:background="#ececec">
+
+                    <customfonts.MyTextView
+                        android:id="@+id/view_jobs"
+                        android:layout_width="140dp"
+                        android:layout_height="20dp"
+                        android:layout_marginLeft="215dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="5dp"
+                        android:text="Jobs"
+                        android:textSize="18dp" />
+
+                    <customfonts.MyTextView
+                        android:id="@+id/view_contact"
+                        android:layout_width="140dp"
+                        android:layout_height="20dp"
+                        android:layout_marginLeft="37dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="40dp"
+                        android:text="Contact"
+                        android:textSize="18dp" />
+
+                    <customfonts.MyTextView
+                        android:id="@+id/textView"
+                        android:layout_width="140dp"
+                        android:layout_height="20dp"
+                        android:layout_marginLeft="215dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="40dp"
+                        android:text="Social media"
+                        android:textSize="18dp" />
+
+                    <ImageView
+                        android:id="@+id/logo_usr_address"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="5dp"
+                        app:srcCompat="@drawable/new_address" />
+
+                    <ImageView
+                        android:id="@+id/logo_usr_contact"
+                        android:layout_width="18dp"
+                        android:layout_height="20dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="40dp"
+                        app:srcCompat="@drawable/new_contact" />
+
+                    <ImageView
+                        android:id="@+id/logo"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_marginLeft="189dp"
+                        android:layout_marginTop="40dp"
+                        app:srcCompat="@drawable/new_sosmed" />
+
+                    <ImageView
+                        android:id="@+id/imageView2"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_marginLeft="189dp"
+                        android:layout_marginTop="5dp"
+                        app:srcCompat="@drawable/new_job" />
+
+                    <customfonts.MyTextView
+                        android:id="@+id/view_address"
+                        android:layout_width="140dp"
+                        android:layout_height="20dp"
+                        android:layout_marginLeft="37dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="5dp"
+                        android:text="Address"
+                        android:textSize="18dp" />
+
+
+                </FrameLayout>
+
+                <ImageView
+                    android:id="@+id/imageView8"
+                    android:layout_width="110dp"
+                    android:layout_height="200dp"
+                    android:layout_marginLeft="254dp"
+                    android:layout_marginTop="350dp"
+                    android:background="@drawable/pic_timeline1">
+
+                </ImageView>
+
+                <ImageView
+                    android:id="@+id/imageView3"
+                    android:layout_width="match_parent"
+                    android:layout_height="105dp"
+                    android:layout_marginLeft="0dp"
+                    android:layout_marginTop="240dp"
+                    android:background="@drawable/pic_timeline1">
+
+                </ImageView>
+
+
+            </FrameLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+</FrameLayout>
