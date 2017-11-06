@@ -12,7 +12,7 @@ import java.util.Objects;
  */
 
 public interface Service {
-    void authToBackend(String endpoint, String username, String password, final Context callingClass, final ProgressDialog progressDialog, final Class<? extends AppCompatActivity> targetClass);
+    void authToBackend(String endpoint, String username, String password, final Context callingClass, final ProgressDialog progressDialog);
     void addOrEditUser(String endpoint, Map<String, String> postBody, final Context callingClass,
                        final ProgressDialog progressDialog);
 }
