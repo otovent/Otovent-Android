@@ -1,6 +1,5 @@
 package android.project.techno.otovent_android.menu.fragment;
 
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -25,6 +24,7 @@ public class TimeLineFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+
         View view = inflater.inflate(R.layout.fragment_timeline, container, false);
         maps = (ImageView) view.findViewById(R.id.logo_maps);
         maps.setOnClickListener(new View.OnClickListener() {

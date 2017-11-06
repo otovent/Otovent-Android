@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="android.project.techno.otovent_android.MainActivity"
-    android:background="#fff">
+    android:background="#ffffff">
 
     <RelativeLayout
         android:layout_width="match_parent"

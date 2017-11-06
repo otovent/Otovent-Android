@@ -28,6 +28,9 @@ public class BaseActivity extends AppCompatActivity {
                 case R.id.navigation_home:
                     switchToTimeline();
                     return true;
+                case R.id.navigation_promoted_timeline:
+                    switchToTimeline();
+                    return true;
                 case R.id.navigation_dashboard:
                     mTextMessage.setText(R.string.title_dashboard);
                     return true;
@@ -50,6 +53,7 @@ public class BaseActivity extends AppCompatActivity {
         mTextMessage = (TextView) findViewById(R.id.message);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+
         // Memanggil method switchToTimeline untuk membuat pertama kali langsung terbuka timeline
         switchToTimeline();
     }
@@ -63,7 +67,6 @@ public class BaseActivity extends AppCompatActivity {
         FragmentManager manager = getSupportFragmentManager();
         manager.beginTransaction().replace(R.id.content, new UserFragment()).commit();
     }
-
     @Override
     public void onBackPressed() {
 
