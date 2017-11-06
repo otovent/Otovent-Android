@@ -1,7 +1,9 @@
 package android.project.techno.otovent_android.menu;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.project.techno.otovent_android.R;
+import android.project.techno.otovent_android.menu.fragment.DetailEventFragment;
 import android.project.techno.otovent_android.menu.fragment.TimeLineFragment;
 import android.project.techno.otovent_android.menu.fragment.UserFragment;
 import android.support.annotation.NonNull;
@@ -9,6 +11,8 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class BaseActivity extends AppCompatActivity {
@@ -46,7 +50,6 @@ public class BaseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base);
-
         mTextMessage = (TextView) findViewById(R.id.message);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
@@ -63,5 +66,9 @@ public class BaseActivity extends AppCompatActivity {
     public void switchToUser() {
         FragmentManager manager = getSupportFragmentManager();
         manager.beginTransaction().replace(R.id.content, new UserFragment()).commit();
+    }
+    @Override
+    public void onBackPressed() {
+
     }
 }
