@@ -1,11 +1,15 @@
 package android.project.techno.otovent_android.API.Impl;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.project.techno.otovent_android.API.Service;
 import android.project.techno.otovent_android.R;
 import android.project.techno.otovent_android.menu.BaseActivity;
+import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -92,5 +96,24 @@ public class ServiceImpl implements Service{
         progressDialog.show();
 
         queue.add(requestLogin);
+    }
+
+    @Override
+    public void pushNotification(Context context, NotificationManager notificationManager,String valueFragmentToGo,
+                                   String title, String message) {
+        notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+
+        Intent base = new Intent(context,BaseActivity.class);
+        base.putExtra("fragment",valueFragmentToGo);
+        PendingIntent activityToGo = PendingIntent.getActivity(context,0,base,PendingIntent.FLAG_UPDATE_CURRENT);
+
+        Notification notificationChannel = new NotificationCompat.Builder(context)
+            .setContentText(message)
+            .setContentTitle(title)
+            .setSmallIcon(R.mipmap.ic_launcher)
+            .setVibrate(new long[]{100, 200, 300})
+                .setContentIntent(activityToGo).setAutoCancel(true)
+                .build();
+        notificationManager.notify(0,notificationChannel);
     }
 }
