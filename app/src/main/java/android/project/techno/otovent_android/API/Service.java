@@ -15,5 +15,7 @@ public interface Service {
     void addOrEditUser(String endpoint, Map<String, String> postBody, final Context callingClass,
                        final ProgressDialog progressDialog);
     void pushNotification(Context context, NotificationManager notificationManager,String valueFragmentToGo,
-                                 String title, String contentTitile);
+                                 String title, String contentTitile, Integer numberOfMessage);
+    void getNotificationForUserFromBackend(Long idUser, Context context, NotificationManager notificationManager,String valueFragmentToGo,
+                                                  String title, String message);
 }
