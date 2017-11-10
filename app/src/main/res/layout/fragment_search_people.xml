@@ -65,7 +65,7 @@
         />
 
         <customfonts.MyTextView
-            android:id="@+id/signin1"
+            android:id="@+id/add"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#2b73e1"
@@ -78,10 +78,6 @@
             android:padding="5dp"
             android:layout_marginTop="0dp"
             android:layout_marginBottom="0dp"/>
-
-
-
-
 
 
     <View
