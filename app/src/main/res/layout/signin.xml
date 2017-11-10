@@ -63,7 +63,7 @@
             android:layout_marginRight="56dp"
             android:layout_height="1dp"
             android:layout_marginBottom="10dp"
-            android:background="#dad8d8"/>
+            android:background="#2b73e1"/>
 
         <customfonts.MyEditText
             android:id="@+id/password"
@@ -86,7 +86,7 @@
             android:layout_marginRight="56dp"
             android:layout_height="1dp"
             android:layout_marginBottom="25dp"
-            android:background="#dad8d8"/>
+            android:background="#2b73e1"/>
 
         <customfonts.MyTextView
             android:id="@+id/signin1"
