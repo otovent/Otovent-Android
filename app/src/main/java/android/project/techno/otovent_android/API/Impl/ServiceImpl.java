@@ -3,7 +3,9 @@ package android.project.techno.otovent_android.API.Impl;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.project.techno.otovent_android.API.Service;
+import android.project.techno.otovent_android.API.UserRequest;
 import android.project.techno.otovent_android.R;
 import android.project.techno.otovent_android.menu.BaseActivity;
 import android.util.Log;
@@ -44,6 +46,20 @@ public class ServiceImpl implements Service{
                     String result = response.getString("message");
                     Toast.makeText(callingClass, result, Toast.LENGTH_SHORT).show();
                     if (result.equalsIgnoreCase("Success Login")){
+                        UserRequest userAuthed = new UserRequest();
+                        JSONObject user = response.getJSONArray("result").getJSONObject(0);
+                        userAuthed.setId(user.getLong("id"));
+                        userAuthed.setEmail(user.getString("email"));
+                        userAuthed.setFirstName(user.getString("firstName"));
+                        userAuthed.setLastName(user.getString("lastName"));
+                        userAuthed.setPassword(user.getString("password"));
+
+                        //Save credential to shared preference
+                        SharedPreferences sp = callingClass.getSharedPreferences("user",Context.MODE_PRIVATE);
+                        SharedPreferences.Editor ed = sp.edit();
+                        ed.putLong("ID",userAuthed.getId());
+                        ed.commit();
+
                         Intent it = new Intent(callingClass,BaseActivity.class);
                         callingClass.startActivity(it);
                     } else {

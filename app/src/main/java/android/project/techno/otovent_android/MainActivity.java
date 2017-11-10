@@ -1,6 +1,9 @@
 package android.project.techno.otovent_android;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.project.techno.otovent_android.menu.BaseActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -16,6 +19,15 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //First check to shared preference
+        SharedPreferences sp = getSharedPreferences("user", Context.MODE_PRIVATE);
+        Long idUserAlreadyLogin = sp.getLong("ID",0);
+
+        if (idUserAlreadyLogin != 0){
+            Intent it = new Intent(MainActivity.this,BaseActivity.class);
+            startActivity(it);
+            return;
+        }
         signin = (TextView)findViewById(R.id.signin);
         signup = (TextView)findViewById(R.id.signup);
 
