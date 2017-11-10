@@ -1,5 +1,6 @@
 package android.project.techno.otovent_android.menu;
 
+import android.app.Fragment;
 import android.app.NotificationManager;
 import android.os.Bundle;
 import android.project.techno.otovent_android.API.Impl.ServiceImpl;
@@ -11,8 +12,10 @@ import android.project.techno.otovent_android.menu.fragment.UserFragment;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 import java.util.Timer;
@@ -36,7 +39,7 @@ public class BaseActivity extends AppCompatActivity {
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                service.getNotificationForUserFromBackend(1L,BaseActivity.this,notificationManager,"user",
+                service.getNotificationForUserFromBackend(1L,BaseActivity.this,notificationManager,"notification",
                         "Notification","There are some news for you");
             }
         },0,10000);
@@ -52,6 +55,8 @@ public class BaseActivity extends AppCompatActivity {
         if (menuFragment != null){
             if (menuFragment.equalsIgnoreCase("User")){
                 switchToUser();
+            } else if (menuFragment.equalsIgnoreCase("notification")){
+                switchToNotification();
             }
         }
     }
@@ -67,8 +72,11 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     public void switchToNotification(){
+        NotificationFragment notificationFragment = new NotificationFragment();
         FragmentManager manager = getSupportFragmentManager();
-        manager.beginTransaction().replace(R.id.content, new NotificationFragment()).commit();
+        manager.beginTransaction()
+                .replace(R.id.content,notificationFragment)
+                .commit();
     }
 
     @Override

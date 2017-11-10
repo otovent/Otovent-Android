@@ -12,6 +12,7 @@ import android.project.techno.otovent_android.model.UserRequest;
 import android.project.techno.otovent_android.R;
 import android.project.techno.otovent_android.menu.BaseActivity;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -24,11 +25,19 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.logging.SimpleFormatter;
 
 
 /**
@@ -37,6 +46,7 @@ import java.util.Map;
 
 public class ServiceImpl implements Service{
     private static Long firstIdNotificationToCheckPushNotification = 0L;
+
     @Override
     public void authToBackend(String endpoint, String username, String password, final Context callingClass, final ProgressDialog progressDialog) {
         RequestQueue queue = Volley.newRequestQueue(callingClass);
@@ -187,4 +197,65 @@ public class ServiceImpl implements Service{
 
         queue.add(getNotif);
     }
+
+    @Override
+    public void getNewNotificationForNotificationFragment(Context context, final Long idUser, final List<android.project.techno.otovent_android.model.Notification> data,
+                                                          final SwipeRefreshLayout swipeRefreshLayout) {
+        RequestQueue queue = Volley.newRequestQueue(context);
+
+        StringRequest getNotif = new StringRequest(Request.Method.GET, context.getString(R.string.ENV_HOST_BACKEND) + "notification/get/new",
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        JSONObject jsonObject= null;
+                        JSONObject result = null;
+                        JSONArray content=null;
+                        try {
+                            jsonObject = new JSONObject(response);
+                            result = jsonObject.getJSONObject("result");
+                            content = result.getJSONArray("content");
+                            for (int i=0;i<content.length();i++){
+                                String message = "";
+                                JSONObject notif = content.getJSONObject(i);
+                                android.project.techno.otovent_android.model.Notification obj
+                                        = new android.project.techno.otovent_android.model.Notification();
+
+                                String dateParse = notif.getString("date");
+                                DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+                                long millisec = Long.parseLong(dateParse);
+                                Calendar calendar = Calendar.getInstance();
+                                calendar.setTimeInMillis(millisec);
+                                obj.setNotificationDate(dateFormat.format(calendar.getTime()));
+
+                                if(notif.getString("notificationDependency").equalsIgnoreCase("COMMENT"))
+                                    message = "You Have New Comment from your friend";
+                                else
+                                    message = "You Have New Likes from your friend";
+                                obj.setMessage(message);
+                                data.add(obj);
+                            }
+                            swipeRefreshLayout.setRefreshing(false);
+                        } catch (JSONException e) {
+                            Log.e("Error Get Notification",e.toString());
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("Error Get Notification",error.toString());
+            }
+        }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String,String> headers = new HashMap<>();
+                headers.put("Content-type","application/json");
+                headers.put("idUser",idUser.toString());
+                return headers;
+            }
+        };
+
+        queue.add(getNotif);
+    }
 }
+
+

@@ -11,6 +11,7 @@ import android.project.techno.otovent_android.model.Notification;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.project.techno.otovent_android.R;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -29,9 +30,11 @@ import java.util.List;
 public class NotificationFragment extends Fragment{
     private Service service;
     private NotificationManager notificationManager;
-    private List<Notification> notificationList = new ArrayList<>();
+    private List<Notification> notificationList;
     private RecyclerView recyclerView;
     private NotificationAdapter notificationAdapter;
+    private SwipeRefreshLayout swipeRefreshLayout;
+    private View root;
 
     public NotificationFragment(){
 
@@ -41,10 +44,14 @@ public class NotificationFragment extends Fragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState){
         final View view =  inflater.inflate(R.layout.fragment_notification, container, false);
-
+        root = inflater.inflate(R.layout.fragment_notification, container, false);
+         notificationList = new ArrayList<>();
         recyclerView = (RecyclerView) view.findViewById(R.id.recycleView);
 
         notificationAdapter = new NotificationAdapter(notificationList);
+        swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.activity_main_swipe_refresh_layout);
+
+        service = new ServiceImpl();
 
         RecyclerView.LayoutManager layoutManager =
                 new LinearLayoutManager(view.getContext());
@@ -59,41 +66,25 @@ public class NotificationFragment extends Fragment{
                 notificationList.get(position);
                 Toast.makeText(view.getContext(), "wulullulu + "+position, Toast.LENGTH_SHORT).show();
             }
-
             @Override
             public void onLongClick(View view, int position) {
-
             }
         }));
 
-        prepareNotificationTest();
-
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                notificationList = new ArrayList<>();
+                service.getNewNotificationForNotificationFragment(view.getContext(),1L,notificationList,swipeRefreshLayout);
+                notificationAdapter.notifyDataSetChanged();
+            }
+        });
+        prepareNotificationTest(view);
         return view;
     }
 
-    private void prepareNotificationTest(){
-        Notification notification = new Notification("","satu","dua");
-        notificationList.add(notification);
-
-        notification = new Notification("","dua","tiga");
-        notificationList.add(notification);
-
-        notification = new Notification("","dua","tiga");
-        notificationList.add(notification);
-
-        notification = new Notification("","dua","tiga");
-        notificationList.add(notification);
-
-        notification = new Notification("","dua","tiga");
-        notificationList.add(notification);
-
-        notification = new Notification("","dua","tiga");
-        notificationList.add(notification);
-
-        notification = new Notification("","dua","tiga");
-        notificationList.add(notification);
-
-        notification = new Notification("","dua","tiga");
-        notificationList.add(notification);
+    public void prepareNotificationTest(View view){
+        service.getNewNotificationForNotificationFragment(view.getContext(),1L,notificationList,swipeRefreshLayout);
+        notificationAdapter.notifyDataSetChanged();
     }
 }
