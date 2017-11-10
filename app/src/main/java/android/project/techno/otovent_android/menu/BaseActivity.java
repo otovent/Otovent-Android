@@ -36,7 +36,7 @@ public class BaseActivity extends AppCompatActivity {
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                service.pushNotification(BaseActivity.this,notificationManager,"user",
+                service.getNotificationForUserFromBackend(1L,BaseActivity.this,notificationManager,"user",
                         "Notification","There are some news for you");
             }
         },0,10000);
