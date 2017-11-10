@@ -6,106 +6,13 @@
     tools:context="android.project.techno.otovent_android.menu.fragment.EditProfileFragment"
     android:background="#eff2f7">
 
-    <RelativeLayout
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycleView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-        <ImageView
-            android:id="@+id/logo_user_timeline"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/png_user"/>
+        android:layout_height="wrap_content"
+        android:scrollbars="vertical">
 
-        <ImageView
-            android:id="@+id/calendar"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_marginLeft="65dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/calendar"/>
-
-        <customfonts.MyTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="1 hari yang lalu"
-            android:layout_marginTop="12dp"
-            android:layout_marginLeft="95dp"
-            android:textSize="16dp"
-            />
-
-        <customfonts.MyTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Pranowo mengomentari kiriman anda"
-            android:layout_marginTop="38dp"
-            android:layout_marginLeft="65dp"
-            android:textSize="16dp"
-            />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_height="3dp"
-            android:layout_marginBottom="25dp"
-            android:layout_marginTop="60dp"
-            android:background="#dad8d8"
-            android:id="@+id/view5" />
-
-        <ImageView
-            android:id="@+id/logo2"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/png_user"/>
-
-        <ImageView
-            android:id="@+id/logo3"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_marginLeft="65dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/calendar"/>
-
-        <customfonts.MyTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="1 hari yang lalu"
-            android:layout_marginTop="12dp"
-            android:layout_marginLeft="95dp"
-            android:textSize="16dp"
-            />
-
-        <customfonts.MyTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Pranowo mengomentari kiriman anda"
-            android:layout_marginTop="38dp"
-            android:layout_marginLeft="65dp"
-            android:textSize="16dp"
-            />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_height="3dp"
-            android:layout_marginBottom="25dp"
-            android:layout_marginTop="60dp"
-            android:background="#177EE5"/>
-
-        <!--<Button-->
-            <!--android:id="@+id/btnTesNotif"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_alignLeft="@+id/view5"-->
-            <!--android:layout_alignStart="@+id/view5"-->
-            <!--android:layout_below="@+id/view5"-->
-            <!--android:text=" Tes Notif" />-->
-    </RelativeLayout>
+    </android.support.v7.widget.RecyclerView>
 
 
 </FrameLayout>

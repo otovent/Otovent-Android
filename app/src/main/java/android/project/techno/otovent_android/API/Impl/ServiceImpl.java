@@ -8,7 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.project.techno.otovent_android.API.Service;
-import android.project.techno.otovent_android.API.UserRequest;
+import android.project.techno.otovent_android.model.UserRequest;
 import android.project.techno.otovent_android.R;
 import android.project.techno.otovent_android.menu.BaseActivity;
 import android.support.v4.app.NotificationCompat;
@@ -27,9 +27,6 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -39,7 +36,7 @@ import java.util.Map;
  */
 
 public class ServiceImpl implements Service{
-
+    private static Long firstIdNotificationToCheckPushNotification = 0L;
     @Override
     public void authToBackend(String endpoint, String username, String password, final Context callingClass, final ProgressDialog progressDialog) {
         RequestQueue queue = Volley.newRequestQueue(callingClass);
@@ -131,7 +128,7 @@ public class ServiceImpl implements Service{
 
         Notification notificationChannel = new NotificationCompat.Builder(context)
             .setContentText(message)
-            .setContentTitle(numberOfMessage+title)
+            .setContentTitle(numberOfMessage+ " " +title)
             .setSmallIcon(R.mipmap.ic_launcher)
             .setVibrate(new long[]{100, 200, 300, 200, 100})
                 .setContentIntent(activityToGo).setAutoCancel(true)
@@ -144,25 +141,33 @@ public class ServiceImpl implements Service{
                                                   final String title, final String message){
         RequestQueue queue = Volley.newRequestQueue(context);
 
-        DateFormat df = new SimpleDateFormat("dd-mm-yyyy");
-        final String dateRequested = df.format(new Date());
+//        DateFormat df = new SimpleDateFormat("dd-mm-yyyy");
+//        final String dateRequested = df.format(new Date());
 
-        StringRequest getNotif = new StringRequest(Request.Method.GET, context.getString(R.string.ENV_HOST_BACKEND) + "notification/get/by/user/date",
+        StringRequest getNotif = new StringRequest(Request.Method.GET, context.getString(R.string.ENV_HOST_BACKEND) + "notification/get/new",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
+                        Long firstIdResponse = 0L;
                         JSONObject jsonObject= null;
                         JSONObject result = null;
+                        JSONObject content = null;
                         Integer totalNotification = 0;
                         try {
                             jsonObject = new JSONObject(response);
                             result = jsonObject.getJSONObject("result");
-                            totalNotification = result.getInt("size");
+                            totalNotification = result.getInt("totalElements");
+                            content = result.getJSONArray("content").getJSONObject(0);
+                            firstIdResponse = content.getLong("id");
                         } catch (JSONException e) {
                             Log.e("Error Get Notification",e.toString());
                         }
-                        if (totalNotification > 0)
-                            pushNotification(context,notificationManager,valueFragmentToGo,title,message,totalNotification);
+                        if (totalNotification > 0) {
+                            if (firstIdNotificationToCheckPushNotification != firstIdResponse) {
+                                firstIdNotificationToCheckPushNotification = firstIdResponse;
+                                pushNotification(context, notificationManager, valueFragmentToGo, title, message, totalNotification);
+                            }
+                        }
                     }
                 }, new Response.ErrorListener() {
             @Override
@@ -175,7 +180,7 @@ public class ServiceImpl implements Service{
                 Map<String,String> headers = new HashMap<>();
                 headers.put("Content-type","application/json");
                 headers.put("idUser",idUser.toString());
-                headers.put("dateRequested",dateRequested);
+//                headers.put("dateRequested",dateRequested);
                 return headers;
             }
         };

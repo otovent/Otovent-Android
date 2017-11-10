@@ -1,4 +1,4 @@
-package android.project.techno.otovent_android.API;
+package android.project.techno.otovent_android.model;
 
 import java.util.HashMap;
 
