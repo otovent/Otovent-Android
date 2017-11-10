@@ -43,7 +43,7 @@
         android:layout_height="45dp"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
-        android:background="@drawable/png_user"/>
+        android:background="@drawable/edmon"/>
 
     <customfonts.MyTextView
         android:layout_width="wrap_content"
@@ -63,6 +63,21 @@
         android:layout_marginLeft="65dp"
         android:textSize="16dp"
         />
+
+        <customfonts.MyTextView
+            android:id="@+id/signin1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#2b73e1"
+            android:text="ADD"
+            android:textSize="16dp"
+            android:textColor="#fff"
+            android:gravity="center"
+            android:layout_marginLeft="320dp"
+            android:layout_marginRight="5dp"
+            android:padding="5dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginBottom="0dp"/>
 
 
 
