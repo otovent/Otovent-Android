@@ -12,11 +12,12 @@
         android:layout_height="wrap_content"
         android:hint="Search People Name"
         android:layout_marginLeft="16dp"
-        android:textColorHint="@color/colorhint"
+        android:textColorHint="@android:color/black"
         android:textColor="@color/colortext"
         android:background="#0000"
         android:paddingTop="10dp"
-        android:gravity="left"/>
+        android:gravity="left"
+        android:layout_marginBottom="5dp"/>
 
 
 
@@ -32,61 +33,64 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
+        android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal|top"
-        android:layout_marginTop="50dp">
+        android:layout_marginTop="50dp"
+        android:background="@android:color/white"
+        android:orientation="vertical">
 
-    <ImageView
-        android:id="@+id/logo_user_timeline"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/edmon"/>
+        <ImageView
+            android:id="@+id/logo_user_timeline"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_alignLeft="@+id/view5"
+            android:layout_alignStart="@+id/view5"
+            android:layout_alignTop="@+id/myTextView4"
+            android:background="@drawable/edmon" />
 
-    <customfonts.MyTextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Edmon Koto"
-        android:layout_marginTop="12dp"
-        android:layout_marginLeft="65dp"
-        android:textSize="20dp"
-        android:textColor="#177EE5"
-        />
+        <customfonts.MyTextView
+            android:id="@+id/myTextView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="65dp"
+            android:layout_marginTop="12dp"
+            android:text="Edmon Koto"
+            android:textColor="#177EE5"
+            android:textSize="20dp" />
 
-    <customfonts.MyTextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Arduino and Node MCU Enthusiast"
-        android:layout_marginTop="38dp"
-        android:layout_marginLeft="65dp"
-        android:textSize="16dp"
-        />
+        <customfonts.MyTextView
+            android:id="@+id/myTextView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="65dp"
+            android:layout_marginTop="38dp"
+            android:text="Arduino and Node MCU Enthusiast"
+            android:textSize="16dp" />
 
         <customfonts.MyTextView
             android:id="@+id/add"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/myTextView5"
+            android:layout_alignEnd="@+id/view5"
+            android:layout_alignRight="@+id/view5"
+            android:layout_alignTop="@+id/myTextView4"
             android:background="#2b73e1"
-            android:text="ADD"
-            android:textSize="16dp"
-            android:textColor="#fff"
             android:gravity="center"
-            android:layout_marginLeft="320dp"
-            android:layout_marginRight="5dp"
             android:padding="5dp"
-            android:layout_marginTop="0dp"
-            android:layout_marginBottom="0dp"/>
+            android:text="ADD"
+            android:textColor="#fff"
+            android:textSize="16dp" />
 
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_height="3dp"
-        android:layout_marginBottom="25dp"
-        android:layout_marginTop="60dp"
-        android:background="#177EE5"/>
+        <View
+            android:id="@+id/view5"
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:layout_marginBottom="25dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="60dp"
+            android:background="#177EE5" />
     </RelativeLayout>
 </FrameLayout>

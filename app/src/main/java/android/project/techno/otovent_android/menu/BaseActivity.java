@@ -7,6 +7,7 @@ import android.project.techno.otovent_android.API.Impl.ServiceImpl;
 import android.project.techno.otovent_android.API.Service;
 import android.project.techno.otovent_android.R;
 import android.project.techno.otovent_android.menu.fragment.NotificationFragment;
+import android.project.techno.otovent_android.menu.fragment.SearchFragment;
 import android.project.techno.otovent_android.menu.fragment.TimeLineFragment;
 import android.project.techno.otovent_android.menu.fragment.UserFragment;
 import android.support.annotation.NonNull;
@@ -79,6 +80,14 @@ public class BaseActivity extends AppCompatActivity {
                 .commit();
     }
 
+    public void switchToSearch(){
+        SearchFragment fragment = new SearchFragment();
+        FragmentManager manager = getSupportFragmentManager();
+        manager.beginTransaction()
+                .replace(R.id.content,fragment)
+                .commit();
+    }
+
     @Override
     public void onBackPressed() {
 
@@ -93,8 +102,10 @@ public class BaseActivity extends AppCompatActivity {
                 case R.id.navigation_home:
                     switchToTimeline();
                     return true;
-                case R.id.navigation_dashboard:
-                    mTextMessage.setText(R.string.title_dashboard);
+                case R.id.navigation_search:
+                    switchToSearch();
+                    return true;
+                case R.id.navigation_promoted_timeline:
                     return true;
                 case R.id.navigation_notifications:
                     switchToNotification();
