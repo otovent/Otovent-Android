@@ -13,7 +13,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -27,19 +27,6 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:background="#eff2f7">
-
-                <GridView
-                    android:id="@+id/gridview"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="204dp"
-                    android:columnWidth="100dp"
-                    android:numColumns="auto_fit"
-                    android:verticalSpacing="10dp"
-                    android:horizontalSpacing="10dp"
-                    android:stretchMode="columnWidth"
-                    android:gravity="center"
-                    />
 
                 <FrameLayout
                     android:layout_width="match_parent"
@@ -77,6 +64,13 @@
 
 
                 </FrameLayout>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recycleViewUser"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                </android.support.v7.widget.RecyclerView>
 
                 <FrameLayout
                     android:layout_width="match_parent"
@@ -122,7 +116,8 @@
 
             </FrameLayout>
 
-        </LinearLayout>
+        </RelativeLayout>
+
     </ScrollView>
 
 </FrameLayout>
