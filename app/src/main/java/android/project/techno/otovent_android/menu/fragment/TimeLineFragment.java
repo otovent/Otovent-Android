@@ -2,7 +2,17 @@ package android.project.techno.otovent_android.menu.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.project.techno.otovent_android.Adapter.NotificationAdapter;
+import android.project.techno.otovent_android.Adapter.TimelineAdapter;
+import android.project.techno.otovent_android.Adapter.util.DividerItemDecoration;
+import android.project.techno.otovent_android.model.Notification;
+import android.project.techno.otovent_android.model.PostEvent;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,11 +20,18 @@ import android.view.ViewGroup;
 import android.project.techno.otovent_android.R;
 import android.widget.ImageView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * A simple {@link Fragment} subclass.
  */
 public class TimeLineFragment extends Fragment {
-    private ImageView maps;
+//    private ImageView maps;
+    private List<PostEvent> postEventList;
+    private RecyclerView recyclerView;
+    private TimelineAdapter timelineAdapter;
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     public TimeLineFragment() {
         // Required empty public constructor
@@ -26,17 +43,60 @@ public class TimeLineFragment extends Fragment {
         // Inflate the layout for this fragment
 
         View view = inflater.inflate(R.layout.fragment_timeline, container, false);
-        maps = (ImageView) view.findViewById(R.id.logo_maps);
-        maps.setOnClickListener(new View.OnClickListener() {
+
+        recyclerView = (RecyclerView) view.findViewById(R.id.recycleViewTimeline);
+        swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipeRefreshTimeline);
+        postEventList = new ArrayList<>();
+        initDataList();
+
+        timelineAdapter = new TimelineAdapter(postEventList);
+
+        RecyclerView.LayoutManager layoutManager =
+                new LinearLayoutManager(view.getContext());
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.addItemDecoration(new DividerItemDecoration(view.getContext(),LinearLayoutManager.VERTICAL));
+        recyclerView.setAdapter(timelineAdapter);
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
-            public void onClick(View v) {
-                DetailEventFragment detailEventFragment = new DetailEventFragment();
-                getActivity().getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.content,detailEventFragment,null)
-                        .commit();
+            public void onRefresh() {
+                initDataList();
+                swipeRefreshLayout.setRefreshing(false);
             }
         });
+
+
+//        maps = (ImageView) view.findViewById(R.id.logo_maps);
+//        maps.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                DetailEventFragment detailEventFragment = new DetailEventFragment();
+//                getActivity().getSupportFragmentManager().beginTransaction()
+//                        .replace(R.id.content,detailEventFragment,null)
+//                        .commit();
+//            }
+//        });
         return view;
+    }
+
+    private void initDataList(){
+        postEventList = new ArrayList<>();
+        PostEvent postEvent = new PostEvent();
+            postEvent.setFullName("Aldi Pradana");
+            postEvent.setStatus("Aku dan mobilku");
+            postEvent.setTimeAndLocation("Yogyakarta");
+            postEvent.setTotalLike(0);
+            postEvent.setTotalComment(0);
+        postEventList.add(postEvent);
+        postEventList.add(postEvent);
+        postEventList.add(postEvent);
+        postEventList.add(postEvent);
+        postEventList.add(postEvent);
+
+        for (PostEvent post : postEventList) {
+            Log.e("Post Event :",post.getFullName());
+        }
     }
 
 }
