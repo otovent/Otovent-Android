@@ -256,6 +256,54 @@ public class ServiceImpl implements Service{
 
         queue.add(getNotif);
     }
+
+    @Override
+    public void getUserCredential(final Long id, Context callingClass) {
+        RequestQueue queue = Volley.newRequestQueue(callingClass);
+
+//        DateFormat df = new SimpleDateFormat("dd-mm-yyyy");
+//        final String dateRequested = df.format(new Date());
+
+        StringRequest getNotif = new StringRequest(Request.Method.GET, callingClass.getString(R.string.ENV_HOST_BACKEND) + "users/get/user",
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        JSONObject jsonObject= null;
+                        JSONObject result = null;
+                        JSONObject content = null;
+                        try {
+                            jsonObject = new JSONObject(response);
+                            content = jsonObject.getJSONArray("result").getJSONObject(0);
+                            UserRequest userRequest = new UserRequest();
+                                userRequest.setId(content.getLong("id"));
+                                userRequest.setEmail(content.getString("email"));
+                                userRequest.setFirstName(content.getString("firstName"));
+                                userRequest.setLastName(content.getString("lastName"));
+                                userRequest.setUsername(content.getString("username"));
+                                userRequest.setPassword(content.getString("password"));
+                            BaseActivity.userLogged = userRequest;
+                        } catch (JSONException e) {
+                            Log.e("Error Get Notification",e.toString());
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("Error Get Notification",error.toString());
+            }
+        }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String,String> headers = new HashMap<>();
+                headers.put("Content-type","application/json");
+                headers.put("id",id.toString());
+//                headers.put("dateRequested",dateRequested);
+                return headers;
+            }
+        };
+
+        queue.add(getNotif);
+    }
 }
 
 

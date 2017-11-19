@@ -4,6 +4,7 @@ import android.app.NotificationManager;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.project.techno.otovent_android.model.Notification;
+import android.project.techno.otovent_android.model.UserRequest;
 import android.support.v4.widget.SwipeRefreshLayout;
 
 import java.util.List;
@@ -23,4 +24,6 @@ public interface Service {
     void getNotificationForUserFromBackend(Long idUser, Context context, NotificationManager notificationManager,String valueFragmentToGo,
                                                   String title, String message);
     void getNewNotificationForNotificationFragment(Context context, Long idUser, List<Notification> data, SwipeRefreshLayout swipeRefreshLayout);
+
+    void getUserCredential(Long id, final Context callingClass);
 }

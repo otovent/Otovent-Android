@@ -3,6 +3,7 @@ package android.project.techno.otovent_android.menu;
 import android.Manifest;
 import android.app.Fragment;
 import android.app.NotificationManager;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
@@ -16,6 +17,7 @@ import android.project.techno.otovent_android.menu.fragment.NotificationFragment
 import android.project.techno.otovent_android.menu.fragment.SearchFragment;
 import android.project.techno.otovent_android.menu.fragment.TimeLineFragment;
 import android.project.techno.otovent_android.menu.fragment.UserFragment;
+import android.project.techno.otovent_android.model.UserRequest;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.ActivityCompat;
@@ -38,7 +40,7 @@ public class BaseActivity extends AppCompatActivity {
     Service service;
     Timer timer;
     LocationManager mLocationManager;
-
+    public static UserRequest userLogged = new UserRequest();
     private TextView mTextMessage;
 
     @Override
@@ -46,6 +48,13 @@ public class BaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base);
         service = new ServiceImpl();
+
+        SharedPreferences credential = getSharedPreferences("user",MODE_PRIVATE);
+        Long idUser = credential.getLong("ID",-1);
+
+        if (idUser!=-1){
+            service.getUserCredential(idUser,BaseActivity.this);
+        }
 
         mLocationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 
@@ -59,7 +68,7 @@ public class BaseActivity extends AppCompatActivity {
             // for ActivityCompat#requestPermissions for more details.
             return;
         }
-        mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, new LocationListener() {
+        mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 0, new LocationListener() {
                     @Override
                     public void onLocationChanged(Location location) {
                         hitungJarak(location,new LatLng(-31,151),500);
@@ -86,7 +95,7 @@ public class BaseActivity extends AppCompatActivity {
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                service.getNotificationForUserFromBackend(1L, BaseActivity.this, notificationManager, "notification",
+                service.getNotificationForUserFromBackend(BaseActivity.userLogged.getId(), BaseActivity.this, notificationManager, "notification",
                         "Notification", "There are some news for you");
             }
         },0,10000);
@@ -176,7 +185,7 @@ public class BaseActivity extends AppCompatActivity {
             locationEvent.setLatitude(event.latitude);
             locationEvent.setLongitude(event.longitude);
         if (locationUser.distanceTo(locationEvent) > radius) {
-            Toast.makeText(this, "Kowadkwaodkowakdodkawowk lu diluar", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, "Kowadkwaodkowakdodkawowk lu diluar", Toast.LENGTH_SHORT).show();
             Log.e("wkadowdka","diluar");
         } else {
             Toast.makeText(this, "Kowadkwaodkowakdodkawowk lu didialem", Toast.LENGTH_SHORT).show();
