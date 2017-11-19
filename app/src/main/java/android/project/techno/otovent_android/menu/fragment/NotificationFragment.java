@@ -45,7 +45,7 @@ public class NotificationFragment extends Fragment{
                              Bundle savedInstanceState){
         final View view =  inflater.inflate(R.layout.fragment_notification, container, false);
         root = inflater.inflate(R.layout.fragment_notification, container, false);
-         notificationList = new ArrayList<>();
+        notificationList = new ArrayList<>();
         recyclerView = (RecyclerView) view.findViewById(R.id.recycleView);
 
         notificationAdapter = new NotificationAdapter(notificationList);
@@ -55,6 +55,7 @@ public class NotificationFragment extends Fragment{
 
         RecyclerView.LayoutManager layoutManager =
                 new LinearLayoutManager(view.getContext());
+        recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.addItemDecoration(new DividerItemDecoration(view.getContext(),LinearLayoutManager.VERTICAL));
@@ -76,7 +77,7 @@ public class NotificationFragment extends Fragment{
             public void onRefresh() {
                 notificationList = new ArrayList<>();
                 service.getNewNotificationForNotificationFragment(view.getContext(),1L,notificationList,swipeRefreshLayout);
-                notificationAdapter.notifyDataSetChanged();
+//                notificationAdapter.notifyDataSetChanged();
             }
         });
         prepareNotificationTest(view);
@@ -85,6 +86,6 @@ public class NotificationFragment extends Fragment{
 
     public void prepareNotificationTest(View view){
         service.getNewNotificationForNotificationFragment(view.getContext(),1L,notificationList,swipeRefreshLayout);
-        notificationAdapter.notifyDataSetChanged();
+//        notificationAdapter.notifyDataSetChanged();
     }
 }

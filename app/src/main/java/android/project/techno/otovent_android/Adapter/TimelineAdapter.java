@@ -46,7 +46,7 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.MyView
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.list_view_notification,parent,false);
+                .inflate(R.layout.list_view_timeline,parent,false);
         return new MyViewHolder(itemView);
     }
 
@@ -56,8 +56,8 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.MyView
         holder.fullName.setText(postEvent.getFullName());
         holder.tanggalLokasi.setText(postEvent.getTimeAndLocation());
         holder.status.setText(postEvent.getStatus());
-        holder.totalComment.setText(postEvent.getTotalComment());
-        holder.totalLike.setText(postEvent.getTotalLike());
+        holder.totalComment.setText(postEvent.getTotalComment().toString());
+        holder.totalLike.setText(postEvent.getTotalLike().toString());
     }
 
     @Override

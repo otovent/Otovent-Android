@@ -3,20 +3,13 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:focusable="true"
-    android:paddingLeft="16dp"
-    android:paddingRight="16dp"
     android:paddingTop="10dp"
-    android:paddingBottom="10dp"
+    android:paddingBottom="15dp"
+    android:paddingLeft="5dp"
+    android:paddingRight="5dp"
     android:clickable="true"
     android:background="?android:attr/selectableItemBackground"
     android:orientation="vertical">
-    <android.support.v7.widget.CardView
-        android:id="@+id/cv"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
 
             <TextView
                 android:id="@+id/totalLike"
@@ -24,17 +17,17 @@
                 android:layout_height="wrap_content"
                 android:hint="Total Like"
                 android:layout_alignBottom="@+id/logo_love"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
+                android:layout_toRightOf="@+id/logo_love"
+                android:layout_toEndOf="@+id/logo_love" />
 
             <TextView
                 android:id="@+id/totalComment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:hint="Total Comment"
-                android:layout_alignBottom="@+id/logo_love"
-                android:layout_toRightOf="@+id/logo_love"
-                android:layout_toEndOf="@+id/logo_love" />
+                android:layout_alignBottom="@+id/logo_comment"
+                android:layout_toRightOf="@+id/logo_comment"
+                android:layout_toEndOf="@+id/logo_comment" />
 
             <ImageView
                 android:id="@+id/user_timeline"
@@ -42,8 +35,10 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true"
-                android:layout_marginRight="10dp"
-                android:background="@drawable/png_user"/>
+                android:background="@drawable/png_user"
+                android:layout_alignBottom="@+id/nama_pengguna"
+                android:layout_alignRight="@+id/logo_love"
+                android:layout_alignEnd="@+id/logo_love" />
 
             <customfonts.MyTextView
                 android:id="@+id/lokasi_user"
@@ -51,9 +46,11 @@
                 android:layout_height="wrap_content"
                 android:paddingTop="3dp"
                 android:text="tes"
-                android:layout_alignBottom="@+id/user_timeline"
-                android:layout_toRightOf="@+id/user_timeline"
-                android:layout_toEndOf="@+id/user_timeline" />
+                android:layout_below="@+id/user_timeline"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignRight="@+id/nama_pengguna"
+                android:layout_alignEnd="@+id/nama_pengguna" />
 
             <customfonts.MyTextView
                 android:layout_width="wrap_content"
@@ -63,12 +60,16 @@
                 android:id="@+id/status" />
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="150dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:background="@drawable/pic_timeline1"
                 android:layout_below="@+id/status"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:scaleType="fitCenter"
+                android:adjustViewBounds="true"
                 android:id="@+id/imageView3" />
 
             <ImageView
@@ -77,8 +78,8 @@
                 android:layout_height="28dp"
                 android:background="@drawable/png_love"
                 android:layout_below="@+id/imageView3"
-                android:layout_toRightOf="@+id/totalLike"
-                android:layout_toEndOf="@+id/totalLike" />
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
 
             <ImageView
                 android:id="@+id/logo_comment"
@@ -86,8 +87,8 @@
                 android:layout_height="28dp"
                 android:background="@drawable/png_comment"
                 android:layout_below="@+id/imageView3"
-                android:layout_toRightOf="@+id/totalComment"
-                android:layout_toEndOf="@+id/totalComment" />
+                android:layout_toRightOf="@+id/totalLike"
+                android:layout_toEndOf="@+id/totalLike" />
 
             <ImageView
                 android:id="@+id/logo_maps"
@@ -95,25 +96,18 @@
                 android:layout_height="28dp"
                 android:background="@drawable/png_maps"
                 android:layout_below="@+id/imageView3"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true" />
+                android:layout_toRightOf="@+id/totalComment"
+                android:layout_toEndOf="@+id/totalComment" />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginTop="280dp"
-                android:background="#bcbcbc" />
-
-            <customfonts.MyTextView
+    <customfonts.MyTextView
                 android:id="@+id/nama_pengguna"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_toEndOf="@+id/user_timeline"
-                android:layout_toRightOf="@+id/user_timeline"
-                android:text="testestes"
+        android:text="testestes"
                 android:textColor="#00afef"
-                android:textSize="24sp" />
-        </RelativeLayout>
-    </android.support.v7.widget.CardView>
+                android:textSize="24sp"
+        android:paddingLeft="3dp"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/logo_love"
+        android:layout_toEndOf="@+id/logo_love" />
 </RelativeLayout>
