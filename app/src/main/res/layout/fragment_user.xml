@@ -84,12 +84,12 @@
                     android:background="@drawable/pic_timeline1">
 
                     <ImageView
-                        android:id="@+id/logo_edit"
+                        android:id="@+id/setting"
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:layout_marginLeft="340dp"
                         android:layout_marginTop="150dp"
-                        android:background="@drawable/png_pencil" />
+                        android:background="@drawable/setting" />
 
                     <customfonts.MyTextView
                         android:id="@+id/myTextView2"
