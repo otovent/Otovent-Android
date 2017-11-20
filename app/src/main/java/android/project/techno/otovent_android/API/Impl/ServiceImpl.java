@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.project.techno.otovent_android.API.Service;
+import android.project.techno.otovent_android.model.SearchRequest;
 import android.project.techno.otovent_android.model.UserRequest;
 import android.project.techno.otovent_android.R;
 import android.project.techno.otovent_android.menu.BaseActivity;
@@ -261,9 +262,6 @@ public class ServiceImpl implements Service{
     public void getUserCredential(final Long id, Context callingClass) {
         RequestQueue queue = Volley.newRequestQueue(callingClass);
 
-//        DateFormat df = new SimpleDateFormat("dd-mm-yyyy");
-//        final String dateRequested = df.format(new Date());
-
         StringRequest getNotif = new StringRequest(Request.Method.GET, callingClass.getString(R.string.ENV_HOST_BACKEND) + "users/get/user",
                 new Response.Listener<String>() {
                     @Override
@@ -297,6 +295,53 @@ public class ServiceImpl implements Service{
                 Map<String,String> headers = new HashMap<>();
                 headers.put("Content-type","application/json");
                 headers.put("id",id.toString());
+//                headers.put("dateRequested",dateRequested);
+                return headers;
+            }
+        };
+
+        queue.add(getNotif);
+    }
+
+    @Override
+    public void searchUser(final Context callingClass, final String searchName, final List<SearchRequest> resultData) {
+        RequestQueue queue = Volley.newRequestQueue(callingClass);
+
+        StringRequest getNotif = new StringRequest(Request.Method.GET, callingClass.getString(R.string.ENV_HOST_BACKEND) + "users/search",
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        JSONObject jsonObject= null;
+                        JSONArray jsonArray = null;
+                        JSONObject result = null;
+                        JSONObject content = null;
+                        try {
+                            jsonObject = new JSONObject(response);
+                            jsonArray = jsonObject.getJSONArray("result");
+                            for (int i = 0 ; i<jsonArray.length(); i++) {
+                                content = jsonArray.getJSONObject(i);
+                                SearchRequest userRequest = new SearchRequest();
+                                    userRequest.setSearchName(content.getString("firstName")+" "+content.getString("lastName"));
+                                    userRequest.setSearchStatus(content.getString("email"));
+                                    userRequest.setPhotoUrl(content.getString("photoProfile"));
+                                    userRequest.setId(content.getLong("id"));
+                                resultData.add(userRequest);
+                            }
+                        } catch (JSONException e) {
+                            Log.e("Error Get Notification",e.toString());
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("Error Get Notification",error.toString());
+            }
+        }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String,String> headers = new HashMap<>();
+                headers.put("Content-type","application/json");
+                headers.put("searchName", searchName);
 //                headers.put("dateRequested",dateRequested);
                 return headers;
             }

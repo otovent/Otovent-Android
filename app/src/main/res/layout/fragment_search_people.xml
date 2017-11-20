@@ -7,43 +7,59 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/white">
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/logoSearch"
-            android:src="@drawable/png_search"
-            android:layout_alignBottom="@+id/first_name"
-            android:layout_alignParentTop="true" />
-        <customfonts.MyEditText
-            android:id="@+id/first_name"
-            android:textSize="16dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Search People Name"
-            android:textColorHint="@android:color/black"
-            android:textColor="@color/colortext"
-            android:background="#0000"
-            android:paddingTop="10dp"
-            android:gravity="left"
-            android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/logoSearch"
-            android:layout_toEndOf="@+id/logoSearch" />
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal|top"
         android:layout_marginTop="32dp"
         android:background="@android:color/white"
         android:orientation="vertical">
 
         <android.support.v7.widget.RecyclerView
+            android:layout_marginTop="5dp"
             android:id="@+id/recycleViewSearch"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
         </android.support.v7.widget.RecyclerView>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:background="@android:color/white">
+
+        <ImageView
+            android:id="@+id/logoSearch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/first_name"
+            android:layout_alignParentTop="true"
+            android:src="@drawable/png_search" />
+
+        <customfonts.MyEditText
+            android:id="@+id/first_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#0000"
+            android:gravity="left"
+            android:hint="Search People Name"
+            android:paddingTop="10dp"
+            android:textColor="@color/colortext"
+            android:textColorHint="@android:color/black"
+            android:textSize="16dp"
+            android:layout_alignParentTop="true"
+            android:layout_toLeftOf="@+id/btnSearch"
+            android:layout_toRightOf="@+id/logoSearch"
+            android:layout_toEndOf="@+id/logoSearch" />
+
+        <Button
+            android:id="@+id/btnSearch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:text="Search"
+            android:textSize="4pt"
+            android:layout_alignBottom="@+id/first_name"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
     </RelativeLayout>
 </FrameLayout>

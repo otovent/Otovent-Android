@@ -5,6 +5,16 @@ package android.project.techno.otovent_android.model;
  */
 
 public class SearchRequest {
+    private Long id;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     private String searchName;
     private String searchStatus;
     private String photoUrl;
