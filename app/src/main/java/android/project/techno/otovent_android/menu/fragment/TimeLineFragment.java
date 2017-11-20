@@ -7,7 +7,9 @@ import android.project.techno.otovent_android.API.Impl.ServiceImpl;
 import android.project.techno.otovent_android.API.Service;
 import android.project.techno.otovent_android.Adapter.NotificationAdapter;
 import android.project.techno.otovent_android.Adapter.TimelineAdapter;
+import android.project.techno.otovent_android.Adapter.util.ClickListener;
 import android.project.techno.otovent_android.Adapter.util.DividerItemDecoration;
+import android.project.techno.otovent_android.Adapter.util.RecyclerTouchListener;
 import android.project.techno.otovent_android.menu.BaseActivity;
 import android.project.techno.otovent_android.model.Notification;
 import android.project.techno.otovent_android.model.PostEvent;
@@ -24,6 +26,7 @@ import android.view.ViewGroup;
 import android.project.techno.otovent_android.R;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.gmail.samehadar.iosdialog.IOSDialog;
 
@@ -115,6 +118,21 @@ public class TimeLineFragment extends Fragment {
             }
         });
 
+        recyclerView.addOnItemTouchListener(new RecyclerTouchListener(view.getContext(), recyclerView, new ClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                PostEvent postEvent = postEventList.get(position);
+                DetailPostFragment.postEvent = postEvent;
+
+                DetailPostFragment detailPostFragment = new DetailPostFragment();
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.content,detailPostFragment,null)
+                        .commit();
+            }
+            @Override
+            public void onLongClick(View view, int position) {
+            }
+        }));
 
         return view;
     }

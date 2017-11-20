@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/biruAsik"
+        android:padding="5dp">
+        <ImageView
+            android:id="@+id/profPic_commentedUser"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:background="@drawable/png_user"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true" />
+        <customfonts.MyTextView
+            android:id="@+id/fullname_commentUser"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Full name user"
+            android:textColor="@color/biruAsik"
+            android:textColorHint="@color/hintComment"
+            android:layout_alignTop="@+id/profPic_commentedUser"
+            android:layout_toRightOf="@+id/profPic_commentedUser"
+            android:layout_toEndOf="@+id/profPic_commentedUser" />
+        <customfonts.MyTextView
+            android:textColor="@color/black"
+            android:background="@color/white"
+            android:id="@+id/commentUser"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Their Comment"
+            android:textColorHint="@color/hintComment"
+            android:layout_below="@+id/fullname_commentUser"
+            android:layout_toRightOf="@+id/profPic_commentedUser"
+            android:layout_toEndOf="@+id/profPic_commentedUser" />
+    </RelativeLayout>
+</RelativeLayout>

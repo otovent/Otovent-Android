@@ -1,111 +1,128 @@
-<ScrollView android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <android.support.v7.widget.CardView
         android:id="@+id/cv"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="10dp">
+            android:layout_height="match_parent">
 
-
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginLeft="330dp"
-                android:layout_marginTop="290dp"
-                android:background="@drawable/png_post" />
-
-            <ImageView
-                android:id="@+id/user_timeline"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginRight="10dp"
-                android:background="@drawable/png_user" />
-
-            <customfonts.MyTextView
-                android:id="@+id/nama_pengguna"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/lokasi_user"
-                android:layout_alignParentTop="true"
-                android:layout_alignStart="@+id/lokasi_user"
-                android:text="testestes"
-                android:textColor="#00afef"
-                android:textSize="30sp" />
-
-            <customfonts.MyTextView
-                android:id="@+id/lokasi_user"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/nama_pengguna"
-                android:layout_toRightOf="@+id/user_timeline"
-                android:paddingTop="3dp"
-                android:text="tes" />
-
-            <customfonts.MyTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="65dp"
-                android:text="tait aikjsdflakdjfjik uuuuuuiuuuuuu" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="150dp"
-                android:layout_marginTop="85dp"
-                android:background="@drawable/pic_timeline1" />
-
-            <ImageView
-                android:id="@+id/logo_love"
-                android:layout_width="28dp"
-                android:layout_height="28dp"
-                android:layout_marginTop="240dp"
-                android:background="@drawable/png_love" />
-
-            <ImageView
-                android:id="@+id/logo_comment"
-                android:layout_width="28dp"
-                android:layout_height="28dp"
-                android:layout_marginLeft="45dp"
-                android:layout_marginTop="240dp"
-                android:background="@drawable/png_comment" />
-
-            <ImageView
-                android:id="@+id/logo_maps"
-                android:layout_width="28dp"
-                android:layout_height="28dp"
-                android:layout_marginLeft="260dp"
-                android:layout_marginTop="240dp"
-                android:background="@drawable/png_maps" />
-
-            <!---->
-            <View
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginTop="280dp"
-                android:background="#00afef" />
+                android:layout_height="match_parent"
+                android:padding="10dp">
 
-            <ImageView
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:layout_marginTop="290dp"
-                android:background="@drawable/png_user" />
 
-            <customfonts.MyEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="40dp"
-                android:layout_marginTop="290dp"
-                android:hint="Write some comment. . ."
-                android:textColorHint="@color/hintComment" />
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginLeft="330dp"
+                    android:layout_marginTop="290dp"
+                    android:background="@drawable/png_post" />
+
+                <ImageView
+                    android:id="@+id/user_timeline"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/png_user" />
+
+                <customfonts.MyTextView
+                    android:id="@+id/nama_pengguna"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/lokasi_user"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignStart="@+id/lokasi_user"
+                    android:text="testestes"
+                    android:textColor="#00afef"
+                    android:textSize="30sp" />
+
+                <customfonts.MyTextView
+                    android:id="@+id/lokasi_user"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/nama_pengguna"
+                    android:layout_toRightOf="@+id/user_timeline"
+                    android:paddingTop="3dp"
+                    android:text="tes" />
+
+                <customfonts.MyTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="65dp"
+                    android:text="tait aikjsdflakdjfjik uuuuuuiuuuuuu" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:layout_marginTop="85dp"
+                    android:background="@color/biruAsik" />
+
+                <ImageView
+                    android:id="@+id/logo_love"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:layout_marginTop="240dp"
+                    android:background="@drawable/png_love" />
+
+                <ImageView
+                    android:id="@+id/logo_comment"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:layout_marginLeft="45dp"
+                    android:layout_marginTop="240dp"
+                    android:background="@drawable/png_comment" />
+
+                <ImageView
+                    android:id="@+id/logo_maps"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:layout_marginLeft="260dp"
+                    android:layout_marginTop="240dp"
+                    android:background="@drawable/png_maps" />
+
+                <!---->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="280dp"
+                    android:background="#00afef" />
+
+                <ImageView
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_marginTop="290dp"
+                    android:background="@drawable/png_user" />
+
+                <customfonts.MyEditText
+                    android:id="@+id/myEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="40dp"
+                    android:layout_marginTop="290dp"
+                    android:hint="Write some comment. . ."
+                    android:textColorHint="@color/hintComment" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recycleViewComment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/myEditText">
+
+                </android.support.v7.widget.RecyclerView>
+            </RelativeLayout>
 
         </RelativeLayout>
     </android.support.v7.widget.CardView>
 
-</ScrollView>
+</RelativeLayout>
