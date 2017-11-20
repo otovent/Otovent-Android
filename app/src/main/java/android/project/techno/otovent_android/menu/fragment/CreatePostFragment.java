@@ -26,7 +26,7 @@ import static android.content.Context.MODE_PRIVATE;
 public class CreatePostFragment extends Fragment {
     private Service service;
     private EditText status;
-    private MyTextView btnPost;
+    private MyTextView btnPost,btnBack;
     private Long idUser;
 
     public CreatePostFragment(){
@@ -43,6 +43,7 @@ public class CreatePostFragment extends Fragment {
         service = new ServiceImpl();
         status = (EditText) view.findViewById(R.id.editText);
         btnPost = (MyTextView) view.findViewById(R.id.post);
+        btnBack = (MyTextView) view.findViewById(R.id.back);
 
         btnPost.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,6 +56,16 @@ public class CreatePostFragment extends Fragment {
                         .setTitleColorRes(R.color.gray)
                         .build();
                 service.createPost(v.getContext(),idUser,postBody,iosDialog);
+            }
+        });
+
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TimeLineFragment timeLineFragment = new TimeLineFragment();
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.content,timeLineFragment,null)
+                        .commit();
             }
         });
         return view;

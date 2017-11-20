@@ -12,6 +12,7 @@ public class PostEvent {
     private String statusEventPhoto;
     private Integer totalLike;
     private Integer totalComment;
+    private String typePostEvent;
 
     public PostEvent(){}
 
@@ -69,5 +70,13 @@ public class PostEvent {
 
     public void setTotalComment(Integer totalComment) {
         this.totalComment = totalComment;
+    }
+
+    public String getTypePostEvent() {
+        return typePostEvent;
+    }
+
+    public void setTypePostEvent(String typePostEvent) {
+        this.typePostEvent = typePostEvent;
     }
 }

@@ -151,9 +151,10 @@ public class ServiceImpl implements Service{
                                 PostEvent postEvent = new PostEvent();
                                     postEvent.setFullName(content.getJSONObject("user").getString("firstName") + " " +content.getJSONObject("user").getString("lastName"));
                                     postEvent.setTimeAndLocation("Temporary Not Located");
-                                    postEvent.setStatus(content.getString("postDetail"));
+                                    postEvent.setStatus(content.getString("description"));
                                     postEvent.setPhotoProfile(content.getJSONObject("user").getString("photoProfile"));
                                     postEvent.setStatusEventPhoto(content.getString("imageUrl"));
+                                    postEvent.setTypePostEvent(content.getString("tipePostEvent"));
                                 postEventList.add(postEvent);
                             }
                         } catch (JSONException e) {

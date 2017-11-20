@@ -21,7 +21,7 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.MyView
     private List<PostEvent> data;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        MyTextView fullName,tanggalLokasi,status;
+        MyTextView fullName,tanggalLokasi,status,type;
         TextView totalLike,totalComment;
         ImageView photoProfil,photoEvent;
         public MyViewHolder(View itemView) {
@@ -30,6 +30,7 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.MyView
             photoEvent = (ImageView) itemView.findViewById(R.id.imageView3);
 
             fullName = (MyTextView) itemView.findViewById(R.id.nama_pengguna);
+            type = (MyTextView) itemView.findViewById(R.id.typePostEvent);
             tanggalLokasi = (MyTextView) itemView.findViewById(R.id.lokasi_user);
             status = (MyTextView) itemView.findViewById(R.id.status);
             totalLike = (TextView) itemView.findViewById(R.id.totalLike);
@@ -58,6 +59,7 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.MyView
         holder.status.setText(postEvent.getStatus());
         holder.totalComment.setText("0");
         holder.totalLike.setText("0");
+        holder.type.setText(postEvent.getTypePostEvent());
     }
 
     @Override

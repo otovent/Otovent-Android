@@ -114,4 +114,18 @@
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/logo_love"
         android:layout_toEndOf="@+id/logo_love" />
+
+    <customfonts.MyTextView
+        android:id="@+id/typePostEvent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:background="#2b73e1"
+        android:gravity="center"
+        android:padding="5dp"
+        android:text="Post"
+        android:textColor="#fff"
+        android:textSize="16dp" />
 </RelativeLayout>

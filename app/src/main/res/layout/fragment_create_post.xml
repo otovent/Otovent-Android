@@ -47,6 +47,20 @@
             android:layout_below="@+id/editText"
             android:layout_alignLeft="@+id/editText"
             android:layout_alignStart="@+id/editText" />
+
+        <customfonts.MyTextView
+            android:id="@+id/back"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#2b73e1"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="Back"
+            android:textColor="#fff"
+            android:textSize="16dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignLeft="@+id/post"
+            android:layout_alignStart="@+id/post" />
     </RelativeLayout>
 
 </FrameLayout>
