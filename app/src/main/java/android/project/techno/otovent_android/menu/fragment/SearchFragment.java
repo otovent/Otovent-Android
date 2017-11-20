@@ -15,10 +15,13 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+
+import com.gmail.samehadar.iosdialog.IOSDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,20 +47,13 @@ public class SearchFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_search_people, container, false);
+        final View view = inflater.inflate(R.layout.fragment_search_people, container, false);
         root = inflater.inflate(R.layout.fragment_search_people, container, false);
         recyclerView = (RecyclerView) view.findViewById(R.id.recycleViewSearch);
         searchRequestList = new ArrayList<>();
         btnSearch = (Button) view.findViewById(R.id.btnSearch);
         searchField = (MyEditText) view.findViewById(R.id.first_name);
         service = new ServiceImpl();
-
-        btnSearch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                searchUser(searchField.getText().toString());
-            }
-        });
 
         searchUserAdapter = new SearchUserAdapter(searchRequestList);
 
@@ -68,13 +64,29 @@ public class SearchFragment extends Fragment {
         recyclerView.addItemDecoration(new DividerItemDecoration(view.getContext(),LinearLayoutManager.VERTICAL));
         recyclerView.setAdapter(searchUserAdapter);
 
+
+        btnSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                searchRequestList = new ArrayList<>();
+                final IOSDialog iosDialog = new IOSDialog.Builder(view.getContext())
+                        .setTitle("Getting Data")
+                        .setTitleColorRes(R.color.gray)
+                        .build();
+                service.searchUser(view.getContext(),searchField.getText().toString(),searchRequestList,iosDialog);
+            }
+        });
+
         return view;
     }
 
-    private void searchUser(String searchName){
-        searchRequestList = new ArrayList<>();
-        service.searchUser(root.getContext(),searchName,searchRequestList);
-    }
+//    private void searchUser(String searchName){
+//        final IOSDialog iosDialog = new IOSDialog.Builder(root.getContext())
+//                .setTitle("Getting Data")
+//                .setTitleColorRes(R.color.gray)
+//                .build();
+//        service.searchUser(root.getContext(),searchName,searchRequestList,iosDialog);
+//    }
 
     private void initData(){
         searchRequestList = new ArrayList<>();

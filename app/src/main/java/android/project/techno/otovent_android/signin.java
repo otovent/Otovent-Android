@@ -11,6 +11,8 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.gmail.samehadar.iosdialog.IOSDialog;
+
 /**
  * Created by Miura on 10/29/2017.
  */
@@ -27,6 +29,10 @@ public class signin extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.signin);
         progressDialog = new ProgressDialog(signin.this,R.style.AppTheme);
+        final IOSDialog iosDialog = new IOSDialog.Builder(signin.this)
+                .setTitle("Getting Data")
+                .setTitleColorRes(R.color.gray)
+                .build();
         service = new ServiceImpl();
         create = (TextView) findViewById(R.id.create);
         login = (TextView) findViewById(R.id.signin1);
@@ -44,7 +50,7 @@ public class signin extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 service.authToBackend("users/login",email.getText().toString(),
-                        password.getText().toString(),signin.this,progressDialog);
+                        password.getText().toString(),signin.this,iosDialog);
             }
         });
         fonts1 = Typeface.createFromAsset(signin.this.getAssets(),

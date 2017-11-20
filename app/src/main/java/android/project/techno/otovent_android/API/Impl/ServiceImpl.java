@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.project.techno.otovent_android.API.Service;
+import android.project.techno.otovent_android.model.PostEvent;
 import android.project.techno.otovent_android.model.SearchRequest;
 import android.project.techno.otovent_android.model.UserRequest;
 import android.project.techno.otovent_android.R;
@@ -25,6 +26,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.gmail.samehadar.iosdialog.IOSDialog;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -49,7 +51,7 @@ public class ServiceImpl implements Service{
     private static Long firstIdNotificationToCheckPushNotification = 0L;
 
     @Override
-    public void authToBackend(String endpoint, String username, String password, final Context callingClass, final ProgressDialog progressDialog) {
+    public void authToBackend(String endpoint, String username, String password, final Context callingClass, final IOSDialog progressDialog) {
         RequestQueue queue = Volley.newRequestQueue(callingClass);
         Map<String, String> params = new HashMap<>();
         params.put("username", username);
@@ -95,15 +97,13 @@ public class ServiceImpl implements Service{
                 progressDialog.dismiss();
             }
         });
-        progressDialog.setIndeterminate(true);
-        progressDialog.setMessage("Please wait");
         progressDialog.show();
 
         queue.add(requestLogin);
     }
 
     @Override
-    public void addOrEditUser(String endpoint, Map<String,String> postBody, final Context callingClass, final ProgressDialog progressDialog) {
+    public void addOrEditUser(String endpoint, Map<String,String> postBody, final Context callingClass, final IOSDialog progressDialog) {
         RequestQueue queue = Volley.newRequestQueue(callingClass);
 
         JsonObjectRequest requestLogin = new JsonObjectRequest(callingClass.getString(R.string.ENV_HOST_BACKEND) + endpoint,
@@ -121,11 +121,58 @@ public class ServiceImpl implements Service{
                 progressDialog.dismiss();
             }
         });
-        progressDialog.setIndeterminate(true);
-        progressDialog.setMessage("Please wait");
         progressDialog.show();
 
         queue.add(requestLogin);
+    }
+
+    @Override
+    public void getTimelineUser(Context callingClass, final Long idUser, final List<PostEvent> postEventList, final IOSDialog iosDialog) {
+        RequestQueue queue = Volley.newRequestQueue(callingClass);
+
+        StringRequest getNotif = new StringRequest(Request.Method.GET, callingClass.getString(R.string.ENV_HOST_BACKEND) + "users/get/timeline",
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        JSONObject jsonObject= null;
+                        JSONObject result = null;
+                        JSONArray resultArray = null;
+                        try {
+                            jsonObject = new JSONObject(response);
+                            result = jsonObject.getJSONObject("result");
+                            resultArray = result.getJSONArray("content");
+                            for (int i = 0 ; i < resultArray.length(); i++){
+                                JSONObject content = resultArray.getJSONObject(i);
+                                PostEvent postEvent = new PostEvent();
+                                    postEvent.setFullName(content.getJSONObject("user").getString("firstName") + " " +content.getJSONObject("user").getString("lastName"));
+                                    postEvent.setTimeAndLocation("Temporary Not Located");
+                                    postEvent.setStatus(content.getString("postDetail"));
+                                    postEvent.setPhotoProfile(content.getJSONObject("user").getString("photoProfile"));
+                                    postEvent.setStatusEventPhoto(content.getString("imageUrl"));
+                                postEventList.add(postEvent);
+                            }
+                        } catch (JSONException e) {
+                            Log.e("Error Get Notification",e.toString());
+                        }
+                        iosDialog.dismiss();
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("Error Get Notification",error.toString());
+                iosDialog.dismiss();
+            }
+        }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String,String> headers = new HashMap<>();
+                headers.put("Content-type","application/json");
+                headers.put("idUser",idUser.toString());
+                return headers;
+            }
+        };
+        iosDialog.show();
+        queue.add(getNotif);
     }
 
     @Override
@@ -304,7 +351,7 @@ public class ServiceImpl implements Service{
     }
 
     @Override
-    public void searchUser(final Context callingClass, final String searchName, final List<SearchRequest> resultData) {
+    public void searchUser(final Context callingClass, final String searchName, final List<SearchRequest> resultData,final IOSDialog iosDialog) {
         RequestQueue queue = Volley.newRequestQueue(callingClass);
 
         StringRequest getNotif = new StringRequest(Request.Method.GET, callingClass.getString(R.string.ENV_HOST_BACKEND) + "users/search",
@@ -327,6 +374,7 @@ public class ServiceImpl implements Service{
                                     userRequest.setId(content.getLong("id"));
                                 resultData.add(userRequest);
                             }
+                            iosDialog.dismiss();
                         } catch (JSONException e) {
                             Log.e("Error Get Notification",e.toString());
                         }
@@ -335,6 +383,7 @@ public class ServiceImpl implements Service{
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.e("Error Get Notification",error.toString());
+                iosDialog.dismiss();
             }
         }){
             @Override
@@ -346,7 +395,7 @@ public class ServiceImpl implements Service{
                 return headers;
             }
         };
-
+        iosDialog.show();
         queue.add(getNotif);
     }
 }

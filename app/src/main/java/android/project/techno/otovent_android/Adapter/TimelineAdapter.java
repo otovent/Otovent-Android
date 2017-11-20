@@ -56,8 +56,8 @@ public class TimelineAdapter extends RecyclerView.Adapter<TimelineAdapter.MyView
         holder.fullName.setText(postEvent.getFullName());
         holder.tanggalLokasi.setText(postEvent.getTimeAndLocation());
         holder.status.setText(postEvent.getStatus());
-        holder.totalComment.setText(postEvent.getTotalComment().toString());
-        holder.totalLike.setText(postEvent.getTotalLike().toString());
+        holder.totalComment.setText("0");
+        holder.totalLike.setText("0");
     }
 
     @Override

@@ -1,6 +1,7 @@
 package android.project.techno.otovent_android.menu.fragment;
 
 import android.app.NotificationManager;
+import android.content.SharedPreferences;
 import android.project.techno.otovent_android.API.Impl.ServiceImpl;
 import android.project.techno.otovent_android.API.Service;
 import android.project.techno.otovent_android.Adapter.NotificationAdapter;
@@ -24,6 +25,8 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.content.Context.MODE_PRIVATE;
+
 /**
  * Created by N-REW on 03/11/2017.
  */
@@ -35,6 +38,7 @@ public class NotificationFragment extends Fragment{
     private NotificationAdapter notificationAdapter;
     private SwipeRefreshLayout swipeRefreshLayout;
     private View root;
+    private Long idUser;
 
     public NotificationFragment(){
 
@@ -76,16 +80,20 @@ public class NotificationFragment extends Fragment{
             @Override
             public void onRefresh() {
                 notificationList = new ArrayList<>();
-                service.getNewNotificationForNotificationFragment(view.getContext(),1L,notificationList,swipeRefreshLayout);
+                service.getNewNotificationForNotificationFragment(view.getContext(),idUser,notificationList,swipeRefreshLayout);
 //                notificationAdapter.notifyDataSetChanged();
             }
         });
+
+        SharedPreferences credential = view.getContext().getSharedPreferences("user",MODE_PRIVATE);
+        idUser = credential.getLong("ID",-1);
+
         prepareNotificationTest(view);
         return view;
     }
 
     public void prepareNotificationTest(View view){
-        service.getNewNotificationForNotificationFragment(view.getContext(),1L,notificationList,swipeRefreshLayout);
+        service.getNewNotificationForNotificationFragment(view.getContext(),idUser,notificationList,swipeRefreshLayout);
 //        notificationAdapter.notifyDataSetChanged();
     }
 }

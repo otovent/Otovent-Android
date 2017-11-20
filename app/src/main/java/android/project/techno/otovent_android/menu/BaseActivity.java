@@ -50,7 +50,7 @@ public class BaseActivity extends AppCompatActivity {
         service = new ServiceImpl();
 
         SharedPreferences credential = getSharedPreferences("user",MODE_PRIVATE);
-        Long idUser = credential.getLong("ID",-1);
+        final Long idUser = credential.getLong("ID",-1);
 
         if (idUser!=-1){
             service.getUserCredential(idUser,BaseActivity.this);
@@ -95,7 +95,7 @@ public class BaseActivity extends AppCompatActivity {
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                service.getNotificationForUserFromBackend(BaseActivity.userLogged.getId(), BaseActivity.this, notificationManager, "notification",
+                service.getNotificationForUserFromBackend(idUser, BaseActivity.this, notificationManager, "notification",
                         "Notification", "There are some news for you");
             }
         },0,10000);

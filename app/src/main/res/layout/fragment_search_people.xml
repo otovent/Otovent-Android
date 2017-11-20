@@ -39,17 +39,19 @@
             android:id="@+id/first_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_toEndOf="@+id/logoSearch"
+            android:layout_toLeftOf="@+id/btnSearch"
+            android:layout_toRightOf="@+id/logoSearch"
             android:background="#0000"
             android:gravity="left"
             android:hint="Search People Name"
+            android:inputType="text"
             android:paddingTop="10dp"
             android:textColor="@color/colortext"
             android:textColorHint="@android:color/black"
-            android:textSize="16dp"
-            android:layout_alignParentTop="true"
-            android:layout_toLeftOf="@+id/btnSearch"
-            android:layout_toRightOf="@+id/logoSearch"
-            android:layout_toEndOf="@+id/logoSearch" />
+            android:maxLines="1"
+            android:textSize="16dp" />
 
         <Button
             android:id="@+id/btnSearch"
