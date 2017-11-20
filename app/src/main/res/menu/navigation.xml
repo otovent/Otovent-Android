@@ -11,10 +11,10 @@
         android:icon="@drawable/png_search"
         android:title="Search"/>
 
-    <!--<item-->
-        <!--android:id="@+id/navigation_promoted_timeline"-->
-        <!--android:icon="@drawable/new_promoted"-->
-        <!--android:title="Promoted"/>-->
+    <item
+        android:id="@+id/navigation_promoted_timeline"
+        android:icon="@drawable/new_promoted"
+        android:title="Promoted"/>
 
 
     <item

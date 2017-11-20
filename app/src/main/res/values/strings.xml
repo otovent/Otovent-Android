@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Otovent_Android</string>
     <string name="ENV_HOST_BACKEND">https://otovent.herokuapp.com/</string>
+    <!--<string name="ENV_HOST_BACKEND">localhost:8080/</string>-->
     <string name="title_activity_base">BaseActivity</string>
     <string name="action_settings">Settings</string>
     <string name="section_format">Hello World from section: %1$d</string>

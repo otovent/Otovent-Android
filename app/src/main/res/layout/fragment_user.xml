@@ -142,6 +142,19 @@
                 android:verticalSpacing="10dp"
                 />
 
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/floatingActionButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:clickable="true"
+                app:fabSize="mini"
+                app:srcCompat="@drawable/png_pencil"
+                android:layout_alignTop="@+id/myTextView2"
+                android:layout_alignRight="@+id/imageView"
+                android:layout_alignEnd="@+id/imageView" />
+
+        </RelativeLayout>
 
     </RelativeLayout>
 

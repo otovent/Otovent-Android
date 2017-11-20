@@ -1,10 +1,14 @@
 package android.project.techno.otovent_android.menu.fragment;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.project.techno.otovent_android.API.Impl.ServiceImpl;
+import android.project.techno.otovent_android.API.Service;
 import android.project.techno.otovent_android.Adapter.NotificationAdapter;
 import android.project.techno.otovent_android.Adapter.TimelineAdapter;
 import android.project.techno.otovent_android.Adapter.util.DividerItemDecoration;
+import android.project.techno.otovent_android.menu.BaseActivity;
 import android.project.techno.otovent_android.model.Notification;
 import android.project.techno.otovent_android.model.PostEvent;
 import android.support.v4.app.Fragment;
@@ -20,8 +24,12 @@ import android.view.ViewGroup;
 import android.project.techno.otovent_android.R;
 import android.widget.ImageView;
 
+import com.gmail.samehadar.iosdialog.IOSDialog;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import static android.content.Context.MODE_PRIVATE;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -32,6 +40,9 @@ public class TimeLineFragment extends Fragment {
     private RecyclerView recyclerView;
     private TimelineAdapter timelineAdapter;
     private SwipeRefreshLayout swipeRefreshLayout;
+    private Service service;
+    private View root;
+    private Long idUser;
 
     public TimeLineFragment() {
         // Required empty public constructor
@@ -42,18 +53,24 @@ public class TimeLineFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
-        View view = inflater.inflate(R.layout.fragment_timeline, container, false);
+        final View view = inflater.inflate(R.layout.fragment_timeline, container, false);
+        root = inflater.inflate(R.layout.fragment_timeline, container, false);
 
         recyclerView = (RecyclerView) view.findViewById(R.id.recycleViewTimeline);
         swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipeRefreshTimeline);
         postEventList = new ArrayList<>();
-        initDataList();
+
+        service = new ServiceImpl();
+
+        SharedPreferences credential = view.getContext().getSharedPreferences("user",MODE_PRIVATE);
+        idUser = credential.getLong("ID",-1);
+
+        initDataList(view);
 
         timelineAdapter = new TimelineAdapter(postEventList);
 
-        RecyclerView.LayoutManager layoutManager =
-                new LinearLayoutManager(view.getContext());
-        recyclerView.setLayoutManager(layoutManager);
+        final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(view.getContext(),LinearLayoutManager.VERTICAL,true);
+        recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.addItemDecoration(new DividerItemDecoration(view.getContext(),LinearLayoutManager.VERTICAL));
         recyclerView.setAdapter(timelineAdapter);
@@ -61,8 +78,12 @@ public class TimeLineFragment extends Fragment {
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                initDataList();
+                postEventList = new ArrayList<>();
+                initDataList(view);
                 swipeRefreshLayout.setRefreshing(false);
+                for (PostEvent postEvent : postEventList){
+                    Log.e("List Post : ",postEvent.getFullName());
+                }
             }
         });
 
@@ -80,23 +101,27 @@ public class TimeLineFragment extends Fragment {
         return view;
     }
 
-    private void initDataList(){
-        postEventList = new ArrayList<>();
-        PostEvent postEvent = new PostEvent();
-            postEvent.setFullName("Aldi Pradana");
-            postEvent.setStatus("Aku dan mobilku");
-            postEvent.setTimeAndLocation("Yogyakarta");
-            postEvent.setTotalLike(0);
-            postEvent.setTotalComment(0);
-        postEventList.add(postEvent);
-        postEventList.add(postEvent);
-        postEventList.add(postEvent);
-        postEventList.add(postEvent);
-        postEventList.add(postEvent);
-
-        for (PostEvent post : postEventList) {
-            Log.e("Post Event :",post.getFullName());
-        }
+    private void initDataList(View view){
+        final IOSDialog iosDialog = new IOSDialog.Builder(view.getContext())
+                .setTitle("Getting Data")
+                .setTitleColorRes(R.color.gray)
+                .build();
+        service.getTimelineUser(view.getContext(),idUser,postEventList,iosDialog);
+//        postEventList = new ArrayList<>();
+//        PostEvent postEvent = new PostEvent();
+//            postEvent.setFullName("Aldi Pradana");
+//            postEvent.setStatus("Aku dan mobilku");
+//            postEvent.setTimeAndLocation("Yogyakarta");
+//            postEvent.setTotalLike(0);
+//            postEvent.setTotalComment(0);
+//        postEventList.add(postEvent);
+//        postEventList.add(postEvent);
+//        postEventList.add(postEvent);
+//        postEventList.add(postEvent);
+//        postEventList.add(postEvent);
+//        for (PostEvent post : postEventList) {
+//            Log.e("Post Event :",post.getFullName());
+//        }
     }
 
 }

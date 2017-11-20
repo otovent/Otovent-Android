@@ -11,6 +11,8 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.gmail.samehadar.iosdialog.IOSDialog;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -42,6 +44,12 @@ public class signup extends AppCompatActivity {
         lastName = (EditText) findViewById(R.id.last_name);
 
         progressDialog = new ProgressDialog(signup.this,R.style.AppTheme);
+
+        final IOSDialog iosDialog = new IOSDialog.Builder(signup.this)
+                .setTitle("Getting Data")
+                .setTitleColorRes(R.color.gray)
+                .build();
+
         service = new ServiceImpl();
 
         signinhere.setOnClickListener(new View.OnClickListener() {
@@ -63,7 +71,7 @@ public class signup extends AppCompatActivity {
                 postBody.put("last_name",lastName.getText().toString());
 
                 service.addOrEditUser("users/add-edit",
-                        postBody,signup.this,progressDialog);
+                        postBody,signup.this,iosDialog);
             }
         });
 
