@@ -21,11 +21,9 @@
                 android:id="@+id/layoutButtonAtas"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#009dd7"
+                android:background="@color/greyTitle"
                 android:orientation="horizontal"
-                android:layout_alignParentTop="true"
-                android:layout_toRightOf="@+id/photoUser"
-                android:layout_toEndOf="@+id/photoUser">
+                android:layout_alignParentTop="true">
 
                 <ImageView
                     android:id="@+id/imageView4"

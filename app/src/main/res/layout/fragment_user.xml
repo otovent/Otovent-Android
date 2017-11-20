@@ -10,7 +10,6 @@
         android:id="@+id/frameuser"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
         android:background="#eff2f7"
         android:orientation="vertical">
 
@@ -18,15 +17,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
                 android:layout_marginTop="150dp"
-                android:background="#D5DBDB">
+                android:background="@color/greyTitle">
 
                 <customfonts.MyTextView
                     android:id="@+id/user_address"
-                    android:layout_width="80dp"
+                    android:layout_width="184dp"
                     android:layout_height="20dp"
                     android:layout_marginEnd="30dp"
                     android:layout_marginStart="30dp"
                     android:layout_marginTop="5dp"
+                    android:textSize="8pt"
+                    android:textColor="@color/white"
                     android:text="address"
                     tools:ignore="HardcodedText" />
 
@@ -62,23 +63,40 @@
 
                 <customfonts.MyTextView
                     android:id="@+id/user_social"
-                    android:layout_width="80dp"
+                    android:layout_width="186dp"
                     android:layout_height="20dp"
                     android:layout_marginEnd="30dp"
                     android:layout_marginStart="30dp"
                     android:layout_marginTop="55dp"
                     android:text="Social"
+                    android:textSize="8pt"
+                    android:textColor="@color/white"
                     tools:ignore="HardcodedText" />
 
                 <customfonts.MyTextView
                     android:id="@+id/contact"
-                    android:layout_width="80dp"
+                    android:layout_width="185dp"
                     android:layout_height="20dp"
                     android:layout_marginEnd="30dp"
                     android:layout_marginStart="30dp"
                     android:layout_marginTop="30dp"
+                    android:textSize="8pt"
+                    android:textColor="@color/white"
                     android:text="Contact"
                     tools:ignore="HardcodedText" />
+
+                <android.support.design.widget.FloatingActionButton
+                    android:id="@+id/floatingActionButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignEnd="@+id/imageView"
+                    android:layout_alignRight="@+id/imageView"
+                    android:layout_alignTop="@+id/myTextView2"
+                    android:layout_gravity="right"
+                    app:backgroundTint="@color/white"
+                    android:clickable="true"
+                    app:fabSize="mini"
+                    app:srcCompat="@drawable/png_pencil" />
             </FrameLayout>
 
             <FrameLayout
@@ -91,9 +109,8 @@
                     android:id="@+id/user_job"
                     android:layout_width="140dp"
                     android:layout_height="20dp"
-                    android:layout_marginEnd="40dp"
-                    android:layout_marginStart="40dp"
                     android:layout_marginTop="110dp"
+                    android:background="@color/greyTitle"
                     android:text="Jobs"
                     android:textAlignment="center"
                     android:textColor="#FFFFFF"
@@ -104,14 +121,14 @@
                     android:id="@+id/user_name"
                     android:layout_width="208dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="80dp"
+                    android:layout_marginTop="70dp"
                     android:text="User Name"
                     android:textAlignment="center"
                     android:textColor="#FFFFFF"
-                    android:textSize="24sp"
+                    android:background="@color/greyTitle"
+                    android:textSize="14pt"
                     tools:ignore="HardcodedText" />
+
             </FrameLayout>
 
             <FrameLayout
@@ -126,6 +143,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/profile_pic"
+                    android:layout_marginRight="7dp"
                     tools:ignore="ContentDescription" />
             </FrameLayout>
 
@@ -136,25 +154,12 @@
                 android:columnWidth="100dp"
                 android:gravity="center"
                 android:layout_marginTop="230dp"
-                android:horizontalSpacing="10dp"
+                android:horizontalSpacing="0dp"
                 android:numColumns="auto_fit"
                 android:stretchMode="columnWidth"
-                android:verticalSpacing="10dp"
+                android:verticalSpacing="0dp"
+                android:adjustViewBounds="true"
                 />
-
-            <android.support.design.widget.FloatingActionButton
-                android:id="@+id/floatingActionButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:clickable="true"
-                app:fabSize="mini"
-                app:srcCompat="@drawable/png_pencil"
-                android:layout_alignTop="@+id/myTextView2"
-                android:layout_alignRight="@+id/imageView"
-                android:layout_alignEnd="@+id/imageView" />
-
-        </RelativeLayout>
 
     </RelativeLayout>
 

@@ -12,8 +12,11 @@ import android.view.ViewGroup;
 
 import android.project.techno.otovent_android.R;
 import android.widget.AdapterView;
+import android.widget.GridLayout;
 import android.widget.GridView;
 import android.widget.Toast;
+
+import com.gmail.samehadar.iosdialog.IOSDialog;
 
 import customfonts.MyTextView;
 
@@ -28,6 +31,7 @@ public class UserFragment extends Fragment {
     private Long idUser;
     private String fullName;
     private MyTextView userName;
+    private IOSDialog iosDialog;
 
     public UserFragment() {
         // Required empty public constructor
@@ -38,12 +42,15 @@ public class UserFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_user, container, false);
-
+        final IOSDialog iosDialog = new IOSDialog.Builder(view.getContext())
+                .setTitle("Getting Data")
+                .setTitleColorRes(R.color.gray)
+                .build();
         SharedPreferences credential = view.getContext().getSharedPreferences("user",MODE_PRIVATE);
         idUser = credential.getLong("ID",-1);
         fullName = credential.getString("firstName","NA") + " " +credential.getString("lastName","NA");
 
-        userName = (MyTextView) view.findViewById(R.id.myTextView);
+        userName = (MyTextView) view.findViewById(R.id.user_name);
         userName.setText(fullName);
         
         gridView = (GridView) view.findViewById(R.id.gridview);
