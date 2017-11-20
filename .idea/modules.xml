@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Android.iml" filepath="$PROJECT_DIR$/Android.iml" />
+      <module fileurl="file://D:\Otovent-Android\Android.iml" filepath="D:\Otovent-Android\Android.iml" />
       <module fileurl="file://$PROJECT_DIR$/Otovent-Android.iml" filepath="$PROJECT_DIR$/Otovent-Android.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Otovent-Android-feature-login-create-user.iml" filepath="$PROJECT_DIR$/Otovent-Android-feature-login-create-user.iml" />
+      <module fileurl="file://D:\Otovent-Android\Otovent-Android-feature-login-create-user.iml" filepath="D:\Otovent-Android\Otovent-Android-feature-login-create-user.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

@@ -1,4 +1,5 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -6,96 +7,140 @@
     tools:context="android.project.techno.otovent_android.menu.fragment.UserFragment">
 
     <RelativeLayout
+        android:id="@+id/frameuser"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:background="#eff2f7"
         android:orientation="vertical">
 
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:layout_marginTop="174dp"
-            android:background="#BFC9CA"
-            android:id="@+id/frameLayout2">
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_marginTop="150dp"
+                android:background="#D5DBDB">
 
-            <customfonts.MyTextView
-                android:layout_width="100dp"
-                android:layout_height="20dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginTop="5dp"
-                android:text="Racing"
-                android:textAlignment="center" />
+                <customfonts.MyTextView
+                    android:id="@+id/user_address"
+                    android:layout_width="80dp"
+                    android:layout_height="20dp"
+                    android:layout_marginEnd="30dp"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="5dp"
+                    android:text="address"
+                    tools:ignore="HardcodedText" />
 
-            <customfonts.MyTextView
-                android:layout_width="100dp"
-                android:layout_height="20dp"
-                android:layout_marginLeft="130dp"
-                android:layout_marginTop="5dp"
-                android:text="Convertible"
-                android:textAlignment="center" />
+                <ImageView
+                    android:id="@+id/user_address_icon"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="5dp"
+                    app:srcCompat="@drawable/new_address"
+                    tools:ignore="ContentDescription" />
 
-            <customfonts.MyTextView
-                android:layout_width="100dp"
-                android:layout_height="20dp"
-                android:layout_marginLeft="250dp"
-                android:layout_marginTop="5dp"
-                android:text="Coupe"
-                android:textAlignment="center" />
+                <ImageView
+                    android:id="@+id/user_contact_icon"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="30dp"
+                    app:srcCompat="@drawable/new_contact"
+                    tools:ignore="ContentDescription" />
 
+                <ImageView
+                    android:id="@+id/user_social_icon"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="55dp"
+                    app:srcCompat="@drawable/new_sosmed"
+                    tools:ignore="ContentDescription" />
 
-        </FrameLayout>
+                <customfonts.MyTextView
+                    android:id="@+id/user_social"
+                    android:layout_width="80dp"
+                    android:layout_height="20dp"
+                    android:layout_marginEnd="30dp"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="55dp"
+                    android:text="Social"
+                    tools:ignore="HardcodedText" />
 
-        <customfonts.MyTextView
-            android:id="@+id/myTitleGrid"
-            android:text="Gallery"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+                <customfonts.MyTextView
+                    android:id="@+id/contact"
+                    android:layout_width="80dp"
+                    android:layout_height="20dp"
+                    android:layout_marginEnd="30dp"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="30dp"
+                    android:text="Contact"
+                    tools:ignore="HardcodedText" />
+            </FrameLayout>
 
-        <GridView
-            android:id="@+id/gridview"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:columnWidth="90dp"
-            android:gravity="center"
-            android:horizontalSpacing="10dp"
-            android:numColumns="auto_fit"
-            android:stretchMode="columnWidth"
-            android:verticalSpacing="10dp"
-            android:layout_below="@+id/frameLayout2"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginTop="30dp" />
+            <FrameLayout
+                android:id="@+id/user_background"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:background="@drawable/pic_timeline1">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="174dp"
-            android:background="@drawable/pic_timeline1">
+                <customfonts.MyTextView
+                    android:id="@+id/user_job"
+                    android:layout_width="140dp"
+                    android:layout_height="20dp"
+                    android:layout_marginEnd="40dp"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginTop="110dp"
+                    android:text="Jobs"
+                    android:textAlignment="center"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18sp"
+                    tools:ignore="HardcodedText" />
 
-            <customfonts.MyTextView
-                android:id="@+id/myTextView2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="110dp"
-                android:text="Mod Car Enthusiast."
-                android:textColor="#FFFFFF" />
+                <customfonts.MyTextView
+                    android:id="@+id/user_name"
+                    android:layout_width="208dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="80dp"
+                    android:text="User Name"
+                    android:textAlignment="center"
+                    android:textColor="#FFFFFF"
+                    android:textSize="24sp"
+                    tools:ignore="HardcodedText" />
+            </FrameLayout>
 
-            <customfonts.MyTextView
-                android:id="@+id/myTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="80dp"
-                android:text="Andrew N."
-                android:textColor="#FFFFFF"
-                android:textSize="24dp" />
+            <FrameLayout
+                android:layout_width="120dp"
+                android:layout_height="140dp"
+                android:layout_marginEnd="225dp"
+                android:layout_marginStart="225dp"
+                android:layout_marginTop="50dp">
 
-            <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="122dp"
-                android:layout_height="98dp"
-                android:layout_marginLeft="200dp"
-                android:layout_marginTop="40dp"
-                app:srcCompat="@drawable/profile_pic" />
+                <ImageView
+                    android:id="@+id/user_profile"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/profile_pic"
+                    tools:ignore="ContentDescription" />
+            </FrameLayout>
+
+            <GridView
+                android:id="@+id/gridview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:columnWidth="100dp"
+                android:gravity="center"
+                android:layout_marginTop="230dp"
+                android:horizontalSpacing="10dp"
+                android:numColumns="auto_fit"
+                android:stretchMode="columnWidth"
+                android:verticalSpacing="10dp"
+                />
 
             <android.support.design.widget.FloatingActionButton
                 android:id="@+id/floatingActionButton"
@@ -113,4 +158,4 @@
 
     </RelativeLayout>
 
-</FrameLayout>
+</RelativeLayout>
