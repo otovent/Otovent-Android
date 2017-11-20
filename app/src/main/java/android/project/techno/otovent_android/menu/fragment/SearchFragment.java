@@ -4,7 +4,9 @@ import android.os.Bundle;
 import android.project.techno.otovent_android.API.Impl.ServiceImpl;
 import android.project.techno.otovent_android.API.Service;
 import android.project.techno.otovent_android.Adapter.SearchUserAdapter;
+import android.project.techno.otovent_android.Adapter.util.ClickListener;
 import android.project.techno.otovent_android.Adapter.util.DividerItemDecoration;
+import android.project.techno.otovent_android.Adapter.util.RecyclerTouchListener;
 import android.project.techno.otovent_android.R;
 import android.project.techno.otovent_android.model.SearchRequest;
 import android.support.v4.app.Fragment;
@@ -15,6 +17,7 @@ import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.gmail.samehadar.iosdialog.IOSDialog;
 
@@ -69,12 +72,26 @@ public class SearchFragment extends Fragment {
                 searchUserAdapter.notifyDataSetChanged();
                 return false;
             }
-
             @Override
             public boolean onQueryTextChange(String newText) {
                 return false;
             }
         });
+
+        recyclerView.addOnItemTouchListener(new RecyclerTouchListener(view.getContext(), recyclerView, new ClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                SearchRequest result = searchRequestList.get(position);
+                PeopleProfileFragment.user = result;
+                        PeopleProfileFragment peopleProfileFragment = new PeopleProfileFragment();
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.content,peopleProfileFragment,null)
+                        .commit();
+            }
+            @Override
+            public void onLongClick(View view, int position) {
+            }
+        }));
 
         return view;
     }
