@@ -6,5 +6,6 @@
     <color name="colortext">#100b20</color>
     <color name="colorhint">#ffffff</color>
     <color name="greyTitle">#00afef</color>
+    <color name="biruAsik">#008abc</color>
     <color name="hintComment">#dadada</color>
 </resources>
