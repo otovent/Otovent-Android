@@ -78,6 +78,9 @@ public class ServiceImpl implements Service{
                         SharedPreferences sp = callingClass.getSharedPreferences("user",Context.MODE_PRIVATE);
                         SharedPreferences.Editor ed = sp.edit();
                         ed.putLong("ID",userAuthed.getId());
+                        ed.putString("firstName",userAuthed.getFirstName());
+                        ed.putString("lastName",userAuthed.getLastName());
+                        ed.putString("email",userAuthed.getEmail());
                         ed.commit();
 
                         Intent it = new Intent(callingClass,BaseActivity.class);

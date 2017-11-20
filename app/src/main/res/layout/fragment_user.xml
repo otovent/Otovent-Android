@@ -65,18 +65,10 @@
             android:layout_alignParentStart="true"
             android:layout_marginTop="30dp" />
 
-        <FrameLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="174dp"
             android:background="@drawable/pic_timeline1">
-
-            <ImageView
-                android:id="@+id/logo_edit"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_marginLeft="340dp"
-                android:layout_marginTop="150dp"
-                android:background="@drawable/png_pencil" />
 
             <customfonts.MyTextView
                 android:id="@+id/myTextView2"
@@ -105,7 +97,19 @@
                 android:layout_marginTop="40dp"
                 app:srcCompat="@drawable/profile_pic" />
 
-        </FrameLayout>
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/floatingActionButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:clickable="true"
+                app:fabSize="mini"
+                app:srcCompat="@drawable/png_pencil"
+                android:layout_alignTop="@+id/myTextView2"
+                android:layout_alignRight="@+id/imageView"
+                android:layout_alignEnd="@+id/imageView" />
+
+        </RelativeLayout>
 
     </RelativeLayout>
 
