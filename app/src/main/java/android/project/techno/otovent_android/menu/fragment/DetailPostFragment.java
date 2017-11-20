@@ -13,6 +13,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,23 +37,22 @@ public class DetailPostFragment extends Fragment {
 
     public DetailPostFragment(){}
 
-    @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_detail_post,container,false);
+        final View view = inflater.inflate(R.layout.fragment_detail_post,container,false);
 
         service = new ServiceImpl();
-
         data = new ArrayList<>();
-
-        commentAdapter = new CommentAdapter(data);
 
         initData();
 
+        commentAdapter = new CommentAdapter(data);
         recyclerView = (RecyclerView) view.findViewById(R.id.recycleViewComment);
 
-        final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(view.getContext(),LinearLayoutManager.VERTICAL,true);
-        recyclerView.setLayoutManager(linearLayoutManager);
+        RecyclerView.LayoutManager layoutManager =
+                new LinearLayoutManager(view.getContext());
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.addItemDecoration(new DividerItemDecoration(view.getContext(),LinearLayoutManager.VERTICAL));
         recyclerView.setAdapter(commentAdapter);
@@ -63,12 +63,16 @@ public class DetailPostFragment extends Fragment {
     private void initData(){
         data = new ArrayList<>();
         Comment comment = new Comment();
-        comment.setCommentDescription("wkdoakwodkaodwkdoa");
-        comment.setUsername("Aldi Pradana");
+            comment.setCommentDescription("wkdoakwodkaodwkdoa");
+            comment.setUsername("Aldi Pradana");
 
         data.add(comment);
         data.add(comment);
         data.add(comment);
         data.add(comment);
+
+        for( Comment comments : data){
+            Log.e("Data Comment : ",comment.getCommentDescription());
+        }
     }
 }
