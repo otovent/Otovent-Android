@@ -165,9 +165,9 @@ public class BaseActivity extends AppCompatActivity {
                 case R.id.navigation_search:
                     switchToSearch();
                     return true;
-                case R.id.navigation_promoted_timeline:
-                    switchToDetailEvent();
-                    return true;
+//                case R.id.navigation_promoted_timeline:
+//                    switchToDetailEvent();
+//                    return true;
                 case R.id.navigation_notifications:
                     switchToNotification();
                     return true;

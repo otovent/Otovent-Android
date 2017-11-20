@@ -22,6 +22,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import android.project.techno.otovent_android.R;
+import android.widget.Button;
 import android.widget.ImageView;
 
 import com.gmail.samehadar.iosdialog.IOSDialog;
@@ -44,6 +45,8 @@ public class TimeLineFragment extends Fragment {
     private View root;
     private Long idUser;
 
+    private Button createPost,createEvent;
+
     public TimeLineFragment() {
         // Required empty public constructor
     }
@@ -58,6 +61,10 @@ public class TimeLineFragment extends Fragment {
 
         recyclerView = (RecyclerView) view.findViewById(R.id.recycleViewTimeline);
         swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipeRefreshTimeline);
+
+        createPost = (Button) view.findViewById(R.id.btnPost);
+        createEvent = (Button) view.findViewById(R.id.btnEvent);
+
         postEventList = new ArrayList<>();
 
         service = new ServiceImpl();
@@ -88,17 +95,27 @@ public class TimeLineFragment extends Fragment {
             }
         });
 
+        createPost.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CreatePostFragment createPostFragment = new CreatePostFragment();
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.content,createPostFragment,null)
+                        .commit();
+            }
+        });
 
-//        maps = (ImageView) view.findViewById(R.id.logo_maps);
-//        maps.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                DetailEventFragment detailEventFragment = new DetailEventFragment();
-//                getActivity().getSupportFragmentManager().beginTransaction()
-//                        .replace(R.id.content,detailEventFragment,null)
-//                        .commit();
-//            }
-//        });
+        createEvent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CreateEventFragment createEventFragment = new CreateEventFragment();
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.content,createEventFragment,null)
+                        .commit();
+            }
+        });
+
+
         return view;
     }
 
