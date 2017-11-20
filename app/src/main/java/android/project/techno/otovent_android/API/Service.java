@@ -36,4 +36,8 @@ public interface Service {
     void getUserCredential(Long id, final Context callingClass);
 
     void searchUser(final Context callingClass, String searchName, List<SearchRequest> resultData, IOSDialog iosDialog);
+
+    void createPost(final Context callingClass,final Long idUser, final Map<String,String> bodyCreatePost, final IOSDialog iosDialog);
+
+    void createEvent(final Context callingClass, Map<String,String> bodyCreatePost, final IOSDialog iosDialog);
 }

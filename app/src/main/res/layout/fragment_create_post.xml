@@ -4,65 +4,49 @@
     android:layout_height="match_parent"
     android:background="#eff2f7">
 
-    <customfonts.MyTextView
-        android:id="@+id/head"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="CREATE POST"
-        android:textColor="#177EE5"
-        android:textSize="34dp"
-        android:layout_marginLeft="10dp"
-        />
+        android:layout_marginRight="5dp">
+        <customfonts.MyTextView
+            android:id="@+id/head"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="CREATE POST"
+            android:textColor="#177EE5"
+            android:textSize="34dp"
+            android:layout_marginLeft="10dp"
+            />
 
-    <customfonts.MyEditText
-        android:id="@+id/title"
-        android:textSize="16dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Title"
-        android:layout_marginLeft="16dp"
-        android:textColorHint="#177EE5"
-        android:textColor="@color/colortext"
-        android:background="#0000"
-        android:paddingTop="66dp"
-        android:gravity="left"/>
+        <EditText
+            android:id="@+id/editText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/head"
+            android:layout_gravity="left|top"
+            android:layout_marginTop="15dp"
+            android:background="#ffffff"
+            android:hint="Description"
+            android:inputType="textMultiLine|textImeMultiLine"
+            android:textColor="#177EE5"
+            android:textSize="16dp"
+            android:layout_alignLeft="@+id/head"
+            android:layout_alignStart="@+id/head" />
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="56dp"
-        android:layout_height="1dp"
-        android:layout_marginBottom="25dp"
-        android:layout_marginTop="86dp"
-        android:background="#177EE5"/>
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="135dp"
-        android:inputType="textMultiLine"
-        android:layout_marginTop="100dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="56dp"
-        android:textSize="16dp"
-        android:hint="Description"
-        android:textColor="#177EE5"
-        android:id="@+id/editText"
-        android:layout_gravity="left|top"
-        android:background="#ffffff" />
-
-    <customfonts.MyTextView
-        android:id="@+id/post"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#2b73e1"
-        android:text="Post"
-        android:textSize="16dp"
-        android:textColor="#fff"
-        android:gravity="center"
-        android:layout_marginLeft="270dp"
-        android:layout_marginRight="10dp"
-        android:padding="5dp"
-        android:layout_marginTop="250dp"
-        android:layout_marginBottom="25dp"/>
+        <customfonts.MyTextView
+            android:layout_marginTop="16dp"
+            android:id="@+id/post"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#2b73e1"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="Post"
+            android:textColor="#fff"
+            android:textSize="16dp"
+            android:layout_below="@+id/editText"
+            android:layout_alignLeft="@+id/editText"
+            android:layout_alignStart="@+id/editText" />
+    </RelativeLayout>
 
 </FrameLayout>

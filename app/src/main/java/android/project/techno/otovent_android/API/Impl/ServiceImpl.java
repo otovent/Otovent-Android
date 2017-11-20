@@ -3,16 +3,18 @@ package android.project.techno.otovent_android.API.Impl;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.project.techno.otovent_android.API.Service;
+import android.project.techno.otovent_android.menu.fragment.TimeLineFragment;
 import android.project.techno.otovent_android.model.PostEvent;
 import android.project.techno.otovent_android.model.SearchRequest;
 import android.project.techno.otovent_android.model.UserRequest;
 import android.project.techno.otovent_android.R;
 import android.project.techno.otovent_android.menu.BaseActivity;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
@@ -400,6 +402,87 @@ public class ServiceImpl implements Service{
         };
         iosDialog.show();
         queue.add(getNotif);
+    }
+
+    @Override
+    public void createPost(final Context callingClass,final Long idUser, final Map<String,String> bodyCreatePost, final IOSDialog iosDialog) {
+        RequestQueue queue = Volley.newRequestQueue(callingClass);
+        Map<String, String> params = bodyCreatePost;
+
+        JsonObjectRequest requestLogin = new JsonObjectRequest(callingClass.getString(R.string.ENV_HOST_BACKEND) + "posts/add",
+                new JSONObject(params), new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    Toast.makeText(callingClass, response.getString("message"), Toast.LENGTH_SHORT).show();
+                    iosDialog.dismiss();
+                    TimeLineFragment timeLineFragment = new TimeLineFragment();
+                    FragmentActivity activity = (FragmentActivity) callingClass;
+                    activity.getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.content,timeLineFragment,null)
+                            .commit();
+                } catch (JSONException e) {
+                    Log.e("error",e.toString());
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(callingClass, error.toString(), Toast.LENGTH_SHORT).show();
+                Log.i("Result", error.toString());
+                iosDialog.dismiss();
+            }
+        }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String,String> headers = new HashMap<>();
+                headers.put("Content-type","application/json");
+                headers.put("id",idUser.toString());
+                return headers;
+            }
+        };
+        iosDialog.show();
+        queue.add(requestLogin);
+    }
+
+    @Override
+    public void createEvent(final Context callingClass, final Map<String, String> bodyCreatePost, final IOSDialog iosDialog) {
+        RequestQueue queue = Volley.newRequestQueue(callingClass);
+        Map<String, String> params = bodyCreatePost;
+
+        JsonObjectRequest requestLogin = new JsonObjectRequest(callingClass.getString(R.string.ENV_HOST_BACKEND) + "event/add",
+                new JSONObject(params), new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    Toast.makeText(callingClass, response.getString("message"), Toast.LENGTH_SHORT).show();
+                    iosDialog.dismiss();
+                    TimeLineFragment timeLineFragment = new TimeLineFragment();
+                    FragmentActivity activity = (FragmentActivity) callingClass;
+                    activity.getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.content,timeLineFragment,null)
+                            .commit();
+                } catch (JSONException e) {
+                    Log.e("error",e.toString());
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(callingClass, error.toString(), Toast.LENGTH_SHORT).show();
+                Log.i("Result", error.toString());
+                iosDialog.dismiss();
+            }
+        }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String,String> headers = new HashMap<>();
+                headers.put("Content-type","application/json");
+                return headers;
+            }
+        };
+        iosDialog.show();
+        queue.add(requestLogin);
     }
 }
 
