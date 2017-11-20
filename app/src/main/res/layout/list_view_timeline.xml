@@ -40,24 +40,28 @@
                 android:layout_alignRight="@+id/logo_love"
                 android:layout_alignEnd="@+id/logo_love" />
 
-            <customfonts.MyTextView
-                android:id="@+id/lokasi_user"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingTop="3dp"
-                android:text="tes"
-                android:layout_below="@+id/user_timeline"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_alignRight="@+id/nama_pengguna"
-                android:layout_alignEnd="@+id/nama_pengguna" />
+    <customfonts.MyTextView
+        android:id="@+id/lokasi_user"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/user_timeline"
+        android:paddingTop="3dp"
+        android:text="tes" />
 
-            <customfonts.MyTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="65dp"
-                android:text="tait aikjsdflakdjfjik uuuuuuiuuuuuu"
-                android:id="@+id/status" />
+    <customfonts.MyTextView
+        android:id="@+id/status"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="65dp"
+        android:text="tait aikjsdflakdjfjik uuuuuuiuuuuuu"
+        android:textColor="@color/common_google_signin_btn_text_dark_focused"
+        android:textSize="24sp" />
 
             <ImageView
                 android:layout_width="match_parent"

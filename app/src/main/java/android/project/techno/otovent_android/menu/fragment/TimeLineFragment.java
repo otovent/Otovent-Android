@@ -84,6 +84,7 @@ public class TimeLineFragment extends Fragment {
                 for (PostEvent postEvent : postEventList){
                     Log.e("List Post : ",postEvent.getFullName());
                 }
+                timelineAdapter.notifyDataSetChanged();
             }
         });
 
@@ -107,21 +108,6 @@ public class TimeLineFragment extends Fragment {
                 .setTitleColorRes(R.color.gray)
                 .build();
         service.getTimelineUser(view.getContext(),idUser,postEventList,iosDialog);
-//        postEventList = new ArrayList<>();
-//        PostEvent postEvent = new PostEvent();
-//            postEvent.setFullName("Aldi Pradana");
-//            postEvent.setStatus("Aku dan mobilku");
-//            postEvent.setTimeAndLocation("Yogyakarta");
-//            postEvent.setTotalLike(0);
-//            postEvent.setTotalComment(0);
-//        postEventList.add(postEvent);
-//        postEventList.add(postEvent);
-//        postEventList.add(postEvent);
-//        postEventList.add(postEvent);
-//        postEventList.add(postEvent);
-//        for (PostEvent post : postEventList) {
-//            Log.e("Post Event :",post.getFullName());
-//        }
     }
 
 }

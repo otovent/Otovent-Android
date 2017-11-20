@@ -36,5 +36,6 @@ dependencies {
     compile 'com.google.android.gms:play-services-maps:11.4.2'
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.gmail.samehadar:iosdialog:1.0'
+    compile 'com.github.droidbyme:DroidDialog:c6decc7167'
     testCompile 'junit:junit:4.12'
 }
