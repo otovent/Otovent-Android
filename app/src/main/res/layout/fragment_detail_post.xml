@@ -59,10 +59,12 @@
                         android:text="tes" />
 
                     <customfonts.MyTextView
+                        android:id="@+id/postDesc"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="65dp"
-                        android:text="tait aikjsdflakdjfjik uuuuuuiuuuuuu" />
+                        android:textSize="8pt"
+                        android:text="Your post desc" />
 
                     <ImageView
                         android:layout_width="match_parent"

@@ -40,4 +40,6 @@ public interface Service {
     void createPost(final Context callingClass,final Long idUser, final Map<String,String> bodyCreatePost, final IOSDialog iosDialog);
 
     void createEvent(final Context callingClass, Map<String,String> bodyCreatePost, final IOSDialog iosDialog);
+
+    void cekFriendship(final Context callingClass, Long idUser, Long idUserTarget, final IOSDialog iosDialog);
 }

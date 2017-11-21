@@ -146,7 +146,7 @@ public class ServiceImpl implements Service{
                             jsonObject = new JSONObject(response);
                             result = jsonObject.getJSONObject("result");
                             resultArray = result.getJSONArray("content");
-                            for (int i = 0 ; i < resultArray.length(); i++){
+                            for (int i = resultArray.length()-1 ; i >= 0; i--){
                                 JSONObject content = resultArray.getJSONObject(i);
                                 PostEvent postEvent = new PostEvent();
                                     postEvent.setFullName(content.getJSONObject("user").getString("firstName") + " " +content.getJSONObject("user").getString("lastName"));
@@ -484,6 +484,49 @@ public class ServiceImpl implements Service{
         };
         iosDialog.show();
         queue.add(requestLogin);
+    }
+
+    @Override
+    public void cekFriendship(final Context callingClass, final Long idUser, final Long idUserTarget, final IOSDialog iosDialog) {
+        RequestQueue queue = Volley.newRequestQueue(callingClass);
+
+        StringRequest getNotif = new StringRequest(Request.Method.GET, callingClass.getString(R.string.ENV_HOST_BACKEND) + "friends/cek/friendship/by/friend",
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        JSONObject jsonObject= null;
+                        JSONArray jsonArray = null;
+                        JSONObject result = null;
+                        JSONObject content = null;
+                        try {
+                            jsonObject = new JSONObject(response);
+                            jsonArray = jsonObject.getJSONArray("result");
+                            for (int i = 0 ; i<jsonArray.length(); i++) {
+
+                            }
+                            iosDialog.dismiss();
+                        } catch (JSONException e) {
+                            Log.e("Error Get Notification",e.toString());
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("Error Get Notification",error.toString());
+                iosDialog.dismiss();
+            }
+        }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String,String> headers = new HashMap<>();
+                headers.put("Content-type","application/json");
+                headers.put("idUser", idUser.toString());
+                headers.put("idFriend", idUserTarget.toString());
+                return headers;
+            }
+        };
+        iosDialog.show();
+        queue.add(getNotif);
     }
 }
 

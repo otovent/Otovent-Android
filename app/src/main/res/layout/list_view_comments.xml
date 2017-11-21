@@ -20,6 +20,7 @@
             android:background="@drawable/png_user" />
 
         <customfonts.MyTextView
+            android:paddingLeft="5dp"
             android:id="@+id/fullname_commentUser"
             android:layout_marginLeft="5dp"
             android:layout_width="match_parent"
@@ -34,16 +35,18 @@
             android:textColorHint="@color/hintComment" />
 
         <customfonts.MyTextView
+            android:paddingLeft="5dp"
             android:id="@+id/commentUser"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/fullname_commentUser"
             android:layout_toEndOf="@+id/profPic_commentedUser"
-            android:layout_toRightOf="@+id/profPic_commentedUser"
             android:textSize="20dp"
             android:hint="Their Comment"
             android:background="@color/greyTitle"
             android:textColor="@color/white"
-            android:textColorHint="@color/hintComment" />
+            android:textColorHint="@color/hintComment"
+            android:layout_alignLeft="@+id/fullname_commentUser"
+            android:layout_alignStart="@+id/fullname_commentUser" />
     </RelativeLayout>
 </RelativeLayout>

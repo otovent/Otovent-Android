@@ -28,6 +28,7 @@ public class PeopleProfileFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_people_profile, container, false);
         fullname = (MyTextView) view.findViewById(R.id.myTextView);
         fullname.setText(user.getSearchName());
+
         return view;
     }
 }

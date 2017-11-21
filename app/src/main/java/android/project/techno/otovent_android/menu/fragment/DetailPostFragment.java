@@ -17,11 +17,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.gmail.samehadar.iosdialog.IOSDialog;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import customfonts.MyTextView;
 
 /**
  * Created by root on 21/11/17.
@@ -34,6 +37,9 @@ public class DetailPostFragment extends Fragment {
     private IOSDialog iosDialog;
     private RecyclerView recyclerView;
     private CommentAdapter commentAdapter;
+    private ImageView logoMaps;
+    private MyTextView user;
+    private MyTextView post;
 
     public DetailPostFragment(){}
 
@@ -43,6 +49,13 @@ public class DetailPostFragment extends Fragment {
 
         service = new ServiceImpl();
         data = new ArrayList<>();
+
+        logoMaps = (ImageView) view.findViewById(R.id.logo_maps);
+        user = (MyTextView) view.findViewById(R.id.nama_pengguna);
+        post = (MyTextView) view.findViewById(R.id.postDesc);
+
+        user.setText(postEvent.getFullName());
+        post.setText(postEvent.getStatus());
 
         initData();
 
@@ -56,6 +69,16 @@ public class DetailPostFragment extends Fragment {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.addItemDecoration(new DividerItemDecoration(view.getContext(),LinearLayoutManager.VERTICAL));
         recyclerView.setAdapter(commentAdapter);
+
+        logoMaps.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DetailEventFragment detailEventFragment = new DetailEventFragment();
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.content,detailEventFragment,null)
+                        .commit();
+            }
+        });
 
         return view;
     }
