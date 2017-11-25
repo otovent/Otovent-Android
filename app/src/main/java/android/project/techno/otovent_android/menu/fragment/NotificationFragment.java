@@ -1,5 +1,6 @@
 package android.project.techno.otovent_android.menu.fragment;
 
+import android.app.Dialog;
 import android.app.NotificationManager;
 import android.content.SharedPreferences;
 import android.project.techno.otovent_android.API.Impl.ServiceImpl;
@@ -21,6 +22,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
+
+import com.droidbyme.dialoglib.DroidDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -67,9 +70,35 @@ public class NotificationFragment extends Fragment{
 
         recyclerView.addOnItemTouchListener(new RecyclerTouchListener(view.getContext(), recyclerView, new ClickListener() {
             @Override
-            public void onClick(View view, int position) {
-                notificationList.get(position);
-                Toast.makeText(view.getContext(), "wulullulu + "+position, Toast.LENGTH_SHORT).show();
+            public void onClick(final View view, int position) {
+                Notification notification = notificationList.get(position);
+                if (notification.getType().equalsIgnoreCase("FRIEND_REQUEST")){
+//                    Toast.makeText(view.getContext(), "Friend Request", Toast.LENGTH_SHORT).show();
+                    new DroidDialog.Builder(view.getContext())
+                            .icon(R.drawable.add_user)
+                            .title("Accept or Reject ?")
+                            .content("Someone Added you to his/her friend.")
+                            .cancelable(true, true)
+                            .positiveButton("Accept", new DroidDialog.onPositiveListener() {
+                                @Override
+                                public void onPositive(Dialog dialog) {
+                                    Toast.makeText(view.getContext(), "Accepted", Toast.LENGTH_SHORT).show();
+                                }
+                            })
+                            .negativeButton("Reject", new DroidDialog.onNegativeListener() {
+                                @Override
+                                public void onNegative(Dialog dialog) {
+                                    Toast.makeText(view.getContext(), "Rejected", Toast.LENGTH_SHORT).show();
+                                }
+                            })
+                            .neutralButton("View Requester", new DroidDialog.onNeutralListener() {
+                                @Override
+                                public void onNeutral(Dialog dialog) {
+                                    Toast.makeText(view.getContext(), "View", Toast.LENGTH_SHORT).show();
+                                }
+                            })
+                            .show();
+                }
             }
             @Override
             public void onLongClick(View view, int position) {

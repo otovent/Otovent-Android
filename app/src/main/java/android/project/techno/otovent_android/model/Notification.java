@@ -8,6 +8,7 @@ public class Notification {
     private String imgUrl;
     private String notificationDate;
     private String message;
+    private String type;
 
     public Notification(){}
 
@@ -39,5 +40,13 @@ public class Notification {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

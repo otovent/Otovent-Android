@@ -15,6 +15,7 @@ import android.project.techno.otovent_android.model.SearchRequest;
 import android.project.techno.otovent_android.model.UserRequest;
 import android.project.techno.otovent_android.R;
 import android.project.techno.otovent_android.menu.BaseActivity;
+import android.project.techno.otovent_android.signin;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.NotificationCompat;
@@ -119,13 +120,13 @@ public class ServiceImpl implements Service{
                 new JSONObject(postBody), new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                Toast.makeText(callingClass, response.toString(), Toast.LENGTH_SHORT).show();
                 progressDialog.dismiss();
+                Intent back = new Intent(callingClass.getApplicationContext(),signin.class);
+                callingClass.startActivity(back);
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(callingClass, "Tes Failed", Toast.LENGTH_SHORT).show();
                 Log.i("Result", error.toString());
                 progressDialog.dismiss();
             }
@@ -284,9 +285,10 @@ public class ServiceImpl implements Service{
 
                                 if(notif.getString("notificationDependency").equalsIgnoreCase("COMMENT"))
                                     message = "You Have New Comment from your friend";
-                                else
-                                    message = "You Have New Likes from your friend";
+                                else if (notif.getString("notificationDependency").equalsIgnoreCase("FRIEND_REQUEST"))
+                                    message = "You Have New Friend Request";
                                 obj.setMessage(message);
+                                obj.setType(notif.getString("notificationDependency"));
                                 data.add(obj);
                             }
                             swipeRefreshLayout.setRefreshing(false);
