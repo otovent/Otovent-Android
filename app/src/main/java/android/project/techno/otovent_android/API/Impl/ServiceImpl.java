@@ -560,8 +560,8 @@ public class ServiceImpl implements Service{
     public void addFriend(final Context callingClass, final Long idUser, final Long idUserTarget, final IOSDialog iosDialog) {
         RequestQueue queue = Volley.newRequestQueue(callingClass);
         Map<String, String> params = new HashMap<>();
-        params.put("idUser",idUser.toString());
-        params.put("idTarget",idUserTarget.toString());
+        params.put("user",idUser.toString());
+        params.put("friend",idUserTarget.toString());
 
         JsonObjectRequest requestLogin = new JsonObjectRequest(callingClass.getString(R.string.ENV_HOST_BACKEND) + "friends/add",
                 new JSONObject(params), new Response.Listener<JSONObject>() {
@@ -578,6 +578,7 @@ public class ServiceImpl implements Service{
                             .commit();
                 } catch (JSONException e) {
                     Log.e("error",e.toString());
+                    iosDialog.dismiss();
                 }
             }
         }, new Response.ErrorListener() {

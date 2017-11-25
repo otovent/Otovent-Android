@@ -44,7 +44,7 @@ public class PeopleProfileFragment extends Fragment {
         service = new ServiceImpl();
 
         SharedPreferences credential = view.getContext().getSharedPreferences("user",MODE_PRIVATE);
-        Long idUser = credential.getLong("ID",-1);
+        final Long idUser = credential.getLong("ID",-1);
 
 
         final IOSDialog iosDialog = new IOSDialog.Builder(view.getContext())
@@ -61,21 +61,32 @@ public class PeopleProfileFragment extends Fragment {
             buttonAddFriend.setText("Add Friend");
             buttonAddFriend.setBackgroundColor(view.getResources().getColor(R.color.greyTitle));
             buttonAddFriend.setClickable(true);
+            buttonAddFriend.setEnabled(true);
         } else {
             if (BaseActivity.statusFriendsip.equalsIgnoreCase("TO_CONFIRM")){
                 buttonAddFriend.setText("Requested");
                 buttonAddFriend.setBackgroundColor(view.getResources().getColor(R.color.gray));
                 buttonAddFriend.setClickable(false);
+                buttonAddFriend.setEnabled(false);
             } else if (BaseActivity.statusFriendsip.equalsIgnoreCase("ACCEPTED")) {
                 buttonAddFriend.setText("Already Your Friend");
                 buttonAddFriend.setBackgroundColor(view.getResources().getColor(R.color.color1));
                 buttonAddFriend.setClickable(false);
+                buttonAddFriend.setEnabled(false);
             } else if (BaseActivity.statusFriendsip.equalsIgnoreCase("REJECTED")){
                 buttonAddFriend.setText("Add Friend");
                 buttonAddFriend.setBackgroundColor(view.getResources().getColor(R.color.greyTitle));
                 buttonAddFriend.setClickable(true);
+                buttonAddFriend.setEnabled(true);
             }
         }
+
+        buttonAddFriend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                service.addFriend(v.getContext(),idUser,user.getId(),iosDialog);
+            }
+        });
         return view;
     }
 }
