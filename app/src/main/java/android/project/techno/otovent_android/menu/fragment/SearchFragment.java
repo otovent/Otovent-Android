@@ -1,5 +1,6 @@
 package android.project.techno.otovent_android.menu.fragment;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.project.techno.otovent_android.API.Impl.ServiceImpl;
 import android.project.techno.otovent_android.API.Service;
@@ -23,6 +24,8 @@ import com.gmail.samehadar.iosdialog.IOSDialog;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static android.content.Context.MODE_PRIVATE;
 
 
 /**
@@ -81,12 +84,15 @@ public class SearchFragment extends Fragment {
         recyclerView.addOnItemTouchListener(new RecyclerTouchListener(view.getContext(), recyclerView, new ClickListener() {
             @Override
             public void onClick(View view, int position) {
+                SharedPreferences credential = view.getContext().getSharedPreferences("user",MODE_PRIVATE);
+                Long idUser = credential.getLong("ID",-1);
+                final IOSDialog iosDialog = new IOSDialog.Builder(view.getContext())
+                        .setTitle("Getting Data")
+                        .setTitleColorRes(R.color.gray)
+                        .build();
                 SearchRequest result = searchRequestList.get(position);
                 PeopleProfileFragment.user = result;
-                        PeopleProfileFragment peopleProfileFragment = new PeopleProfileFragment();
-                getActivity().getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.content,peopleProfileFragment,null)
-                        .commit();
+                service.cekFriendship(view.getContext(),idUser,result.getId(),iosDialog);
             }
             @Override
             public void onLongClick(View view, int position) {

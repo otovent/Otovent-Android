@@ -7,6 +7,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.project.techno.otovent_android.API.Service;
+import android.project.techno.otovent_android.menu.fragment.PeopleProfileFragment;
+import android.project.techno.otovent_android.menu.fragment.SearchFragment;
 import android.project.techno.otovent_android.menu.fragment.TimeLineFragment;
 import android.project.techno.otovent_android.model.PostEvent;
 import android.project.techno.otovent_android.model.SearchRequest;
@@ -44,14 +46,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.SimpleFormatter;
 
+import static android.content.Context.MODE_PRIVATE;
+
 
 /**
  * Created by root on 20/10/17.
  */
 
 public class ServiceImpl implements Service{
-    private static Long firstIdNotificationToCheckPushNotification = 0L;
-    private static Boolean resultCekFriendship = Boolean.FALSE;
+    public static Long firstIdNotificationToCheckPushNotification = 0L;
 
     @Override
     public void authToBackend(String endpoint, String username, String password, final Context callingClass, final IOSDialog progressDialog) {
@@ -485,7 +488,7 @@ public class ServiceImpl implements Service{
     }
 
     @Override
-    public Boolean cekFriendship(final Context callingClass, final Long idUser, final Long idUserTarget, final IOSDialog iosDialog) {
+    public void cekFriendship(final Context callingClass, final Long idUser, final Long idUserTarget, final IOSDialog iosDialog) {
         RequestQueue queue = Volley.newRequestQueue(callingClass);
 
         StringRequest getNotif = new StringRequest(Request.Method.GET, callingClass.getString(R.string.ENV_HOST_BACKEND) + "friends/cek/friendship/by/friend",
@@ -494,25 +497,50 @@ public class ServiceImpl implements Service{
                     public void onResponse(String response) {
                         JSONObject jsonObject= null;
                         JSONArray jsonArray = null;
-                        JSONObject result = null;
-                        JSONObject content = null;
                         try {
                             jsonObject = new JSONObject(response);
                             jsonArray = jsonObject.getJSONArray("result");
-                            if (jsonArray == null)
-                                ServiceImpl.resultCekFriendship = Boolean.FALSE;
-                            else
-                                ServiceImpl.resultCekFriendship = Boolean.TRUE;
+                            if (jsonArray == null) {
+                                BaseActivity.friendship = Boolean.FALSE;
+                                BaseActivity.statusFriendsip = "";
+                            }
+                            else {
+                                String friendShipStatus = jsonArray.getJSONObject(0).getString("friendshipStatus");
+                                BaseActivity.friendship = Boolean.TRUE;
+                                BaseActivity.statusFriendsip = friendShipStatus;
+                            }
                             iosDialog.dismiss();
+
+                            PeopleProfileFragment peopleProfileFragment = new PeopleProfileFragment();
+                            FragmentActivity activity = (FragmentActivity) callingClass;
+                            activity.getSupportFragmentManager().beginTransaction()
+                                    .replace(R.id.content,peopleProfileFragment,null)
+                                    .commit();
+
                         } catch (JSONException e) {
+                            BaseActivity.friendship = Boolean.FALSE;
+                            BaseActivity.statusFriendsip = "";
                             Log.e("Error Get Notification",e.toString());
+                            iosDialog.dismiss();
+                            PeopleProfileFragment peopleProfileFragment = new PeopleProfileFragment();
+                            FragmentActivity activity = (FragmentActivity) callingClass;
+                            activity.getSupportFragmentManager().beginTransaction()
+                                    .replace(R.id.content,peopleProfileFragment,null)
+                                    .commit();
                         }
                     }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.e("Error Get Notification",error.toString());
+                BaseActivity.friendship = Boolean.FALSE;
+                BaseActivity.statusFriendsip = "";
                 iosDialog.dismiss();
+                PeopleProfileFragment peopleProfileFragment = new PeopleProfileFragment();
+                FragmentActivity activity = (FragmentActivity) callingClass;
+                activity.getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.content,peopleProfileFragment,null)
+                        .commit();
             }
         }){
             @Override
@@ -526,7 +554,49 @@ public class ServiceImpl implements Service{
         };
         iosDialog.show();
         queue.add(getNotif);
-        return ServiceImpl.resultCekFriendship;
+    }
+
+    @Override
+    public void addFriend(final Context callingClass, final Long idUser, final Long idUserTarget, final IOSDialog iosDialog) {
+        RequestQueue queue = Volley.newRequestQueue(callingClass);
+        Map<String, String> params = new HashMap<>();
+        params.put("idUser",idUser.toString());
+        params.put("idTarget",idUserTarget.toString());
+
+        JsonObjectRequest requestLogin = new JsonObjectRequest(callingClass.getString(R.string.ENV_HOST_BACKEND) + "friends/add",
+                new JSONObject(params), new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    Toast.makeText(callingClass, response.getString("message"), Toast.LENGTH_SHORT).show();
+                    iosDialog.dismiss();
+                    Toast.makeText(callingClass, "Sended Friend Request", Toast.LENGTH_SHORT).show();
+                    TimeLineFragment timeLineFragment = new TimeLineFragment();
+                    FragmentActivity activity = (FragmentActivity) callingClass;
+                    activity.getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.content,timeLineFragment,null)
+                            .commit();
+                } catch (JSONException e) {
+                    Log.e("error",e.toString());
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(callingClass, error.toString(), Toast.LENGTH_SHORT).show();
+                Log.i("Result", error.toString());
+                iosDialog.dismiss();
+            }
+        }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String,String> headers = new HashMap<>();
+                headers.put("Content-type","application/json");
+                return headers;
+            }
+        };
+        iosDialog.show();
+        queue.add(requestLogin);
     }
 }
 

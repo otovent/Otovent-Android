@@ -36,6 +36,8 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class BaseActivity extends AppCompatActivity {
+    public static Boolean friendship = Boolean.FALSE;
+    public static String statusFriendsip = "";
     NotificationManager notificationManager;
     Service service;
     Timer timer;

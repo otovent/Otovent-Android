@@ -20,6 +20,7 @@ import java.util.Objects;
  */
 
 public interface Service {
+
     void authToBackend(String endpoint, String username, String password, final Context callingClass, final IOSDialog progressDialog);
 
     void addOrEditUser(String endpoint, Map<String, String> postBody, final Context callingClass,
@@ -41,5 +42,7 @@ public interface Service {
 
     void createEvent(final Context callingClass, Map<String,String> bodyCreatePost, final IOSDialog iosDialog);
 
-    Boolean cekFriendship(final Context callingClass, Long idUser, Long idUserTarget, final IOSDialog iosDialog);
+    void cekFriendship(final Context callingClass, Long idUser, Long idUserTarget, final IOSDialog iosDialog);
+
+    void addFriend(final Context callClass, Long idUser, Long IdUserTarget, final IOSDialog iosDialog);
 }
