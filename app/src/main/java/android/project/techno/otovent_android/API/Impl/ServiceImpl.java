@@ -51,6 +51,7 @@ import java.util.logging.SimpleFormatter;
 
 public class ServiceImpl implements Service{
     private static Long firstIdNotificationToCheckPushNotification = 0L;
+    private static Boolean resultCekFriendship = Boolean.FALSE;
 
     @Override
     public void authToBackend(String endpoint, String username, String password, final Context callingClass, final IOSDialog progressDialog) {
@@ -204,9 +205,6 @@ public class ServiceImpl implements Service{
     public void getNotificationForUserFromBackend(final Long idUser, final Context context, final NotificationManager notificationManager, final String valueFragmentToGo,
                                                   final String title, final String message){
         RequestQueue queue = Volley.newRequestQueue(context);
-
-//        DateFormat df = new SimpleDateFormat("dd-mm-yyyy");
-//        final String dateRequested = df.format(new Date());
 
         StringRequest getNotif = new StringRequest(Request.Method.GET, context.getString(R.string.ENV_HOST_BACKEND) + "notification/get/new",
                 new Response.Listener<String>() {
@@ -487,7 +485,7 @@ public class ServiceImpl implements Service{
     }
 
     @Override
-    public void cekFriendship(final Context callingClass, final Long idUser, final Long idUserTarget, final IOSDialog iosDialog) {
+    public Boolean cekFriendship(final Context callingClass, final Long idUser, final Long idUserTarget, final IOSDialog iosDialog) {
         RequestQueue queue = Volley.newRequestQueue(callingClass);
 
         StringRequest getNotif = new StringRequest(Request.Method.GET, callingClass.getString(R.string.ENV_HOST_BACKEND) + "friends/cek/friendship/by/friend",
@@ -501,9 +499,10 @@ public class ServiceImpl implements Service{
                         try {
                             jsonObject = new JSONObject(response);
                             jsonArray = jsonObject.getJSONArray("result");
-                            for (int i = 0 ; i<jsonArray.length(); i++) {
-
-                            }
+                            if (jsonArray == null)
+                                ServiceImpl.resultCekFriendship = Boolean.FALSE;
+                            else
+                                ServiceImpl.resultCekFriendship = Boolean.TRUE;
                             iosDialog.dismiss();
                         } catch (JSONException e) {
                             Log.e("Error Get Notification",e.toString());
@@ -527,6 +526,7 @@ public class ServiceImpl implements Service{
         };
         iosDialog.show();
         queue.add(getNotif);
+        return ServiceImpl.resultCekFriendship;
     }
 }
 

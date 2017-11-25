@@ -41,5 +41,5 @@ public interface Service {
 
     void createEvent(final Context callingClass, Map<String,String> bodyCreatePost, final IOSDialog iosDialog);
 
-    void cekFriendship(final Context callingClass, Long idUser, Long idUserTarget, final IOSDialog iosDialog);
+    Boolean cekFriendship(final Context callingClass, Long idUser, Long idUserTarget, final IOSDialog iosDialog);
 }
