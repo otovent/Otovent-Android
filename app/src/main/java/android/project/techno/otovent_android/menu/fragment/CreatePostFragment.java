@@ -1,7 +1,11 @@
 package android.project.techno.otovent_android.menu.fragment;
 
 
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.project.techno.otovent_android.API.Impl.ServiceImpl;
 import android.project.techno.otovent_android.API.Service;
@@ -10,14 +14,18 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import com.gmail.samehadar.iosdialog.IOSDialog;
 
+import java.io.ByteArrayOutputStream;
 import java.util.HashMap;
 
 import customfonts.MyTextView;
 
+import static android.app.Activity.RESULT_OK;
 import static android.content.Context.MODE_PRIVATE;
 
 /**
@@ -25,13 +33,37 @@ import static android.content.Context.MODE_PRIVATE;
  */
 public class CreatePostFragment extends Fragment {
     private Service service;
-    private EditText status;
+    private EditText status,linkUrlImage;
+    private Button btnUpload;
     private MyTextView btnPost,btnBack;
     private Long idUser;
+    private boolean flag;
+    private ImageView uploadPicture;
+    private byte[] fileImageUpload;
 
     public CreatePostFragment(){
 
     }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case 101:
+                if (resultCode == RESULT_OK && null != data) {
+                    Uri selectedImage = data.getData();
+                    linkUrlImage.setText(selectedImage.toString());
+                    uploadPicture.setImageURI(selectedImage);
+
+                    Bitmap bitmap = ((BitmapDrawable) uploadPicture.getDrawable()).getBitmap();
+                    ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+                    bitmap.compress(Bitmap.CompressFormat.JPEG,100,byteArrayOutputStream);
+                    fileImageUpload = byteArrayOutputStream.toByteArray();
+
+                }
+        }
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState){
@@ -44,6 +76,9 @@ public class CreatePostFragment extends Fragment {
         status = (EditText) view.findViewById(R.id.editText);
         btnPost = (MyTextView) view.findViewById(R.id.post);
         btnBack = (MyTextView) view.findViewById(R.id.back);
+        btnUpload = (Button) view.findViewById(R.id.Upload);
+        uploadPicture = new ImageView(view.getContext());
+        linkUrlImage = (EditText) view.findViewById(R.id.linkUpload);
 
         btnPost.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,7 +90,7 @@ public class CreatePostFragment extends Fragment {
                         .setTitle("Getting Data")
                         .setTitleColorRes(R.color.gray)
                         .build();
-                service.createPost(v.getContext(),idUser,postBody,iosDialog);
+                service.createPost(v.getContext(),idUser,postBody,fileImageUpload,iosDialog);
             }
         });
 
@@ -68,6 +103,17 @@ public class CreatePostFragment extends Fragment {
                         .commit();
             }
         });
+
+        btnUpload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent it = new Intent(Intent.ACTION_PICK,
+                        android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+                startActivityForResult(it, 101);
+                flag = true;
+            }
+        });
+
         return view;
     }
 }

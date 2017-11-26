@@ -59,16 +59,16 @@ public class DetailPostFragment extends Fragment {
 
         initData();
 
-        commentAdapter = new CommentAdapter(data);
-        recyclerView = (RecyclerView) view.findViewById(R.id.recycleViewComment);
-
-        RecyclerView.LayoutManager layoutManager =
-                new LinearLayoutManager(view.getContext());
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.addItemDecoration(new DividerItemDecoration(view.getContext(),LinearLayoutManager.VERTICAL));
-        recyclerView.setAdapter(commentAdapter);
+//        commentAdapter = new CommentAdapter(data);
+//        recyclerView = (RecyclerView) view.findViewById(R.id.recycleViewComment);
+//
+//        RecyclerView.LayoutManager layoutManager =
+//                new LinearLayoutManager(view.getContext());
+//        recyclerView.setHasFixedSize(true);
+//        recyclerView.setLayoutManager(layoutManager);
+//        recyclerView.setItemAnimator(new DefaultItemAnimator());
+//        recyclerView.addItemDecoration(new DividerItemDecoration(view.getContext(),LinearLayoutManager.VERTICAL));
+//        recyclerView.setAdapter(commentAdapter);
 
         logoMaps.setOnClickListener(new View.OnClickListener() {
             @Override

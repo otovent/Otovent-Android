@@ -418,7 +418,7 @@ public class ServiceImpl implements Service{
     }
 
     @Override
-    public void createPost(final Context callingClass,final Long idUser, final Map<String,String> bodyCreatePost, final IOSDialog iosDialog) {
+    public void createPost(final Context callingClass,final Long idUser, final Map<String,String> bodyCreatePost, final byte[] ImgUpload,final IOSDialog iosDialog) {
         RequestQueue queue = Volley.newRequestQueue(callingClass);
         Map<String, String> params = bodyCreatePost;
 
@@ -428,7 +428,10 @@ public class ServiceImpl implements Service{
             public void onResponse(JSONObject response) {
                 try {
                     Toast.makeText(callingClass, response.getString("message"), Toast.LENGTH_SHORT).show();
+                    Long id = response.getJSONArray("result").getJSONObject(0).getLong("id");
+                    photoUpload(callingClass,id,ImgUpload,"EVENTS",iosDialog);
                     iosDialog.dismiss();
+
                     TimeLineFragment timeLineFragment = new TimeLineFragment();
                     FragmentActivity activity = (FragmentActivity) callingClass;
                     activity.getSupportFragmentManager().beginTransaction()
@@ -459,7 +462,7 @@ public class ServiceImpl implements Service{
     }
 
     @Override
-    public void createEvent(final Context callingClass, final Map<String, String> bodyCreatePost, final IOSDialog iosDialog) {
+    public void createEvent(final Context callingClass, final Map<String, String> bodyCreatePost, final byte[] ImgUpload, final IOSDialog iosDialog) {
         RequestQueue queue = Volley.newRequestQueue(callingClass);
         Map<String, String> params = bodyCreatePost;
 
@@ -469,6 +472,9 @@ public class ServiceImpl implements Service{
             public void onResponse(JSONObject response) {
                 try {
                     Toast.makeText(callingClass, response.getString("message"), Toast.LENGTH_SHORT).show();
+                    Long id = response.getJSONArray("result").getJSONObject(0).getLong("id");
+                    photoUpload(callingClass,id,ImgUpload,"EVENTS",iosDialog);
+
                     iosDialog.dismiss();
                     TimeLineFragment timeLineFragment = new TimeLineFragment();
                     FragmentActivity activity = (FragmentActivity) callingClass;
@@ -689,6 +695,60 @@ public class ServiceImpl implements Service{
                 Map<String,String> headers = new HashMap<>();
                 headers.put("Content-type","application/json");
                 return headers;
+            }
+        };
+        iosDialog.show();
+        queue.add(requestLogin);
+    }
+
+    @Override
+    public void photoUpload(final Context callingClass, Long idPostEvent, final byte[] imgUpload, final String typeUpload, final IOSDialog iosDialog) {
+        RequestQueue queue = Volley.newRequestQueue(callingClass);
+        JSONObject params = new JSONObject();
+        try {
+            params.put("id",idPostEvent);
+            params.put("typeUpload",typeUpload);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        JsonObjectRequest requestLogin = new JsonObjectRequest(callingClass.getString(R.string.ENV_HOST_BACKEND) + "image/upload",
+                params, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    Toast.makeText(callingClass, response.getString("message"), Toast.LENGTH_SHORT).show();
+                    iosDialog.dismiss();
+                    TimeLineFragment timeLineFragment = new TimeLineFragment();
+                    FragmentActivity activity = (FragmentActivity) callingClass;
+                    activity.getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.content,timeLineFragment,null)
+                            .commit();
+                } catch (JSONException e) {
+                    Log.e("error",e.toString());
+                    iosDialog.dismiss();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(callingClass, error.toString(), Toast.LENGTH_SHORT).show();
+                Log.i("Result", error.toString());
+                iosDialog.dismiss();
+            }
+        }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String,String> headers = new HashMap<>();
+                headers.put("Content-type","application/json");
+                return headers;
+            }
+
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> params = new HashMap<>();
+                params.put("uploadFile",imgUpload.toString());
+                return params;
             }
         };
         iosDialog.show();
