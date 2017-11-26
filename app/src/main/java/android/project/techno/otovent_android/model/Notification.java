@@ -5,6 +5,8 @@ package android.project.techno.otovent_android.model;
  */
 
 public class Notification {
+    private Long id;
+    private Long idTarget;
     private String imgUrl;
     private String notificationDate;
     private String message;
@@ -48,5 +50,21 @@ public class Notification {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getIdTarget() {
+        return idTarget;
+    }
+
+    public void setIdTarget(Long idTarget) {
+        this.idTarget = idTarget;
     }
 }

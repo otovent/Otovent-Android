@@ -45,4 +45,8 @@ public interface Service {
     void cekFriendship(final Context callingClass, Long idUser, Long idUserTarget, final IOSDialog iosDialog);
 
     void addFriend(final Context callClass, Long idUser, Long IdUserTarget, final IOSDialog iosDialog);
+
+    void confirmFriend(final Context callClass, Long idFriendship, final IOSDialog iosDialog);
+
+    void rejectFriend(final Context callClass, Long idFriendship, final IOSDialog iosDialog);
 }

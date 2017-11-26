@@ -1,5 +1,6 @@
 package android.project.techno.otovent_android.API.Impl;
 
+import android.app.Activity;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -71,7 +72,7 @@ public class ServiceImpl implements Service{
                 progressDialog.dismiss();
                 try {
                     String result = response.getString("message");
-                    Toast.makeText(callingClass, result, Toast.LENGTH_SHORT).show();
+
                     if (result.equalsIgnoreCase("Success Login")){
                         UserRequest userAuthed = new UserRequest();
                         JSONObject user = response.getJSONArray("result").getJSONObject(0);
@@ -91,7 +92,12 @@ public class ServiceImpl implements Service{
                         ed.commit();
 
                         Intent it = new Intent(callingClass,BaseActivity.class);
+                        it.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        it.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         callingClass.startActivity(it);
+
+                        Activity activity = (Activity) callingClass;
+                        activity.finish();
                     } else {
                         Toast.makeText(callingClass, "User or Password Not Correct", Toast.LENGTH_SHORT).show();
                     }
@@ -102,7 +108,6 @@ public class ServiceImpl implements Service{
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(callingClass, error.toString(), Toast.LENGTH_SHORT).show();
                 Log.i("Result", error.toString());
                 progressDialog.dismiss();
             }
@@ -270,7 +275,7 @@ public class ServiceImpl implements Service{
                             jsonObject = new JSONObject(response);
                             result = jsonObject.getJSONObject("result");
                             content = result.getJSONArray("content");
-                            for (int i=0;i<content.length();i++){
+                            for (int i=content.length()-1;i>=0;i--){
                                 String message = "";
                                 JSONObject notif = content.getJSONObject(i);
                                 android.project.techno.otovent_android.model.Notification obj
@@ -289,6 +294,10 @@ public class ServiceImpl implements Service{
                                     message = "You Have New Friend Request";
                                 obj.setMessage(message);
                                 obj.setType(notif.getString("notificationDependency"));
+                                obj.setId(notif.getLong("id"));
+                                Long id = notif.getLong("idPostEvent");
+                                if (id != null)
+                                    obj.setIdTarget(notif.getLong("idPostEvent"));
                                 data.add(obj);
                             }
                             swipeRefreshLayout.setRefreshing(false);
@@ -573,6 +582,90 @@ public class ServiceImpl implements Service{
                     Toast.makeText(callingClass, response.getString("message"), Toast.LENGTH_SHORT).show();
                     iosDialog.dismiss();
                     Toast.makeText(callingClass, "Sended Friend Request", Toast.LENGTH_SHORT).show();
+                    TimeLineFragment timeLineFragment = new TimeLineFragment();
+                    FragmentActivity activity = (FragmentActivity) callingClass;
+                    activity.getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.content,timeLineFragment,null)
+                            .commit();
+                } catch (JSONException e) {
+                    Log.e("error",e.toString());
+                    iosDialog.dismiss();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(callingClass, error.toString(), Toast.LENGTH_SHORT).show();
+                Log.i("Result", error.toString());
+                iosDialog.dismiss();
+            }
+        }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String,String> headers = new HashMap<>();
+                headers.put("Content-type","application/json");
+                return headers;
+            }
+        };
+        iosDialog.show();
+        queue.add(requestLogin);
+    }
+
+    @Override
+    public void confirmFriend(final Context callingClass, Long idFriendship, final IOSDialog iosDialog) {
+        RequestQueue queue = Volley.newRequestQueue(callingClass);
+        Map<String, String> params = new HashMap<>();
+        params.put("id",idFriendship.toString());
+
+        JsonObjectRequest requestLogin = new JsonObjectRequest(callingClass.getString(R.string.ENV_HOST_BACKEND) + "friends/confirm",
+                new JSONObject(params), new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    Toast.makeText(callingClass, response.getString("message"), Toast.LENGTH_SHORT).show();
+                    iosDialog.dismiss();
+                    TimeLineFragment timeLineFragment = new TimeLineFragment();
+                    FragmentActivity activity = (FragmentActivity) callingClass;
+                    activity.getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.content,timeLineFragment,null)
+                            .commit();
+                } catch (JSONException e) {
+                    Log.e("error",e.toString());
+                    iosDialog.dismiss();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(callingClass, error.toString(), Toast.LENGTH_SHORT).show();
+                Log.i("Result", error.toString());
+                iosDialog.dismiss();
+            }
+        }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String,String> headers = new HashMap<>();
+                headers.put("Content-type","application/json");
+                return headers;
+            }
+        };
+        iosDialog.show();
+        queue.add(requestLogin);
+    }
+
+    @Override
+    public void rejectFriend(final Context callingClass, Long idFriendship, final IOSDialog iosDialog) {
+        RequestQueue queue = Volley.newRequestQueue(callingClass);
+        Map<String, String> params = new HashMap<>();
+        params.put("id",idFriendship.toString());
+
+        JsonObjectRequest requestLogin = new JsonObjectRequest(callingClass.getString(R.string.ENV_HOST_BACKEND) + "friends/reject",
+                new JSONObject(params), new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    Toast.makeText(callingClass, response.getString("message"), Toast.LENGTH_SHORT).show();
+                    iosDialog.dismiss();
                     TimeLineFragment timeLineFragment = new TimeLineFragment();
                     FragmentActivity activity = (FragmentActivity) callingClass;
                     activity.getSupportFragmentManager().beginTransaction()

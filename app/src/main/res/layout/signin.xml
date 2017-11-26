@@ -48,16 +48,19 @@
 
         <customfonts.MyEditText
             android:id="@+id/email"
-            android:textSize="16dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Email"
             android:layout_marginLeft="46dp"
-            android:textColorHint="@color/black"
-            android:textColor="@color/colortext"
             android:background="#0000"
+            android:gravity="left"
+            android:hint="Email"
+            android:inputType="textEmailAddress"
             android:padding="16dp"
-            android:gravity="left"/>
+            android:selectAllOnFocus="false"
+            android:singleLine="true"
+            android:textColor="@color/colortext"
+            android:textColorHint="@color/black"
+            android:textSize="16dp" />
 
         <View
             android:layout_width="match_parent"

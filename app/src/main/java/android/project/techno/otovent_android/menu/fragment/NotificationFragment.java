@@ -10,13 +10,16 @@ import android.project.techno.otovent_android.Adapter.util.ClickListener;
 import android.project.techno.otovent_android.Adapter.util.DividerItemDecoration;
 import android.project.techno.otovent_android.Adapter.util.RecyclerTouchListener;
 import android.project.techno.otovent_android.model.Notification;
+import android.project.techno.otovent_android.model.SearchRequest;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.project.techno.otovent_android.R;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +27,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.droidbyme.dialoglib.DroidDialog;
+import com.gmail.samehadar.iosdialog.IOSDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -68,12 +72,17 @@ public class NotificationFragment extends Fragment{
         recyclerView.addItemDecoration(new DividerItemDecoration(view.getContext(),LinearLayoutManager.VERTICAL));
         recyclerView.setAdapter(notificationAdapter);
 
+        final IOSDialog iosDialog = new IOSDialog.Builder(view.getContext())
+                .setTitle("Getting Data")
+                .setTitleColorRes(R.color.gray)
+                .build();
+
         recyclerView.addOnItemTouchListener(new RecyclerTouchListener(view.getContext(), recyclerView, new ClickListener() {
             @Override
             public void onClick(final View view, int position) {
-                Notification notification = notificationList.get(position);
+                final Notification notification = notificationList.get(position);
+                Log.e("Id",notification.getIdTarget().toString());
                 if (notification.getType().equalsIgnoreCase("FRIEND_REQUEST")){
-//                    Toast.makeText(view.getContext(), "Friend Request", Toast.LENGTH_SHORT).show();
                     new DroidDialog.Builder(view.getContext())
                             .icon(R.drawable.add_user)
                             .title("Accept or Reject ?")
@@ -82,19 +91,30 @@ public class NotificationFragment extends Fragment{
                             .positiveButton("Accept", new DroidDialog.onPositiveListener() {
                                 @Override
                                 public void onPositive(Dialog dialog) {
-                                    Toast.makeText(view.getContext(), "Accepted", Toast.LENGTH_SHORT).show();
+//                                    Toast.makeText(view.getContext(), "Accepted", Toast.LENGTH_SHORT).show();
+                                    service.confirmFriend(view.getContext(),notification.getIdTarget(),iosDialog);
+                                    dialog.dismiss();
                                 }
                             })
                             .negativeButton("Reject", new DroidDialog.onNegativeListener() {
                                 @Override
                                 public void onNegative(Dialog dialog) {
-                                    Toast.makeText(view.getContext(), "Rejected", Toast.LENGTH_SHORT).show();
+                                    service.rejectFriend(view.getContext(),notification.getIdTarget(),iosDialog);
+                                    dialog.dismiss();
                                 }
                             })
                             .neutralButton("View Requester", new DroidDialog.onNeutralListener() {
                                 @Override
                                 public void onNeutral(Dialog dialog) {
-                                    Toast.makeText(view.getContext(), "View", Toast.LENGTH_SHORT).show();
+//                                    Toast.makeText(view.getContext(), "View", Toast.LENGTH_SHORT).show();
+                                    SearchRequest searchRequest = new SearchRequest();
+                                    searchRequest.setId(notification.getIdTarget());
+                                    PeopleProfileFragment.user =searchRequest;
+                                    PeopleProfileFragment peopleProfileFragment = new PeopleProfileFragment();
+                                    getActivity().getSupportFragmentManager().beginTransaction()
+                                            .replace(R.id.content,peopleProfileFragment,null)
+                                            .commit();
+                                    dialog.dismiss();
                                 }
                             })
                             .show();
