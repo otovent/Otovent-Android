@@ -3,6 +3,7 @@ package android.project.techno.otovent_android.API;
 import android.app.NotificationManager;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.project.techno.otovent_android.model.EventModel;
 import android.project.techno.otovent_android.model.Notification;
 import android.project.techno.otovent_android.model.PostEvent;
 import android.project.techno.otovent_android.model.SearchRequest;
@@ -51,4 +52,6 @@ public interface Service {
     void rejectFriend(final Context callClass, Long idFriendship, final IOSDialog iosDialog);
 
     void photoUpload(final Context callingClass, Long idPostEvent, final String imgUpload, final String typeUpload, final IOSDialog iosDialog);
+
+    EventModel getEventModel(final Context callingClass, Long idEvent, final IOSDialog iosDialog);
 }

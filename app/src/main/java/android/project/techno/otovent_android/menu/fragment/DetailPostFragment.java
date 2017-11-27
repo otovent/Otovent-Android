@@ -50,7 +50,7 @@ public class DetailPostFragment extends Fragment {
         service = new ServiceImpl();
         data = new ArrayList<>();
 
-        logoMaps = (ImageView) view.findViewById(R.id.logo_maps);
+//        logoMaps = (ImageView) view.findViewById(R.id.logo_maps);
         user = (MyTextView) view.findViewById(R.id.nama_pengguna);
         post = (MyTextView) view.findViewById(R.id.postDesc);
 
@@ -59,26 +59,26 @@ public class DetailPostFragment extends Fragment {
 
         initData();
 
-//        commentAdapter = new CommentAdapter(data);
-//        recyclerView = (RecyclerView) view.findViewById(R.id.recycleViewComment);
-//
-//        RecyclerView.LayoutManager layoutManager =
-//                new LinearLayoutManager(view.getContext());
-//        recyclerView.setHasFixedSize(true);
-//        recyclerView.setLayoutManager(layoutManager);
-//        recyclerView.setItemAnimator(new DefaultItemAnimator());
-//        recyclerView.addItemDecoration(new DividerItemDecoration(view.getContext(),LinearLayoutManager.VERTICAL));
-//        recyclerView.setAdapter(commentAdapter);
+        commentAdapter = new CommentAdapter(data);
+        recyclerView = (RecyclerView) view.findViewById(R.id.recycleViewComment);
 
-        logoMaps.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DetailEventFragment detailEventFragment = new DetailEventFragment();
-                getActivity().getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.content,detailEventFragment,null)
-                        .commit();
-            }
-        });
+        RecyclerView.LayoutManager layoutManager =
+                new LinearLayoutManager(view.getContext());
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.addItemDecoration(new DividerItemDecoration(view.getContext(),LinearLayoutManager.VERTICAL));
+        recyclerView.setAdapter(commentAdapter);
+
+//        logoMaps.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                DetailEventFragment detailEventFragment = new DetailEventFragment();
+//                getActivity().getSupportFragmentManager().beginTransaction()
+//                        .replace(R.id.content,detailEventFragment,null)
+//                        .commit();
+//            }
+//        });
 
         return view;
     }

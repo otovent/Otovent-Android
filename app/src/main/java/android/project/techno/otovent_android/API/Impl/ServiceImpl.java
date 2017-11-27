@@ -8,9 +8,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.project.techno.otovent_android.API.Service;
+import android.project.techno.otovent_android.menu.fragment.DetailEventFragment;
 import android.project.techno.otovent_android.menu.fragment.PeopleProfileFragment;
 import android.project.techno.otovent_android.menu.fragment.SearchFragment;
 import android.project.techno.otovent_android.menu.fragment.TimeLineFragment;
+import android.project.techno.otovent_android.model.EventModel;
 import android.project.techno.otovent_android.model.PostEvent;
 import android.project.techno.otovent_android.model.SearchRequest;
 import android.project.techno.otovent_android.model.UserRequest;
@@ -33,6 +35,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.gmail.samehadar.iosdialog.IOSDialog;
+import com.google.android.gms.maps.model.LatLng;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -165,6 +168,7 @@ public class ServiceImpl implements Service{
                             for (int i = resultArray.length()-1 ; i >= 0; i--){
                                 JSONObject content = resultArray.getJSONObject(i);
                                 PostEvent postEvent = new PostEvent();
+                                    postEvent.setId(content.getLong("id"));
                                     postEvent.setFullName(content.getJSONObject("user").getString("firstName") + " " +content.getJSONObject("user").getString("lastName"));
                                     postEvent.setTimeAndLocation("Temporary Not Located");
                                     postEvent.setStatus(content.getString("description"));
@@ -774,6 +778,60 @@ public class ServiceImpl implements Service{
         };
         iosDialog.show();
         queue.add(requestLogin);
+    }
+
+    @Override
+    public EventModel getEventModel(final Context callingClass, final Long idEvent, final IOSDialog iosDialog) {
+        RequestQueue queue = Volley.newRequestQueue(callingClass);
+        StringRequest getNotif = new StringRequest(Request.Method.GET, callingClass.getString(R.string.ENV_HOST_BACKEND) + "event/get",
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        JSONObject jsonObject= null;
+                        JSONArray jsonArray = null;
+                        JSONObject result = null;
+                        JSONObject content = null;
+                        try {
+                            jsonObject = new JSONObject(response);
+                            content = jsonObject.getJSONArray("result").getJSONObject(0);
+
+                            DetailEventFragment.eventModel.setId(content.getLong("id"));
+                            JSONObject contentUser = content.getJSONObject("user");
+                            DetailEventFragment.eventModel.setNama(contentUser.getString("firstName")+" "+contentUser.getString("lastName"));
+                            DetailEventFragment.eventModel.setStatus(content.getString("description"));
+                            DetailEventFragment.eventModel.setLatLng(new LatLng(
+                                    Double.parseDouble(content.getString("latitude")),
+                                    Double.parseDouble(content.getString("longitude"))));
+                            Log.e("Event Id LangLat",DetailEventFragment.eventModel.toString());
+                            iosDialog.dismiss();
+
+                            DetailEventFragment detailEventFragment = new DetailEventFragment();
+                            FragmentActivity activity = (FragmentActivity) callingClass;
+                            activity.getSupportFragmentManager().beginTransaction()
+                                    .replace(R.id.content, detailEventFragment,null)
+                                    .commit();
+                        } catch (JSONException e) {
+                            Log.e("Error Get Notification",e.toString());
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("Error Get Notification",error.toString());
+                iosDialog.dismiss();
+            }
+        }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String,String> headers = new HashMap<>();
+                headers.put("Content-type","application/json");
+                headers.put("idEvent", idEvent.toString());
+                return headers;
+            }
+        };
+        iosDialog.show();
+        queue.add(getNotif);
+        return DetailEventFragment.eventModel;
     }
 }
 

@@ -3,6 +3,9 @@ package android.project.techno.otovent_android.menu.fragment;
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.project.techno.otovent_android.API.Impl.ServiceImpl;
+import android.project.techno.otovent_android.API.Service;
+import android.project.techno.otovent_android.model.EventModel;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -12,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.gmail.samehadar.iosdialog.IOSDialog;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -24,14 +28,19 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import customfonts.MyTextView;
+
 /**
  * Created by N-REW on 03/11/2017.
  */
 public class DetailEventFragment extends Fragment {
+    public static EventModel eventModel = new EventModel();
     MapView mMapView;
+    private MyTextView fullname,status;
     private GoogleMap googleMap;
     private Circle mCircle;
     private Marker mMarker;
+    private Service service;
 
     public DetailEventFragment() {
     }
@@ -41,13 +50,15 @@ public class DetailEventFragment extends Fragment {
                              Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_detail_event, container, false);
 
+        fullname = (MyTextView) view.findViewById(R.id.EventFullUserName);
+        status = (MyTextView) view.findViewById(R.id.EventStatus);
+
+        fullname.setText(DetailEventFragment.eventModel.getNama());
+        status.setText(DetailEventFragment.eventModel.getStatus());
+
         mMapView = (MapView) view.findViewById(R.id.mapView);
         mMapView.onCreate(savedInstanceState);
         mMapView.onResume();
-
-        final double mLatitude = -34;
-        final double mLongitude = 151;
-
 
         try {
             MapsInitializer.initialize(getActivity().getApplicationContext());
@@ -74,7 +85,7 @@ public class DetailEventFragment extends Fragment {
                 googleMap.setMyLocationEnabled(true);
 
                 // For dropping a marker at a point on the Map
-                LatLng sydney = new LatLng(mLatitude,mLongitude);
+                LatLng sydney = DetailEventFragment.eventModel.getLatLng();
                 googleMap.addMarker(new MarkerOptions().position(sydney).title("Marker Title").snippet("Marker Description"));
 
                 // For zooming automatically to the location of the marker

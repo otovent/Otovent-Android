@@ -11,6 +11,7 @@ import android.project.techno.otovent_android.Adapter.util.ClickListener;
 import android.project.techno.otovent_android.Adapter.util.DividerItemDecoration;
 import android.project.techno.otovent_android.Adapter.util.RecyclerTouchListener;
 import android.project.techno.otovent_android.menu.BaseActivity;
+import android.project.techno.otovent_android.model.EventModel;
 import android.project.techno.otovent_android.model.Notification;
 import android.project.techno.otovent_android.model.PostEvent;
 import android.support.v4.app.Fragment;
@@ -122,12 +123,21 @@ public class TimeLineFragment extends Fragment {
             @Override
             public void onClick(View view, int position) {
                 PostEvent postEvent = postEventList.get(position);
-                DetailPostFragment.postEvent = postEvent;
 
-                DetailPostFragment detailPostFragment = new DetailPostFragment();
-                getActivity().getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.content,detailPostFragment,null)
-                        .commit();
+                if (postEvent.getTypePostEvent().equalsIgnoreCase("POST")) {
+                    DetailPostFragment.postEvent = postEvent;
+                    DetailPostFragment detailPostFragment = new DetailPostFragment();
+                    getActivity().getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.content, detailPostFragment, null)
+                            .commit();
+                } else if (postEvent.getTypePostEvent().equalsIgnoreCase("EVENT")){
+                    final IOSDialog iosDialog = new IOSDialog.Builder(view.getContext())
+                            .setTitle("Getting Data")
+                            .setTitleColorRes(R.color.gray)
+                            .build();
+                    Log.e("ID EVENT", postEvent.getId().toString());
+                    service.getEventModel(view.getContext(),postEvent.getId(),iosDialog);
+                }
             }
             @Override
             public void onLongClick(View view, int position) {

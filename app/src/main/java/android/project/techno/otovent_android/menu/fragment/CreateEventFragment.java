@@ -127,7 +127,7 @@ public class CreateEventFragment extends Fragment {
                         .setTitle("Getting Data")
                         .setTitleColorRes(R.color.gray)
                         .build();
-//                service.createEvent(v.getContext(),bodyEvent,iosDialog);
+                service.createEvent(v.getContext(),bodyEvent,fileImageUploadString,iosDialog);
             }
         });
 
