@@ -17,6 +17,8 @@ import android.project.techno.otovent_android.menu.fragment.NotificationFragment
 import android.project.techno.otovent_android.menu.fragment.SearchFragment;
 import android.project.techno.otovent_android.menu.fragment.TimeLineFragment;
 import android.project.techno.otovent_android.menu.fragment.UserFragment;
+import android.project.techno.otovent_android.model.EventModel;
+import android.project.techno.otovent_android.model.PostEvent;
 import android.project.techno.otovent_android.model.UserRequest;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -30,17 +32,21 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.gmail.samehadar.iosdialog.IOSDialog;
 import com.google.android.gms.maps.model.LatLng;
 
+import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class BaseActivity extends AppCompatActivity {
+    private static ArrayList<EventModel> eventModels = new ArrayList<>();
     public static Boolean friendship = Boolean.FALSE;
     public static String statusFriendsip = "";
     NotificationManager notificationManager;
     Service service;
     Timer timer;
+    private Long idUser;
     LocationManager mLocationManager;
     public static UserRequest userLogged = new UserRequest();
     private TextView mTextMessage;
@@ -52,11 +58,14 @@ public class BaseActivity extends AppCompatActivity {
         service = new ServiceImpl();
 
         SharedPreferences credential = getSharedPreferences("user",MODE_PRIVATE);
-        final Long idUser = credential.getLong("ID",-1);
+        idUser = credential.getLong("ID",-1);
 
         if (idUser!=-1){
             service.getUserCredential(idUser,BaseActivity.this);
         }
+
+        //Run Service once to get
+        service.getAllEvents(getApplicationContext(),eventModels,idUser);
 
         mLocationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 
@@ -70,10 +79,12 @@ public class BaseActivity extends AppCompatActivity {
             // for ActivityCompat#requestPermissions for more details.
             return;
         }
-        mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 0, new LocationListener() {
+        mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 0, new LocationListener() {
                     @Override
                     public void onLocationChanged(Location location) {
-                        hitungJarak(location,new LatLng(-31,151),500);
+                        for(EventModel event : eventModels){
+                            hitungJarak(location,event.getLatLng(),500);
+                        }
                     }
 
                     @Override
@@ -190,8 +201,9 @@ public class BaseActivity extends AppCompatActivity {
 //            Toast.makeText(this, "Kowadkwaodkowakdodkawowk lu diluar", Toast.LENGTH_SHORT).show();
             Log.e("wkadowdka","diluar");
         } else {
-            Toast.makeText(this, "Kowadkwaodkowakdodkawowk lu didialem", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, "Kowadkwaodkowakdodkawowk lu didialem", Toast.LENGTH_SHORT).show();
             Log.e("wkadowdka","didalam");
+            service.pushNotificationForBase(BaseActivity.this,notificationManager,"notification","Event Alert","New Event are around you !");
         }
     }
 }

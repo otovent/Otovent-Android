@@ -12,6 +12,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 
 import com.gmail.samehadar.iosdialog.IOSDialog;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -60,4 +61,9 @@ public interface Service {
     void postComment(final Context callingClass, Long idPost, Long idUser, String comment, final IOSDialog iosDialog);
 
     void readNotification(final Context callingClass, Long idPost, final IOSDialog iosDialog);
+
+    void getAllEvents(final Context callingClass, ArrayList<EventModel> eventModels, Long idPost);
+
+    void pushNotificationForBase(Context context, NotificationManager notificationManager,String valueFragmentToGo,
+                                        String title, String message);
 }

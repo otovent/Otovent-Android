@@ -959,6 +959,107 @@ public class ServiceImpl implements Service{
         iosDialog.show();
         queue.add(requestLogin);
     }
+
+    @Override
+    public void getAllEvents(final Context callingClass, final ArrayList<EventModel> eventModels, final Long idUser) {
+        RequestQueue queue = Volley.newRequestQueue(callingClass);
+
+        StringRequest getNotif = new StringRequest(Request.Method.GET, callingClass.getString(R.string.ENV_HOST_BACKEND) + "users/get/timeline",
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        JSONObject jsonObject= null;
+                        JSONObject result = null;
+                        JSONArray resultArray = null;
+                        try {
+                            jsonObject = new JSONObject(response);
+                            result = jsonObject.getJSONObject("result");
+                            resultArray = result.getJSONArray("content");
+                            for (int i = 0 ; i < resultArray.length(); i++){
+                                JSONObject content = resultArray.getJSONObject(i);
+                                if (content.getString("tipePostEvent").equalsIgnoreCase("EVENT")){
+                                    Long idEvent = content.getLong("id");
+                                    getEventForBaseActivity(callingClass,eventModels,idEvent);
+                                }
+                            }
+                        } catch (JSONException e) {
+                            Log.e("Error Get Notification",e.toString());
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("Error Get Notification",error.toString());
+            }
+        }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String,String> headers = new HashMap<>();
+                headers.put("Content-type","application/json");
+                headers.put("idUser",idUser.toString());
+                return headers;
+            }
+        };
+        queue.add(getNotif);
+    }
+
+    private void getEventForBaseActivity(final Context callingClass, final ArrayList<EventModel> data, final Long idEvent){
+        RequestQueue queue = Volley.newRequestQueue(callingClass);
+        StringRequest getNotif = new StringRequest(Request.Method.GET, callingClass.getString(R.string.ENV_HOST_BACKEND) + "event/get",
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        JSONObject jsonObject= null;
+                        JSONArray jsonArray = null;
+                        JSONObject result = null;
+                        JSONObject content = null;
+                        try {
+                            jsonObject = new JSONObject(response);
+                            content = jsonObject.getJSONArray("result").getJSONObject(0);
+
+                            EventModel eventModel = new EventModel();
+                            eventModel.setId(content.getLong("id"));
+                            JSONObject contentUser = content.getJSONObject("user");
+                            eventModel.setNama(contentUser.getString("firstName")+" "+contentUser.getString("lastName"));
+                            eventModel.setStatus(content.getString("description"));
+                            eventModel.setLatLng(new LatLng(
+                                    Double.parseDouble(content.getString("latitude")),
+                                    Double.parseDouble(content.getString("longitude"))));
+                            data.add(eventModel);
+                        } catch (JSONException e) {
+                            Log.e("Error Get Notification",e.toString());
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("Error Get Notification",error.toString());
+            }
+        }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String,String> headers = new HashMap<>();
+                headers.put("Content-type","application/json");
+                headers.put("idEvent", idEvent.toString());
+                return headers;
+            }
+        };
+        queue.add(getNotif);
+    }
+
+    @Override
+    public void pushNotificationForBase(Context context, NotificationManager notificationManager,String valueFragmentToGo,
+                                 String title, String message) {
+        notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+
+        Notification notificationChannel = new NotificationCompat.Builder(context)
+                .setContentText(message)
+                .setContentTitle(title)
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setVibrate(new long[]{100, 200, 300, 200, 100})
+                .build();
+        notificationManager.notify(1,notificationChannel);
+    }
 }
 
 
