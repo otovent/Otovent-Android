@@ -60,6 +60,8 @@ public interface Service {
 
     void postComment(final Context callingClass, Long idPost, Long idUser, String comment, final IOSDialog iosDialog);
 
+    void deleteComment(final Context callingClass, Long idComment, final IOSDialog iosDialog);
+
     void readNotification(final Context callingClass, Long idPost, final IOSDialog iosDialog);
 
     void getAllEvents(final Context callingClass, ArrayList<EventModel> eventModels, Long idPost);

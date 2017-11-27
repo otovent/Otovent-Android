@@ -1,5 +1,6 @@
 package android.project.techno.otovent_android.menu.fragment;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -29,6 +30,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.droidbyme.dialoglib.DroidDialog;
 import com.gmail.samehadar.iosdialog.IOSDialog;
 
 import java.util.ArrayList;
@@ -140,7 +142,27 @@ public class TimeLineFragment extends Fragment {
                 }
             }
             @Override
-            public void onLongClick(View view, int position) {
+            public void onLongClick(View view, final int position) {
+                new DroidDialog.Builder(view.getContext())
+                        .icon(R.drawable.add_user)
+                        .title("Delete Post")
+                        .content("Do you want to delete this ?")
+                        .cancelable(true, true)
+                        .positiveButton("Yes", new DroidDialog.onPositiveListener() {
+                            @Override
+                            public void onPositive(Dialog dialog) {
+                                postEventList.remove(position);
+                                timelineAdapter.notifyDataSetChanged();
+                                dialog.dismiss();
+                            }
+                        })
+                        .negativeButton("No", new DroidDialog.onNegativeListener() {
+                            @Override
+                            public void onNegative(Dialog dialog) {
+                                dialog.dismiss();
+                            }
+                        })
+                        .show();
             }
         }));
 

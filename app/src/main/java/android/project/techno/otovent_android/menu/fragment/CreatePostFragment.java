@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.gmail.samehadar.iosdialog.IOSDialog;
 
@@ -84,15 +85,19 @@ public class CreatePostFragment extends Fragment {
         btnPost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                HashMap<String,String> postBody = new HashMap<String, String>();
-                postBody.put("description",status.getText().toString());
+                if (status.getText().toString().isEmpty()){
+                    Toast.makeText(v.getContext(), "Please Fill Your Description", Toast.LENGTH_SHORT).show();
+                } else {
+                    HashMap<String, String> postBody = new HashMap<String, String>();
+                    postBody.put("description", status.getText().toString());
 
-                final IOSDialog iosDialog = new IOSDialog.Builder(v.getContext())
-                        .setTitle("Getting Data")
-                        .setTitleColorRes(R.color.gray)
-                        .build();
+                    final IOSDialog iosDialog = new IOSDialog.Builder(v.getContext())
+                            .setTitle("Getting Data")
+                            .setTitleColorRes(R.color.gray)
+                            .build();
 //                service.createPost(v.getContext(),idUser,postBody,fileImageUpload,iosDialog);
-                service.createPost(v.getContext(),idUser,postBody,fileImageUploadString,iosDialog);
+                    service.createPost(v.getContext(), idUser, postBody, fileImageUploadString, iosDialog);
+                }
             }
         });
 

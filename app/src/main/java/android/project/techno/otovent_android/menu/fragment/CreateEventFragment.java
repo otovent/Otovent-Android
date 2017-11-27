@@ -22,6 +22,7 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.gmail.samehadar.iosdialog.IOSDialog;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -117,17 +118,23 @@ public class CreateEventFragment extends Fragment {
         btnPost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                HashMap<String, String> bodyEvent = new HashMap<String, String>();
-                bodyEvent.put("idUser", idUser.toString());
-                bodyEvent.put("name", title.getText().toString());
-                bodyEvent.put("description", status.getText().toString());
-                bodyEvent.put("longitude", longitude.getText().toString());
-                bodyEvent.put("latitude", latitude.getText().toString());
-                final IOSDialog iosDialog = new IOSDialog.Builder(view.getContext())
-                        .setTitle("Getting Data")
-                        .setTitleColorRes(R.color.gray)
-                        .build();
-                service.createEvent(v.getContext(),bodyEvent,fileImageUploadString,iosDialog);
+                if (title.getText().toString().isEmpty() || status.getText().toString().isEmpty()
+                        || longitude.getText().toString().isEmpty() || latitude.getText().toString().isEmpty()) {
+                    Toast.makeText(v.getContext(), "Please Fill All Needed Data Event", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    HashMap<String, String> bodyEvent = new HashMap<String, String>();
+                    bodyEvent.put("idUser", idUser.toString());
+                    bodyEvent.put("name", title.getText().toString());
+                    bodyEvent.put("description", status.getText().toString());
+                    bodyEvent.put("longitude", longitude.getText().toString());
+                    bodyEvent.put("latitude", latitude.getText().toString());
+                    final IOSDialog iosDialog = new IOSDialog.Builder(view.getContext())
+                            .setTitle("Getting Data")
+                            .setTitleColorRes(R.color.gray)
+                            .build();
+                    service.createEvent(v.getContext(), bodyEvent, fileImageUploadString, iosDialog);
+                }
             }
         });
 

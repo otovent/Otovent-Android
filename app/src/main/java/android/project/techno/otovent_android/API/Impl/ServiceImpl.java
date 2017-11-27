@@ -868,6 +868,7 @@ public class ServiceImpl implements Service{
                             }
                         } catch (JSONException e) {
                             Log.e("Error Get Notification",e.toString());
+                            iosDialog.dismiss();
                         }
                     }
                 }, new Response.ErrorListener() {
@@ -922,6 +923,44 @@ public class ServiceImpl implements Service{
                 headers.put("Content-type","application/json");
                 headers.put("idUser",idUser.toString());
                 headers.put("idPost",idPost.toString());
+                return headers;
+            }
+        };
+        iosDialog.show();
+        queue.add(requestLogin);
+    }
+
+    @Override
+    public void deleteComment(final Context callingClass, final Long idComment, final IOSDialog iosDialog) {
+        RequestQueue queue = Volley.newRequestQueue(callingClass);
+        Map<String, String> params = new HashMap<>();
+
+        JsonObjectRequest requestLogin = new JsonObjectRequest(Request.Method.PUT,callingClass.getString(R.string.ENV_HOST_BACKEND) + "comments/delete",
+                new JSONObject(params), new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    Toast.makeText(callingClass, response.getString("message"), Toast.LENGTH_SHORT).show();
+                    iosDialog.dismiss();
+                    Toast.makeText(callingClass, "Deleted", Toast.LENGTH_SHORT).show();
+                } catch (JSONException e) {
+                    Log.e("error",e.toString());
+                    iosDialog.dismiss();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(callingClass, error.toString(), Toast.LENGTH_SHORT).show();
+                Log.i("Result", error.toString());
+                iosDialog.dismiss();
+            }
+        }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String,String> headers = new HashMap<>();
+                headers.put("Content-type","application/json");
+                headers.put("id",idComment.toString());
                 return headers;
             }
         };
