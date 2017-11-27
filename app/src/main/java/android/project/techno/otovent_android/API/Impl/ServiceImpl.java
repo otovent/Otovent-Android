@@ -9,9 +9,11 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.project.techno.otovent_android.API.Service;
 import android.project.techno.otovent_android.menu.fragment.DetailEventFragment;
+import android.project.techno.otovent_android.menu.fragment.DetailPostFragment;
 import android.project.techno.otovent_android.menu.fragment.PeopleProfileFragment;
 import android.project.techno.otovent_android.menu.fragment.SearchFragment;
 import android.project.techno.otovent_android.menu.fragment.TimeLineFragment;
+import android.project.techno.otovent_android.model.Comment;
 import android.project.techno.otovent_android.model.EventModel;
 import android.project.techno.otovent_android.model.PostEvent;
 import android.project.techno.otovent_android.model.SearchRequest;
@@ -49,6 +51,7 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -57,6 +60,7 @@ import java.util.Map;
 import java.util.logging.SimpleFormatter;
 
 import static android.R.attr.data;
+import static android.R.attr.id;
 import static android.content.Context.MODE_PRIVATE;
 
 
@@ -165,7 +169,7 @@ public class ServiceImpl implements Service{
                             jsonObject = new JSONObject(response);
                             result = jsonObject.getJSONObject("result");
                             resultArray = result.getJSONArray("content");
-                            for (int i = resultArray.length()-1 ; i >= 0; i--){
+                            for (int i = 0 ; i < resultArray.length(); i++){
                                 JSONObject content = resultArray.getJSONObject(i);
                                 PostEvent postEvent = new PostEvent();
                                     postEvent.setId(content.getLong("id"));
@@ -285,7 +289,7 @@ public class ServiceImpl implements Service{
                             jsonObject = new JSONObject(response);
                             result = jsonObject.getJSONObject("result");
                             content = result.getJSONArray("content");
-                            for (int i=content.length()-1;i>=0;i--){
+                            for (int i=0;i<content.length();i++){
                                 String message = "";
                                 JSONObject notif = content.getJSONObject(i);
                                 android.project.techno.otovent_android.model.Notification obj
@@ -303,6 +307,8 @@ public class ServiceImpl implements Service{
                                 else if (notif.getString("notificationDependency").equalsIgnoreCase("FRIEND_REQUEST"))
                                     message = "You Have New Friend Request";
                                 obj.setMessage(message);
+                                obj.setFullName(notif.getJSONObject("user").getString("firstName") +" "+
+                                        notif.getJSONObject("user").getString("lastName"));
                                 obj.setType(notif.getString("notificationDependency"));
                                 obj.setId(notif.getLong("id"));
                                 Long id = notif.getLong("idPostEvent");
@@ -832,6 +838,126 @@ public class ServiceImpl implements Service{
         iosDialog.show();
         queue.add(getNotif);
         return DetailEventFragment.eventModel;
+    }
+
+    @Override
+    public void getComment(final Context callingClass, final Long idPost, final IOSDialog iosDialog) {
+        RequestQueue queue = Volley.newRequestQueue(callingClass);
+        DetailPostFragment.listComment = new ArrayList<>();
+        StringRequest getNotif = new StringRequest(Request.Method.GET, callingClass.getString(R.string.ENV_HOST_BACKEND) + "comments/get/by/post",
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        JSONObject jsonObject= null;
+                        JSONArray jsonArray = null;
+                        JSONObject result = null;
+                        JSONObject content = null;
+                        try {
+                            jsonObject = new JSONObject(response);
+                            for (int i = 0; i < jsonObject.getJSONArray("result").length();i++) {
+                                content = jsonObject.getJSONArray("result").getJSONObject(i);
+
+                                Comment comment = new Comment();
+                                comment.setId(content.getLong("id"));
+                                JSONObject contentUser = content.getJSONObject("user");
+                                comment.setUsername(contentUser.getString("firstName") + " " + contentUser.getString("lastName"));
+                                comment.setCommentDescription(content.getString("commentDetail"));
+
+                                DetailPostFragment.listComment.add(comment);
+                                iosDialog.dismiss();
+                            }
+                        } catch (JSONException e) {
+                            Log.e("Error Get Notification",e.toString());
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("Error Get Notification",error.toString());
+                iosDialog.dismiss();
+            }
+        }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String,String> headers = new HashMap<>();
+                headers.put("Content-type","application/json");
+                headers.put("idPost", idPost.toString());
+                return headers;
+            }
+        };
+        iosDialog.show();
+        queue.add(getNotif);
+    }
+
+    @Override
+    public void postComment(final Context callingClass, final Long idPost, final Long idUser, String comment, final IOSDialog iosDialog) {
+        RequestQueue queue = Volley.newRequestQueue(callingClass);
+        Map<String, String> params = new HashMap<>();
+        params.put("description",comment);
+
+        JsonObjectRequest requestLogin = new JsonObjectRequest(callingClass.getString(R.string.ENV_HOST_BACKEND) + "comments/create",
+                new JSONObject(params), new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    Toast.makeText(callingClass, response.getString("message"), Toast.LENGTH_SHORT).show();
+                    iosDialog.dismiss();
+                    Toast.makeText(callingClass, "Comment Success,please reload", Toast.LENGTH_SHORT).show();
+                } catch (JSONException e) {
+                    Log.e("error",e.toString());
+                    iosDialog.dismiss();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(callingClass, error.toString(), Toast.LENGTH_SHORT).show();
+                Log.i("Result", error.toString());
+                iosDialog.dismiss();
+            }
+        }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String,String> headers = new HashMap<>();
+                headers.put("Content-type","application/json");
+                headers.put("idUser",idUser.toString());
+                headers.put("idPost",idPost.toString());
+                return headers;
+            }
+        };
+        iosDialog.show();
+        queue.add(requestLogin);
+    }
+
+    @Override
+    public void readNotification(final Context callingClass, Long idPost, final IOSDialog iosDialog) {
+        RequestQueue queue = Volley.newRequestQueue(callingClass);
+        Map<String, String> params = new HashMap<>();
+        params.put("id",idPost.toString());
+
+        JsonObjectRequest requestLogin = new JsonObjectRequest(callingClass.getString(R.string.ENV_HOST_BACKEND) + "notification/read",
+                new JSONObject(params), new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                iosDialog.dismiss();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(callingClass, error.toString(), Toast.LENGTH_SHORT).show();
+                Log.i("Result", error.toString());
+                iosDialog.dismiss();
+            }
+        }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String,String> headers = new HashMap<>();
+                headers.put("Content-type","application/json");
+                return headers;
+            }
+        };
+        iosDialog.show();
+        queue.add(requestLogin);
     }
 }
 

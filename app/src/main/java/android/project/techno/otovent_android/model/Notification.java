@@ -6,6 +6,7 @@ package android.project.techno.otovent_android.model;
 
 public class Notification {
     private Long id;
+    private String fullName;
     private Long idTarget;
     private String imgUrl;
     private String notificationDate;
@@ -66,5 +67,13 @@ public class Notification {
 
     public void setIdTarget(Long idTarget) {
         this.idTarget = idTarget;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 }

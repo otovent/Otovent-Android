@@ -3,116 +3,121 @@
     android:layout_height="match_parent"
     android:background="@color/gray">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white">
-
-        <ScrollView
-            android:id="@+id/scrollView2"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshDetailPost"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="@color/white">
 
-            <RelativeLayout
+            <ScrollView
+                android:id="@+id/scrollView2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentTop="true"
-                    android:layout_below="@+id/relativedalam"
-                    android:layout_marginTop="110dp"
-                    android:background="#FFF"
-                    android:weightSum="1">
+                    android:layout_height="wrap_content">
 
-                    <customfonts.MyEditText
-                        android:id="@+id/myEditText"
-                        android:layout_width="wrap_content"
+                    <RelativeLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentBottom="true"
                         android:layout_alignParentLeft="true"
                         android:layout_alignParentStart="true"
                         android:layout_alignParentTop="true"
-                        android:layout_toLeftOf="@+id/imageView5"
-                        android:hint="Write some comment. . ."
-                        android:textColorHint="@color/black" />
+                        android:layout_below="@+id/relativedalam"
+                        android:layout_marginTop="110dp"
+                        android:background="#FFF"
+                        android:weightSum="1">
 
-                    <ImageView
-                        android:id="@+id/imageView5"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_alignParentEnd="true"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:layout_gravity="end"
-                        android:layout_weight="0.08"
-                        android:background="@drawable/png_post"
-                        android:padding="2dp" />
+                        <customfonts.MyEditText
+                            android:id="@+id/myEditText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentBottom="true"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentTop="true"
+                            android:layout_toLeftOf="@+id/imageView5"
+                            android:hint="Write some comment. . ."
+                            android:textColorHint="@color/black" />
+
+                        <ImageView
+                            android:id="@+id/imageView5"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_gravity="end"
+                            android:layout_weight="0.08"
+                            android:background="@drawable/png_post"
+                            android:padding="2dp" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/relativedalam"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp">
+
+                        <ImageView
+                            android:id="@+id/user_timeline"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentTop="true"
+                            android:layout_marginRight="10dp"
+                            android:background="@drawable/png_user" />
+
+                        <customfonts.MyTextView
+                            android:id="@+id/nama_pengguna"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignLeft="@+id/lokasi_user"
+                            android:layout_alignParentTop="true"
+                            android:layout_alignStart="@+id/lokasi_user"
+                            android:text="testestes"
+                            android:textColor="#00afef"
+                            android:textSize="30sp" />
+
+                        <customfonts.MyTextView
+                            android:id="@+id/lokasi_user"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/nama_pengguna"
+                            android:layout_toRightOf="@+id/user_timeline"
+                            android:paddingTop="3dp"
+                            android:text="tes" />
+
+                        <customfonts.MyTextView
+                            android:id="@+id/postDesc"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="65dp"
+                            android:text="Your post desc"
+                            android:textSize="8pt" />
+
+                        <!---->
+
+
+                    </RelativeLayout>
+
                 </RelativeLayout>
+            </ScrollView>
 
-                <RelativeLayout
-                    android:id="@+id/relativedalam"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="10dp">
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycleViewComment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/scrollView2"
+                android:layout_marginTop="5dp">
 
-                    <ImageView
-                        android:id="@+id/user_timeline"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
-                        android:layout_alignParentTop="true"
-                        android:layout_marginRight="10dp"
-                        android:background="@drawable/png_user" />
+            </android.support.v7.widget.RecyclerView>
 
-                    <customfonts.MyTextView
-                        android:id="@+id/nama_pengguna"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignLeft="@+id/lokasi_user"
-                        android:layout_alignParentTop="true"
-                        android:layout_alignStart="@+id/lokasi_user"
-                        android:text="testestes"
-                        android:textColor="#00afef"
-                        android:textSize="30sp" />
-
-                    <customfonts.MyTextView
-                        android:id="@+id/lokasi_user"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/nama_pengguna"
-                        android:layout_toRightOf="@+id/user_timeline"
-                        android:paddingTop="3dp"
-                        android:text="tes" />
-
-                    <customfonts.MyTextView
-                        android:id="@+id/postDesc"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="65dp"
-                        android:text="Your post desc"
-                        android:textSize="8pt" />
-
-                    <!---->
-
-
-                </RelativeLayout>
-
-            </RelativeLayout>
-        </ScrollView>
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recycleViewComment"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/scrollView2"
-            android:layout_marginTop="5dp">
-
-        </android.support.v7.widget.RecyclerView>
-
-    </RelativeLayout>
+        </RelativeLayout>
+    </android.support.v4.widget.SwipeRefreshLayout>
 
 </FrameLayout>

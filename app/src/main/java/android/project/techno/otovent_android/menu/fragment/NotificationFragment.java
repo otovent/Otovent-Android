@@ -93,6 +93,7 @@ public class NotificationFragment extends Fragment{
                                 public void onPositive(Dialog dialog) {
 //                                    Toast.makeText(view.getContext(), "Accepted", Toast.LENGTH_SHORT).show();
                                     service.confirmFriend(view.getContext(),notification.getIdTarget(),iosDialog);
+                                    service.readNotification(view.getContext(),notification.getId(),iosDialog);
                                     dialog.dismiss();
                                 }
                             })
@@ -100,6 +101,7 @@ public class NotificationFragment extends Fragment{
                                 @Override
                                 public void onNegative(Dialog dialog) {
                                     service.rejectFriend(view.getContext(),notification.getIdTarget(),iosDialog);
+                                    service.readNotification(view.getContext(),notification.getId(),iosDialog);
                                     dialog.dismiss();
                                 }
                             })
@@ -118,6 +120,14 @@ public class NotificationFragment extends Fragment{
                                 }
                             })
                             .show();
+                } else if (notification.getType().equalsIgnoreCase("COMMENT")){
+                    service.readNotification(view.getContext(),notification.getId(),iosDialog);
+                    DetailPostFragment.postEvent.setId(notification.getIdTarget());
+                    DetailPostFragment.postEvent.setFullName(notification.getFullName());
+                    DetailPostFragment detailPostFragment = new DetailPostFragment();
+                    getActivity().getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.content, detailPostFragment, null)
+                            .commit();
                 }
             }
             @Override

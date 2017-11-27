@@ -54,4 +54,10 @@ public interface Service {
     void photoUpload(final Context callingClass, Long idPostEvent, final String imgUpload, final String typeUpload, final IOSDialog iosDialog);
 
     EventModel getEventModel(final Context callingClass, Long idEvent, final IOSDialog iosDialog);
+
+    void getComment(final Context callingClass, Long idPost, final IOSDialog iosDialog);
+
+    void postComment(final Context callingClass, Long idPost, Long idUser, String comment, final IOSDialog iosDialog);
+
+    void readNotification(final Context callingClass, Long idPost, final IOSDialog iosDialog);
 }
