@@ -38,6 +38,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -48,6 +53,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.SimpleFormatter;
 
+import static android.R.attr.data;
 import static android.content.Context.MODE_PRIVATE;
 
 
@@ -418,7 +424,7 @@ public class ServiceImpl implements Service{
     }
 
     @Override
-    public void createPost(final Context callingClass,final Long idUser, final Map<String,String> bodyCreatePost, final byte[] ImgUpload,final IOSDialog iosDialog) {
+    public void createPost(final Context callingClass,final Long idUser, final Map<String,String> bodyCreatePost, final String ImgUpload,final IOSDialog iosDialog) {
         RequestQueue queue = Volley.newRequestQueue(callingClass);
         Map<String, String> params = bodyCreatePost;
 
@@ -462,7 +468,7 @@ public class ServiceImpl implements Service{
     }
 
     @Override
-    public void createEvent(final Context callingClass, final Map<String, String> bodyCreatePost, final byte[] ImgUpload, final IOSDialog iosDialog) {
+    public void createEvent(final Context callingClass, final Map<String, String> bodyCreatePost, final String ImgUpload, final IOSDialog iosDialog) {
         RequestQueue queue = Volley.newRequestQueue(callingClass);
         Map<String, String> params = bodyCreatePost;
 
@@ -702,8 +708,22 @@ public class ServiceImpl implements Service{
     }
 
     @Override
-    public void photoUpload(final Context callingClass, Long idPostEvent, final byte[] imgUpload, final String typeUpload, final IOSDialog iosDialog) {
+    public void photoUpload(final Context callingClass, Long idPostEvent, final String imgUpload, final String typeUpload, final IOSDialog iosDialog) {
         RequestQueue queue = Volley.newRequestQueue(callingClass);
+
+//        File uploadImage = new File("imageUpload,jpg");
+//        FileOutputStream imageUploadeFos = null;
+//        try {
+//            imageUploadeFos = new FileOutputStream(uploadImage);
+//            imageUploadeFos.write(imgUpload);
+//            imageUploadeFos.flush();
+//            imageUploadeFos.close();
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+
         JSONObject params = new JSONObject();
         try {
             params.put("id",idPostEvent);
@@ -712,6 +732,7 @@ public class ServiceImpl implements Service{
             e.printStackTrace();
         }
 
+//        final FileOutputStream finalImageUploadeFos = imageUploadeFos;
         JsonObjectRequest requestLogin = new JsonObjectRequest(callingClass.getString(R.string.ENV_HOST_BACKEND) + "image/upload",
                 params, new Response.Listener<JSONObject>() {
             @Override
@@ -747,7 +768,7 @@ public class ServiceImpl implements Service{
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String,String> params = new HashMap<>();
-                params.put("uploadFile",imgUpload.toString());
+                params.put("uploadFile", imgUpload);
                 return params;
             }
         };

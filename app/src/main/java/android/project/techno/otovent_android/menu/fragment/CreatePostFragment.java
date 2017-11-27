@@ -40,6 +40,7 @@ public class CreatePostFragment extends Fragment {
     private boolean flag;
     private ImageView uploadPicture;
     private byte[] fileImageUpload;
+    private String fileImageUploadString;
 
     public CreatePostFragment(){
 
@@ -58,8 +59,8 @@ public class CreatePostFragment extends Fragment {
                     Bitmap bitmap = ((BitmapDrawable) uploadPicture.getDrawable()).getBitmap();
                     ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
                     bitmap.compress(Bitmap.CompressFormat.JPEG,100,byteArrayOutputStream);
+                    fileImageUploadString = byteArrayOutputStream.toString();
                     fileImageUpload = byteArrayOutputStream.toByteArray();
-
                 }
         }
     }
@@ -90,7 +91,8 @@ public class CreatePostFragment extends Fragment {
                         .setTitle("Getting Data")
                         .setTitleColorRes(R.color.gray)
                         .build();
-                service.createPost(v.getContext(),idUser,postBody,fileImageUpload,iosDialog);
+//                service.createPost(v.getContext(),idUser,postBody,fileImageUpload,iosDialog);
+                service.createPost(v.getContext(),idUser,postBody,fileImageUploadString,iosDialog);
             }
         });
 

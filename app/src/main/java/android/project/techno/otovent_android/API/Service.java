@@ -38,9 +38,9 @@ public interface Service {
 
     void searchUser(final Context callingClass, String searchName, List<SearchRequest> resultData, IOSDialog iosDialog);
 
-    void createPost(final Context callingClass,final Long idUser, final Map<String,String> bodyCreatePost, final byte[] ImgUpload,  final IOSDialog iosDialog);
+    void createPost(final Context callingClass,final Long idUser, final Map<String,String> bodyCreatePost, final String ImgUpload,  final IOSDialog iosDialog);
 
-    void createEvent(final Context callingClass, Map<String,String> bodyCreatePost, final byte[] ImgUpload, final IOSDialog iosDialog);
+    void createEvent(final Context callingClass, Map<String,String> bodyCreatePost, final String ImgUpload, final IOSDialog iosDialog);
 
     void cekFriendship(final Context callingClass, Long idUser, Long idUserTarget, final IOSDialog iosDialog);
 
@@ -50,5 +50,5 @@ public interface Service {
 
     void rejectFriend(final Context callClass, Long idFriendship, final IOSDialog iosDialog);
 
-    void photoUpload(final Context callingClass, Long idPostEvent, final byte[] imgUpload, final String typeUpload, final IOSDialog iosDialog);
+    void photoUpload(final Context callingClass, Long idPostEvent, final String imgUpload, final String typeUpload, final IOSDialog iosDialog);
 }
